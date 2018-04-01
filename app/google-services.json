@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "745541524398",
+    "firebase_url": "https://arbitrator-191809.firebaseio.com",
+    "project_id": "arbitrator-191809",
+    "storage_bucket": "arbitrator-191809.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745541524398:android:0d25a8842c23252d",
+        "android_client_info": {
+          "package_name": "com.arbitrator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "745541524398-cut40nu20qttrh5s9lu0p0ul5g36i2fp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arbitrator",
+            "certificate_hash": "dc0cc2bc0562097812d947559dbdc28576c2749f"
+          }
+        },
+        {
+          "client_id": "745541524398-mn73cdhnc7mqdrbq4ovqo2fdoa5g272f.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "745541524398-aan1nmkgf12udo6dl01iejp8cmoo8jgb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDV7I70UQmsBgU35nTade0tY02A7Nr9Hgs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "745541524398-mn73cdhnc7mqdrbq4ovqo2fdoa5g272f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

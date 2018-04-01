@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_dark"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/menubtn"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/ic_more_vert_white_48dp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/txtinp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/txtinp1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Need Assisstance ?"
+                android:textColor="#ffffff"
+                android:textColorHint="@color/monsoon"
+                android:textSize="24dp"
+                android:textStyle="normal" />
+
+            <ImageButton
+                android:id="@+id/okbtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_send_white_18dp" />
+
+        </RelativeLayout>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/optv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/txtinp"
+        android:layout_below="@+id/menubtn"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/primary"
+        android:gravity="center"
+        android:maxLines="100"
+        android:scrollbars="vertical"
+        android:text="Welcome To Arbitrator!"
+        android:textAlignment="center"
+        android:textColor="#cccccc"
+        android:textSize="20dp" />
+
+    <LinearLayout
+        android:id="@+id/Linlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtinp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnSpeak"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:background="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ico_mic" />
+
+        <!--TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/tap_on_mic"
+            android:textColor="#ffffff"
+            android:textSize="15dp"
+            android:textStyle="normal" /-->
+
+
+    </LinearLayout>
+
+</RelativeLayout>

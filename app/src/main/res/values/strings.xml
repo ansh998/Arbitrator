@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Arbitrator</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="speech_prompt">Say something&#8230;</string>
+    <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
+    <string name="tap_on_mic">Tap on mic</string>
+    <string name="title_activity_changelog">Changelog</string>
+
+    <string name="reg">No account yet? Create one</string>
+
+
+    <string name="changelog">\[version- \'alpha-1.18\'\] \n -improved tts \n -added \"start\" keyword hit \n -added normal login
+        \n \n \[version- \'alpha-1.17\'\] \n -added normal login \n -improved stability \n -added app widget \n -added support of middleware server \n -corrected tts \n -rearranged Main Activity Layout \n -Added output Box \n -added Sync tab layout
+        \n \n \[version- \'alpha-1.16\'\] \n -improved system stability \n -fixed bugs
+        \n \n \[version- \'alpha-1.15\'\] \n -removed register page\n -set link to divert to registration site\n -added Google Sign In Method\n -added functionality of Sign out button
+        \n \n \[version- \'alpha-1.14\'\] \n -changed menu button icon\n -added register page
+        \n \n \[version- \'alpha-1.13\'\] \n -added login screen
+        \n \n \[version- \'alpha-1.12\'\] \n -added menu\n -removed login screen due to errors</string>
+
+    <string name="url2">http\:\/\/gs98\.ddns\.net\/api\/</string>
+    <string name="url">http\:\/\/aiproject7579\.ddns\.net\/api\/</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+
+    <string name="rem">remember_me</string>
+    <string name="user">user_details</string>
+
+</resources>
