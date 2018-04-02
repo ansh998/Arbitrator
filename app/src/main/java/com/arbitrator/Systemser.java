@@ -10,6 +10,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.AlarmClock;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.ActivityCompat;
 import android.text.format.Time;
 
@@ -31,10 +32,15 @@ public class Systemser {
         this.context = context;
     }
 
+    String t = "";
+
     public void caller() {
         if (parts.length == 2) {
             //if (Pattern.matches("[0-9]",parts[1])) {
             call(parts[1]);
+            t = "Calling " + parts[1];
+            MainActivity.t = t;
+            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
             //}
         } else {
             String number = "";
@@ -42,6 +48,9 @@ public class Systemser {
                 number += parts[i];
             }
             call(number);
+            t = "Calling " + number;
+            MainActivity.t = t;
+            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
         }
         /*
         else {
@@ -73,7 +82,10 @@ public class Systemser {
         i.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
         i.putExtra(AlarmClock.EXTRA_HOUR, hr);
         i.putExtra(AlarmClock.EXTRA_MINUTES, min);
-        i.putExtra(AlarmClock.EXTRA_MESSAGE, "Uth JA Mohan Pyare \n Uth JA Lal Dulare");
+        i.putExtra(AlarmClock.EXTRA_MESSAGE, "");
+        t = "Alarm set for " + hr + ":" + min;
+        MainActivity.t = t;
+        MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
         context.startActivity(i);
     }
 

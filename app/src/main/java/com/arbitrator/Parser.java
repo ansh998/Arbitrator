@@ -2,6 +2,7 @@ package com.arbitrator;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -12,13 +13,17 @@ import java.util.Date;
 
 public class Parser {
 
+
     private final Context context;
+
 
     private Set set = null;
     private Appopen ao = null;
     private Systemser ss = null;
 
+
     String parts[], t = "";
+
 
     public Parser(Context context) {
         this(context, PreferenceManager.getDefaultSharedPreferences(context));
@@ -52,6 +57,9 @@ public class Parser {
             case "call":
                 ss.caller();
                 break;
+            case "lock":
+                if (MainActivity.DPM.isAdminActive(MainActivity.CN))
+                    MainActivity.DPM.lockNow();
             case "set":
                 if (y.contains("alarm")) {
                     int t = -1;
@@ -91,18 +99,46 @@ public class Parser {
         //ao.startApp();
 
         if (parts.length > 1 && !parts[1].equalsIgnoreCase("arbitrator")) {
+            //wifi
             if (parts[1].equalsIgnoreCase("wifi") || parts[1].equalsIgnoreCase("wi-fi")) {
+                t = "Turning on WiFi";
+                MainActivity.t = t;
+                MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                 set.wifi("open");
-            } else if (parts[1].equalsIgnoreCase("bluetooth")) {
+            }
+            //bluetooth
+            else if (parts[1].equalsIgnoreCase("bluetooth")) {
+                t = "Turning on Bluetooth";
+                MainActivity.t = t;
+                MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                 set.bt("open");
-            } else if (parts[1].equalsIgnoreCase("torch") || parts[1].equalsIgnoreCase("flashlight")) {
+            }
+            //flashlight
+            else if (parts[1].equalsIgnoreCase("torch") || parts[1].equalsIgnoreCase("flashlight")) {
+                t = "Turning on Flashlight";
+                MainActivity.t = t;
+                MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                 set.flash("open");
             } /*else if (parts.length == 2) {
                 t = parts[1];
                 ao.startApp(ao.appNameList.indexOf(t.toLowerCase()));
-            }*/ else if (parts[1].equalsIgnoreCase("airplane")) {
-                //s
-            } else {
+            }*/
+            //silent-vibrate
+            else if (parts[1].equalsIgnoreCase("silent")) {
+                t = "Switching to Silent Mode";
+                MainActivity.t = t;
+                MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                MainActivity.am.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+            }
+            //general
+            else if (parts[1].equalsIgnoreCase("general") || parts[1].equalsIgnoreCase("normal")) {
+                t = "Switching to General Mode";
+                MainActivity.t = t;
+                MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                MainActivity.am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+            }
+            //app
+            else {
                 int hits[] = new int[ao.appNameList.size()];
                 int max = 0, in = -1;
                 for (int i = 0; i < ao.appNameList.size(); i++) {
@@ -138,13 +174,22 @@ public class Parser {
             switch (parts[1].toLowerCase()) {
                 case "wi-fi":
                 case "wifi":
+                    t = "Turning off Wifi";
+                    MainActivity.t = t;
+                    MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                     set.wifi("close");
                     break;
                 case "bluetooth":
+                    t = "Turning off Bluetooth";
+                    MainActivity.t = t;
+                    MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                     set.bt("close");
                     break;
                 case "torch":
                 case "flashlight":
+                    t = "Turning off Flashlight";
+                    MainActivity.t = t;
+                    MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                     set.flash("close");
                     break;
             }
@@ -154,14 +199,36 @@ public class Parser {
                     switch (parts[2].toLowerCase()) {
                         case "wi-fi":
                         case "wifi":
+                            t = "Turning on WiFi";
+                            MainActivity.t = t;
+                            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                             set.wifi("open");
                             break;
                         case "bluetooth":
+                            t = "Turning on Bluetooth";
+                            MainActivity.t = t;
+                            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                             set.bt("open");
                             break;
                         case "torch":
                         case "flashlight":
-                            set.flash("close");
+                            t = "Turn on Flashlight";
+                            MainActivity.t = t;
+                            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                            set.flash("open");
+                            break;
+                        case "silent":
+                            t = "Switching to Silent Mode";
+                            MainActivity.t = t;
+                            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                            MainActivity.am.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                            break;
+                        case "general":
+                        case "normal":
+                            t = "Switching to General Mode";
+                            MainActivity.t = t;
+                            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                            MainActivity.am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             break;
                     }
                     break;
@@ -169,14 +236,29 @@ public class Parser {
                     switch (parts[2].toLowerCase()) {
                         case "wi-fi":
                         case "wifi":
+                            t = "Turning off WiFi";
+                            MainActivity.t = t;
+                            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                             set.wifi("close");
                             break;
                         case "bluetooth":
+                            t = "turning off Bluetooth";
+                            MainActivity.t = t;
+                            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                             set.bt("close");
                             break;
                         case "torch":
                         case "flashlight":
+                            t = "Turning off Flashlight";
+                            MainActivity.t = t;
+                            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                             set.flash("close");
+                            break;
+                        case "silent":
+                            t = "Stchinh to General Mode";
+                            MainActivity.t = t;
+                            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                            MainActivity.am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             break;
                     }
                     break;

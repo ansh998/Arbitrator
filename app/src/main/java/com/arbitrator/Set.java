@@ -2,10 +2,14 @@ package com.arbitrator;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
+
+import java.time.Instant;
 
 public class Set {
 
@@ -58,8 +62,23 @@ public class Set {
         }
     }
 
-    public void arplmd(String a) {
-
-    }
-
 }
+    /*
+    public void arplmd(String a) {
+        int c = -1;
+        switch (a.toLowerCase()) {
+            case "open":
+                Settings.System.putInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 1);
+                c = 1;
+                break;
+            case "close":
+                Settings.System.putInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0);
+                c = 0;
+                break;
+        }
+        Intent i = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+        i.putExtra("state", c);
+        context.sendBroadcast(i);
+    }
+    */
+

@@ -97,7 +97,7 @@ public class Login extends AppCompatActivity {
         spue = spu.edit();
 
         if (Integer.parseInt(spu.getString("id", "-1")) > -1) {
-            getval();
+            //getval();
             gotomain();
         }
 

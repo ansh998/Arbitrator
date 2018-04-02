@@ -2,8 +2,11 @@ package com.arbitrator;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.admin.DevicePolicyManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +16,7 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Camera;
 import android.inputmethodservice.Keyboard;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -30,6 +34,7 @@ import android.util.Log;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -67,6 +72,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
+
 public class MainActivity extends Activity {
 
 
@@ -84,6 +90,10 @@ public class MainActivity extends Activity {
     String u;
     String idd, dev_id;
 
+    public static DevicePolicyManager DPM;
+    public static ActivityManager AM;
+    public static ComponentName CN;
+
 
     private Set set = null;
     private Appopen ao = null;
@@ -92,6 +102,7 @@ public class MainActivity extends Activity {
 
 
     public static TextToSpeech tt;
+    public static AudioManager am;
 
     String user;
     SharedPreferences spu;
@@ -107,6 +118,11 @@ public class MainActivity extends Activity {
         u = getResources().getString(R.string.url);
         mAuth = FirebaseAuth.getInstance();
         user = getResources().getString(R.string.user);
+        am = (AudioManager) getSystemService(getApplicationContext().AUDIO_SERVICE);
+
+        DPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+        AM = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        CN = new ComponentName(getApplicationContext(), Admin.class);
 
         set = new Set(getApplicationContext());
         ao = new Appopen(getApplicationContext());
@@ -116,6 +132,8 @@ public class MainActivity extends Activity {
         pp.setter(set, ao, ss);
 
         ao.startApp();
+
+        per();
 
         spu = getSharedPreferences(user, Context.MODE_PRIVATE);
         spue = spu.edit();
@@ -243,6 +261,8 @@ public class MainActivity extends Activity {
         super.onResume();
 
         pp.parse1(y);
+        op.setText(t);
+        tinp.setText("");
         y = "";
 
 
@@ -256,12 +276,17 @@ public class MainActivity extends Activity {
             case req: {
                 if (resultCode == RESULT_OK && null != data) {
                     ArrayList<String> rslt = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    op.setText(t);
-                    tinp.setText("");
                     y = rslt.get(0);
                 }
             }
             break;
+            case 1:
+
+                if (resultCode == Activity.RESULT_OK) {
+                    Log.i("DeviceAdminSample", "Admin enabled!");
+                } else {
+                    Log.i("DeviceAdminSample", "Admin enable FAILED!");
+                }
         }
     }
 
@@ -274,14 +299,12 @@ public class MainActivity extends Activity {
 
         try {
             startActivityForResult(i, req);
-            //ao.startApp();
         } catch (ActivityNotFoundException e) {
             Toast.makeText(getApplicationContext(), getString(R.string.speech_not_supported), Toast.LENGTH_SHORT).show();
         }
     }
 
     public void onPause() {
-
         super.onPause();
     }
 
@@ -294,5 +317,14 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void per() {
+        Intent intent = new Intent(DevicePolicyManager
+                .ACTION_ADD_DEVICE_ADMIN);
+        intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, MainActivity.CN);
+        intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+                "Additional text explaining why this needs to be added.");
+
+        startActivityForResult(intent, 1);
+    }
 
 }
