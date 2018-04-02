@@ -1,18 +1,24 @@
 package com.arbitrator;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,14 +32,19 @@ public class SyncSetting extends AppCompatActivity {
     Switch b;
     TextView c, e, f, g, h, i, j, k, l;
     Spinner d;
+    Button rem;
     Boolean check;
-    String u;
+    String u, dev_id, curr_id;
     String ud[][];
 
 
     String user;
     SharedPreferences spu;
     SharedPreferences.Editor spue;
+
+
+    FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +58,9 @@ public class SyncSetting extends AppCompatActivity {
 
         int s = Integer.parseInt(spu.getString("sync", "0"));
         u = getResources().getString(R.string.url);
+        dev_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        mAuth = FirebaseAuth.getInstance();
+
 
         b = (Switch) findViewById(R.id.b);
         d = (Spinner) findViewById(R.id.d);
@@ -59,6 +73,7 @@ public class SyncSetting extends AppCompatActivity {
         j = (TextView) findViewById(R.id.j);
         k = (TextView) findViewById(R.id.k);
         l = (TextView) findViewById(R.id.l);
+        rem = (Button) findViewById(R.id.btn_remdev);
 
 
         getdev();
@@ -91,7 +106,12 @@ public class SyncSetting extends AppCompatActivity {
                     j.setText(ud[position][1].substring(0, 16) + "...");
                 else
                     j.setText(ud[position][1]);
-                l.setText(ud[position][3]);
+                String n = ud[position][3];
+                if (n.equalsIgnoreCase("1"))
+                    l.setText("Online");
+                else if (n.equalsIgnoreCase("0"))
+                    l.setText("Offline");
+                curr_id = ud[position][1];
             }
 
             @Override
@@ -153,31 +173,43 @@ public class SyncSetting extends AppCompatActivity {
                 }
             }
         });
+
+        rem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                remdev(curr_id);
+                if (curr_id.equalsIgnoreCase(dev_id)) {
+                    logout();
+                }
+            }
+        });
     }
 
     private void changer(Boolean a) {
         if (a) {
-            c.setEnabled(a);
-            d.setEnabled(a);
-            e.setEnabled(a);
-            f.setEnabled(a);
-            g.setEnabled(a);
-            h.setEnabled(a);
-            i.setEnabled(a);
-            j.setEnabled(a);
-            k.setEnabled(a);
-            l.setEnabled(a);
+            c.setVisibility(View.VISIBLE);
+            d.setVisibility(View.VISIBLE);
+            e.setVisibility(View.VISIBLE);
+            f.setVisibility(View.VISIBLE);
+            g.setVisibility(View.VISIBLE);
+            h.setVisibility(View.VISIBLE);
+            i.setVisibility(View.VISIBLE);
+            j.setVisibility(View.VISIBLE);
+            k.setVisibility(View.VISIBLE);
+            l.setVisibility(View.VISIBLE);
+            rem.setVisibility(View.VISIBLE);
         } else {
-            c.setEnabled(a);
-            d.setEnabled(a);
-            e.setEnabled(a);
-            f.setEnabled(a);
-            g.setEnabled(a);
-            h.setEnabled(a);
-            i.setEnabled(a);
-            j.setEnabled(a);
-            k.setEnabled(a);
-            l.setEnabled(a);
+            c.setVisibility(View.INVISIBLE);
+            d.setVisibility(View.INVISIBLE);
+            e.setVisibility(View.INVISIBLE);
+            f.setVisibility(View.INVISIBLE);
+            g.setVisibility(View.INVISIBLE);
+            h.setVisibility(View.INVISIBLE);
+            i.setVisibility(View.INVISIBLE);
+            j.setVisibility(View.INVISIBLE);
+            k.setVisibility(View.INVISIBLE);
+            l.setVisibility(View.INVISIBLE);
+            rem.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -196,6 +228,48 @@ public class SyncSetting extends AppCompatActivity {
             }
         } catch (Exception e) {
             Log.e("userdevget", e.getMessage());
+        }
+    }
+
+    private void logout() {
+        FirebaseUser account = mAuth.getCurrentUser();
+        if (account != null)
+            FirebaseAuth.getInstance().signOut();
+        try {
+            JSONObject jo = null;
+            String[][] arr = new String[][]{
+                    {"id", spu.getString("id", "-1")},
+                    {"device_id", dev_id}
+            };
+            Helper pa = new Helper(u + "Logout", 2, arr);
+            JsonHandler jh = new JsonHandler();
+            jo = jh.execute(pa).get();
+            if (jo.getString("success").equalsIgnoreCase("Successfully Logged Out")) {
+                Intent li = new Intent(getApplicationContext(), Login.class);
+                startActivity(li);
+                spue.remove("id");
+                spue.commit();
+                finish();
+            }
+        } catch (Exception e) {
+            Log.i("logout", e.getMessage());
+        }
+    }
+
+    private void remdev(String id) {
+        try {
+            JSONObject jo = null;
+            String arr[][] = null;
+            Helper pa = new Helper(u + "userdevices" + id, 3, arr);
+            JsonHandler jh = new JsonHandler();
+            jo = jh.execute(pa).get();
+            if (jo.isNull("error")) {
+                Toast.makeText(getApplicationContext(), "Device Removed Successfully", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Sorry Unable to Remove Device Currently \n Retry Later", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Log.e("rem_dev", e.getMessage());
         }
     }
 

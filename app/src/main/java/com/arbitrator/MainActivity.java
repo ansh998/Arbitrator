@@ -103,7 +103,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        idd = "1";
         dev_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         u = getResources().getString(R.string.url);
         mAuth = FirebaseAuth.getInstance();
@@ -120,6 +119,8 @@ public class MainActivity extends Activity {
 
         spu = getSharedPreferences(user, Context.MODE_PRIVATE);
         spue = spu.edit();
+
+        idd = spu.getString("id", "-1");
 
 
         tinp = findViewById(R.id.txtinp1);
@@ -200,33 +201,26 @@ public class MainActivity extends Activity {
 
                     case R.id.menu_btn_lgout:
                         FirebaseUser account = mAuth.getCurrentUser();
-                        if (account != null) {
+                        if (account != null)
                             FirebaseAuth.getInstance().signOut();
-                            Intent li = new Intent(getApplicationContext(), Login.class);
-                            startActivity(li);
-                            spue.remove("id");
-                            spue.commit();
-                            finish();
-                        } else {
-                            try {
-                                JSONObject jo = null;
-                                String[][] arr = new String[][]{
-                                        {"id", idd},
-                                        {"device_id", dev_id}
-                                };
-                                Helper pa = new Helper(u + "Logout", 2, arr);
-                                JsonHandler jh = new JsonHandler();
-                                jo = jh.execute(pa).get();
-                                if (jo.getString("success").equalsIgnoreCase("Successfully Logged Out")) {
-                                    Intent li = new Intent(getApplicationContext(), Login.class);
-                                    startActivity(li);
-                                    spue.remove("id");
-                                    spue.commit();
-                                    finish();
-                                }
-                            } catch (Exception e) {
-                                Log.i("logout", e.getMessage());
+                        try {
+                            JSONObject jo = null;
+                            String[][] arr = new String[][]{
+                                    {"id", idd},
+                                    {"device_id", dev_id}
+                            };
+                            Helper pa = new Helper(u + "Logout", 2, arr);
+                            JsonHandler jh = new JsonHandler();
+                            jo = jh.execute(pa).get();
+                            if (jo.getString("success").equalsIgnoreCase("Successfully Logged Out")) {
+                                Intent li = new Intent(getApplicationContext(), Login.class);
+                                startActivity(li);
+                                spue.remove("id");
+                                spue.commit();
+                                finish();
                             }
+                        } catch (Exception e) {
+                            Log.i("logout", e.getMessage());
                         }
                         break;
 

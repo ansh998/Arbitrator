@@ -60,12 +60,13 @@
             android:id="@+id/d"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginLeft="80dp"
             android:layout_marginTop="13dp"
+            android:layout_marginRight="20dp"
             android:layout_toRightOf="@+id/c"
             android:background="@color/white"
             android:textSize="18dp" />
+
     </RelativeLayout>
 
     <View
@@ -191,6 +192,19 @@
                 android:textColor="#ffffff"
                 android:textSize="18dp" />
         </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/btn_remdev"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="20dp"
+                android:text="Remove Device" />
+        </TableRow>
     </TableLayout>
+
 
 </LinearLayout>

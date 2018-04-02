@@ -161,6 +161,7 @@ public class Login extends AppCompatActivity {
                     };
                     Jt = Json(u, "userdevices", 2, Ta);
                     if (Jt.isNull("error")) {
+                        getdet(em.getText().toString());
                         //Toast.makeText(getApplicationContext(), "Ho Gaya", Toast.LENGTH_LONG).show();
                         gotomain();
                     } else
@@ -243,11 +244,27 @@ public class Login extends AppCompatActivity {
                     Intent i = new Intent(getApplicationContext(), Register.class);
                     startActivity(i);
                 } else {
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(i);
-                    signIn();
-                    finish();
-
+                    JSONObject Jt;
+                    String Ta[][] = new String[][]{
+                            {"type", "android"},
+                            {"email", em.getText().toString()},
+                            {"device_id", dev_id},
+                            {"device_name", dev_name + "-" + dev_id.substring(4, 9)}
+                    };
+                    Jt = Json(u, "userdevices", 2, Ta);
+                    if (Jt.isNull("error")) {
+                        getdet(em.getText().toString());
+                        //Toast.makeText(getApplicationContext(), "Ho Gaya", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(i);
+                        signIn();
+                        getdet(a.getEmail());
+                        loggoog(a.getEmail());
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Device already registered!", Toast.LENGTH_LONG).show();
+                        FirebaseAuth.getInstance().signOut();
+                    }
                 }
             } catch (Exception e) {
                 Log.d("google", e.getMessage());
@@ -334,6 +351,43 @@ public class Login extends AppCompatActivity {
             }
         } catch (Exception e) {
             Log.e("stogget", e.getMessage());
+        }
+    }
+
+    public void getdet(String em) {
+        try {
+            JSONObject ob = null;
+            String arr[][] = null;
+            Helper pa = new Helper(u + "user/" + em, 1, arr);
+            JsonHandler jh = new JsonHandler();
+            ob = jh.execute(pa).get();
+            if (ob != null) {
+                spue.putString("id", ob.getString("id"));
+                spue.putString("un", ob.getString("username"));
+                spue.putString("fn", ob.getString("fullname"));
+                spue.putString("dob", ob.getString("dob"));
+                spue.putString("em", ob.getString("email"));
+                spue.putString("gen", ob.getString("gender"));
+                spue.putString("sync", ob.getString("sync"));
+                spue.commit();
+            }
+        } catch (Exception e) {
+            Log.e("getdata", e.getMessage());
+        }
+    }
+
+    public void loggoog(String em) {
+        try {
+            JSONObject ob = null;
+            String arr[][] = new String[][]{
+                    {"email", em},
+                    {"device_id", dev_id}
+            };
+            Helper pa = new Helper(u + "logingmail", 2, arr);
+            JsonHandler jh = new JsonHandler();
+            ob = jh.execute(pa).get();
+        } catch (Exception e) {
+            Log.e("logingmail", e.getMessage());
         }
     }
 
