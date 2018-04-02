@@ -247,7 +247,7 @@ public class Login extends AppCompatActivity {
                     JSONObject Jt;
                     String Ta[][] = new String[][]{
                             {"type", "android"},
-                            {"email", em.getText().toString()},
+                            {"email", a.getEmail()},
                             {"device_id", dev_id},
                             {"device_name", dev_name + "-" + dev_id.substring(4, 9)}
                     };

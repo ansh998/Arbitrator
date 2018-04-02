@@ -235,32 +235,18 @@ public class SyncSetting extends AppCompatActivity {
         FirebaseUser account = mAuth.getCurrentUser();
         if (account != null)
             FirebaseAuth.getInstance().signOut();
-        try {
-            JSONObject jo = null;
-            String[][] arr = new String[][]{
-                    {"id", spu.getString("id", "-1")},
-                    {"device_id", dev_id}
-            };
-            Helper pa = new Helper(u + "Logout", 2, arr);
-            JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get();
-            if (jo.getString("success").equalsIgnoreCase("Successfully Logged Out")) {
-                Intent li = new Intent(getApplicationContext(), Login.class);
-                startActivity(li);
-                spue.remove("id");
-                spue.commit();
-                finish();
-            }
-        } catch (Exception e) {
-            Log.i("logout", e.getMessage());
-        }
+
+        Intent li = new Intent(getApplicationContext(), Login.class);
+        startActivity(li);
+        spue.remove("id");
+        spue.commit();
     }
 
     private void remdev(String id) {
         try {
             JSONObject jo = null;
             String arr[][] = null;
-            Helper pa = new Helper(u + "userdevices" + id, 3, arr);
+            Helper pa = new Helper(u + "userdevices/" + id, 3, arr);
             JsonHandler jh = new JsonHandler();
             jo = jh.execute(pa).get();
             if (jo.isNull("error")) {
