@@ -23,13 +23,15 @@
     <string name="user">user_details</string>
 
 
-    <string name="changelog">\[version- \'alpha-1.19\'\] \n -added toggle to silent and general mode \n -added more tts usage \n -fixed bugs
+    <string name="changelog">
+        \[version- \'alpha-1.19\'\] \n -added toggle to silent and general mode \n -added more tts usage \n -fixed bugs \n -corrected number calling \n -created activity for profile settings \n -created activity for settings \n -added contacts support for calling
         \n \n \[version- \'alpha-1.18\'\] \n -improved tts \n -added \"start\" keyword hit \n -added normal login \n -added registration \n -added otp \n -added google registration \n -added Sync Settings
         \n \n \[version- \'alpha-1.17\'\] \n -added normal login \n -improved stability \n -added app widget \n -added support of middleware server \n -corrected tts \n -rearranged Main Activity Layout \n -Added output Box \n -added Sync tab layout
         \n \n \[version- \'alpha-1.16\'\] \n -improved system stability \n -fixed bugs
         \n \n \[version- \'alpha-1.15\'\] \n -removed register page\n -set link to divert to registration site\n -added Google Sign In Method\n -added functionality of Sign out button
         \n \n \[version- \'alpha-1.14\'\] \n -changed menu button icon\n -added register page
         \n \n \[version- \'alpha-1.13\'\] \n -added login screen
-        \n \n \[version- \'alpha-1.12\'\] \n -added menu\n -removed login screen due to errors</string>
+        \n \n \[version- \'alpha-1.12\'\] \n -added menu\n -removed login screen due to errors
+    </string>
 
 </resources>
