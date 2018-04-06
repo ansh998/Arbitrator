@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.admin.DevicePolicyManager;
+import android.appwidget.AppWidgetProvider;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -50,6 +51,7 @@ import android.view.inputmethod.InputMethod;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -76,7 +78,8 @@ import java.util.regex.Pattern;
 public class MainActivity extends Activity {
 
 
-    TextView tinp, op;
+    TextView tin, op;
+    EditText tinp;
     ImageButton bspk;
     final int req = 100;
     static String t = "";
@@ -185,6 +188,7 @@ public class MainActivity extends Activity {
             }
         });
 
+
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -243,7 +247,7 @@ public class MainActivity extends Activity {
                         break;
 
                     case R.id.menu_btn_sync:
-                        Intent si = new Intent(getApplicationContext(), SyncSetting.class);
+                        Intent si = new Intent(getApplicationContext(), Setting.class);
                         startActivity(si);
                         break;
 
@@ -264,8 +268,6 @@ public class MainActivity extends Activity {
         op.setText(t);
         tinp.setText("");
         y = "";
-
-
     }
 
     @Override
@@ -280,13 +282,17 @@ public class MainActivity extends Activity {
                 }
             }
             break;
-            case 1:
-
+            case 1: {
                 if (resultCode == Activity.RESULT_OK) {
                     Log.i("DeviceAdminSample", "Admin enabled!");
                 } else {
                     Log.i("DeviceAdminSample", "Admin enable FAILED!");
                 }
+            }
+            break;
+            case 0: {
+                Log.e("fsd", "sda");
+            }
         }
     }
 
@@ -306,6 +312,8 @@ public class MainActivity extends Activity {
 
     public void onPause() {
         super.onPause();
+        spue.putString("widget", "0");
+        spue.commit();
     }
 
     @Override

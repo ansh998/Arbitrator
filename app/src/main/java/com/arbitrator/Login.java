@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +44,8 @@ public class Login extends AppCompatActivity {
 
 
     Button login, c;
-    TextView em, pwd, reg;
+    EditText em, pwd;
+    TextView reg;
     SignInButton sib;
     CheckBox re;
     String arr[][];
@@ -74,8 +76,8 @@ public class Login extends AppCompatActivity {
 
 
         login = (Button) findViewById(R.id.btn_login);
-        em = (TextView) findViewById(R.id.input_email);
-        pwd = (TextView) findViewById(R.id.input_password);
+        em = (EditText) findViewById(R.id.input_email);
+        pwd = (EditText) findViewById(R.id.input_password);
         reg = (TextView) findViewById(R.id.link_signup);
         sib = (SignInButton) findViewById(R.id.gsio);
         re = (CheckBox) findViewById(R.id.rem_me);
@@ -97,7 +99,7 @@ public class Login extends AppCompatActivity {
         spue = spu.edit();
 
         if (Integer.parseInt(spu.getString("id", "-1")) > -1) {
-            //getval();
+            getval();
             gotomain();
         }
 

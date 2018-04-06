@@ -55,7 +55,7 @@ public class Parser {
                 settingcase();
                 break;
             case "call":
-                ss.caller();
+                ss.caller(parts);
                 break;
             case "lock":
                 if (MainActivity.DPM.isAdminActive(MainActivity.CN))
