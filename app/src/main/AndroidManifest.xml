@@ -88,8 +88,14 @@
             android:name=".Otp"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
-        <activity android:name=".Setting" />
-        <activity android:name=".ProfileSetting"></activity>
+        <activity
+            android:name=".Setting"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".ProfileSetting"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
     </application>
 
 </manifest>

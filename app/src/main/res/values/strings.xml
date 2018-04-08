@@ -24,7 +24,7 @@
 
 
     <string name="changelog">
-        \[version- \'alpha-1.19\'\] \n -added toggle to silent and general mode \n -added more tts usage \n -fixed bugs \n -corrected number calling \n -created activity for profile settings \n -created activity for settings \n -added contacts support for calling
+        \[version- \'alpha-1.19\'\] \n -added toggle to silent and general mode \n -added more tts usage \n -fixed bugs \n -corrected number calling \n -created activity for profile settings \n -created activity for settings \n -added contacts support for calling \n -corrected support of remember me \n -fixed login if device had been removed \n -refresh in remove device \n -added calculate functionality \n -revamped profile settings \n -improved Sync Settings \n -added alarm send to server
         \n \n \[version- \'alpha-1.18\'\] \n -improved tts \n -added \"start\" keyword hit \n -added normal login \n -added registration \n -added otp \n -added google registration \n -added Sync Settings
         \n \n \[version- \'alpha-1.17\'\] \n -added normal login \n -improved stability \n -added app widget \n -added support of middleware server \n -corrected tts \n -rearranged Main Activity Layout \n -Added output Box \n -added Sync tab layout
         \n \n \[version- \'alpha-1.16\'\] \n -improved system stability \n -fixed bugs

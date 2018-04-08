@@ -102,6 +102,7 @@ public class MainActivity extends Activity {
     private Appopen ao = null;
     private Systemser ss = null;
     private Parser pp = null;
+    private Calc ca = null;
 
 
     public static TextToSpeech tt;
@@ -131,12 +132,13 @@ public class MainActivity extends Activity {
         ao = new Appopen(getApplicationContext());
         ss = new Systemser(getApplicationContext());
         pp = new Parser(getApplicationContext());
+        ca = new Calc(getApplicationContext());
 
-        pp.setter(set, ao, ss);
+        pp.setter(set, ao, ss, ca);
 
         ao.startApp();
 
-        per();
+        //per();
 
         spu = getSharedPreferences(user, Context.MODE_PRIVATE);
         spue = spu.edit();
@@ -194,10 +196,10 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 //ao.startApp();
                 y = tinp.getText().toString();
-                tt.speak(y, TextToSpeech.QUEUE_FLUSH, null);
                 pp.parse1(y);
 
                 op.setText(t);
+                tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                 tinp.setText("");
                 y = "";
             }

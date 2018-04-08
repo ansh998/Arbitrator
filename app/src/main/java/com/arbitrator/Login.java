@@ -33,6 +33,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -48,7 +49,8 @@ public class Login extends AppCompatActivity {
     TextView reg;
     SignInButton sib;
     CheckBox re;
-    String arr[][];
+    String arr[][], ud[][];
+    int ud_len;
     String u, dev_id, dev_name;
     public static String det[] = new String[5];
     public static int goog = -1;
@@ -98,9 +100,30 @@ public class Login extends AppCompatActivity {
         spu = getSharedPreferences(user, getApplicationContext().MODE_PRIVATE);
         spue = spu.edit();
 
+        //gotomain();
+
         if (Integer.parseInt(spu.getString("id", "-1")) > -1) {
-            getval();
-            gotomain();
+            getdev();
+            int q = 0;
+            for (int i = 0; i < ud_len; i++) {
+                if (ud[i][1].equalsIgnoreCase(dev_id))
+                    q = 1;
+            }
+            if (q == 1) {
+                getdet(spu.getString("em", ""));
+                getval();
+                gotomain();
+            } else {
+                Toast.makeText(getApplicationContext(), "Device Removed from ID", Toast.LENGTH_LONG).show();
+                spue.remove("id");
+                spue.commit();
+            }
+        }
+
+        if (spu.getInt("rem", 0) == 1) {
+            re.setChecked(true);
+            em.setText(sp.getString("em", ""));
+            pwd.setText(sp.getString("pwd", ""));
         }
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -165,6 +188,16 @@ public class Login extends AppCompatActivity {
                     if (Jt.isNull("error")) {
                         getdet(em.getText().toString());
                         //Toast.makeText(getApplicationContext(), "Ho Gaya", Toast.LENGTH_LONG).show();
+                        if (re.isChecked()) {
+                            spe.putString("em", em.getText().toString());
+                            spe.putString("pwd", pwd.getText().toString());
+                            spe.commit();
+                            spue.putInt("rem", 1);
+                            spue.commit();
+                        } else {
+                            spue.putInt("rem", 0);
+                            spue.commit();
+                        }
                         gotomain();
                     } else
                         Toast.makeText(getApplicationContext(), "Device already registered!", Toast.LENGTH_LONG).show();
@@ -178,6 +211,16 @@ public class Login extends AppCompatActivity {
                 spue.putString("gen", jo.getString("gender"));
                 spue.putString("sync", jo.getString("sync"));
                 spue.commit();
+                if (re.isChecked()) {
+                    spe.putString("em", em.getText().toString());
+                    spe.putString("pwd", pwd.getText().toString());
+                    spe.commit();
+                    spue.putInt("rem", 1);
+                    spue.commit();
+                } else {
+                    spue.putInt("rem", 0);
+                    spue.commit();
+                }
                 gotomain();
             }
         } catch (Exception e) {
@@ -392,5 +435,25 @@ public class Login extends AppCompatActivity {
             Log.e("logingmail", e.getMessage());
         }
     }
+
+    private void getdev() {
+        try {
+            String arr[][] = null;
+            Helper pa = new Helper(u + "userdevices/" + spu.getString("id", "-1"), 1, arr);
+            JsonHandler2 jh = new JsonHandler2();
+            JSONArray jo = jh.execute(pa).get();
+            ud = new String[jo.length()][4];
+            ud_len = jo.length();
+            for (int i = 0; i < jo.length(); i++) {
+                ud[i][0] = (jo.getJSONObject(i).getString("type"));
+                ud[i][1] = (jo.getJSONObject(i).getString("device_id"));
+                ud[i][2] = (jo.getJSONObject(i).getString("device_name"));
+                ud[i][3] = (jo.getJSONObject(i).getString("status"));
+            }
+        } catch (Exception e) {
+            Log.e("userdevget", e.getMessage());
+        }
+    }
+
 
 }

@@ -84,7 +84,7 @@ public class SyncSetting extends AppCompatActivity {
             check = false;
 
         b.setChecked(check);
-        changer(check);
+        //changer(check);
 
         List<String> cat = new ArrayList<String>();
         for (int i = 0; i < ud.length; i++) {
@@ -136,13 +136,13 @@ public class SyncSetting extends AppCompatActivity {
                         jo = jh.execute(pa).get();
                         if (jo.isNull("error")) {
                             Toast.makeText(getApplicationContext(), "Sync Started", Toast.LENGTH_SHORT).show();
-                            changer(true);
+                            //changer(true);
                             spue.putString("sync", "1");
                             spue.commit();
                         } else {
                             Toast.makeText(getApplicationContext(), "Unable to start Sync! Retry later", Toast.LENGTH_SHORT).show();
                             b.setChecked(false);
-                            changer(false);
+                            //changer(false);
                         }
                     } catch (Exception e) {
                         Log.e("Synctoggle", e.getMessage());
@@ -159,13 +159,13 @@ public class SyncSetting extends AppCompatActivity {
                         jo = jh.execute(pa).get();
                         if (jo.isNull("error")) {
                             Toast.makeText(getApplicationContext(), "Sync Closed", Toast.LENGTH_SHORT).show();
-                            changer(false);
+                            //changer(false);
                             spue.putString("sync", "0");
                             spue.commit();
                         } else {
                             Toast.makeText(getApplicationContext(), "Unable to close Sync! Retry later", Toast.LENGTH_SHORT).show();
                             b.setChecked(true);
-                            changer(true);
+                            //changer(true);
                         }
                     } catch (Exception e) {
                         Log.e("Synctoggle", e.getMessage());
@@ -181,36 +181,10 @@ public class SyncSetting extends AppCompatActivity {
                 if (curr_id.equalsIgnoreCase(dev_id)) {
                     logout();
                 }
+                finish();
+                startActivity(getIntent());
             }
         });
-    }
-
-    private void changer(Boolean a) {
-        if (a) {
-            c.setVisibility(View.VISIBLE);
-            d.setVisibility(View.VISIBLE);
-            e.setVisibility(View.VISIBLE);
-            f.setVisibility(View.VISIBLE);
-            g.setVisibility(View.VISIBLE);
-            h.setVisibility(View.VISIBLE);
-            i.setVisibility(View.VISIBLE);
-            j.setVisibility(View.VISIBLE);
-            k.setVisibility(View.VISIBLE);
-            l.setVisibility(View.VISIBLE);
-            rem.setVisibility(View.VISIBLE);
-        } else {
-            c.setVisibility(View.INVISIBLE);
-            d.setVisibility(View.INVISIBLE);
-            e.setVisibility(View.INVISIBLE);
-            f.setVisibility(View.INVISIBLE);
-            g.setVisibility(View.INVISIBLE);
-            h.setVisibility(View.INVISIBLE);
-            i.setVisibility(View.INVISIBLE);
-            j.setVisibility(View.INVISIBLE);
-            k.setVisibility(View.INVISIBLE);
-            l.setVisibility(View.INVISIBLE);
-            rem.setVisibility(View.INVISIBLE);
-        }
     }
 
     private void getdev() {
@@ -260,3 +234,33 @@ public class SyncSetting extends AppCompatActivity {
     }
 
 }
+/*
+    private void changer(Boolean a) {
+        if (a) {
+            c.setVisibility(View.VISIBLE);
+            d.setVisibility(View.VISIBLE);
+            e.setVisibility(View.VISIBLE);
+            f.setVisibility(View.VISIBLE);
+            g.setVisibility(View.VISIBLE);
+            h.setVisibility(View.VISIBLE);
+            i.setVisibility(View.VISIBLE);
+            j.setVisibility(View.VISIBLE);
+            k.setVisibility(View.VISIBLE);
+            l.setVisibility(View.VISIBLE);
+            rem.setVisibility(View.VISIBLE);
+        } else {
+            c.setVisibility(View.INVISIBLE);
+            d.setVisibility(View.INVISIBLE);
+            e.setVisibility(View.INVISIBLE);
+            f.setVisibility(View.INVISIBLE);
+            g.setVisibility(View.INVISIBLE);
+            h.setVisibility(View.INVISIBLE);
+            i.setVisibility(View.INVISIBLE);
+            j.setVisibility(View.INVISIBLE);
+            k.setVisibility(View.INVISIBLE);
+            l.setVisibility(View.INVISIBLE);
+            rem.setVisibility(View.INVISIBLE);
+        }
+    }
+
+ */
