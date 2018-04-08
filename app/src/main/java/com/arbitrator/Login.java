@@ -37,6 +37,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -160,7 +161,10 @@ public class Login extends AppCompatActivity {
         fgtpwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                frgt_pwd();
+                if (em.getText().toString().trim().length() > 0)
+                    frgt_pwd();
+                else
+                    em.setError("This field cannot be Blank");
             }
         });
 
@@ -473,6 +477,11 @@ public class Login extends AppCompatActivity {
             if (jo.isNull("error")) {
                 Intent ot = new Intent(getApplicationContext(), Otp.class);
                 startActivity(ot);
+                Otp.em = em.getText().toString();
+                Otp.phr = Calendar.getInstance().getTime().getHours();
+                Otp.pmi = Calendar.getInstance().getTime().getMinutes();
+                Otp.flag = 0;
+                finish();
             } else {
                 Toast.makeText(getApplicationContext(), "Unable to process your request right now!", Toast.LENGTH_LONG).show();
                 Log.e("login_frgtpwd", jo.getString("error"));

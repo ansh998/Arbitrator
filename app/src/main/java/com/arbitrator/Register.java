@@ -295,6 +295,7 @@ public class Register extends AppCompatActivity {
                 Otp.gen = gen;
                 Otp.pwd = pwd;
                 Otp.un = un;
+                Otp.flag = 1;
                 finish();
             } else {
                 return false;

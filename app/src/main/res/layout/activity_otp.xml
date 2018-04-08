@@ -57,26 +57,30 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/v_otp"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:background="#cccccc" />
+        android:background="#cccccc"
+        android:visibility="invisible" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/ll_pwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
+        android:visibility="invisible"
         tools:context=".Otp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter OTP sent to your Email"
+            android:text="Enter your New Password"
             android:textColor="#cccccc" />
 
         <android.support.design.widget.TextInputLayout
@@ -86,13 +90,37 @@
             android:layout_marginBottom="8dp">
 
             <EditText
-                android:id="@+id/dfhskjd"
+                android:id="@+id/new_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter OTP"
-                android:inputType="text" />
+                android:hint="Enter Password"
+                android:inputType="textPassword" />
 
         </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/new_cnfrm_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                android:inputType="textPassword" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_pwdchange"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
+            android:text="Set Password"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 </LinearLayout>
