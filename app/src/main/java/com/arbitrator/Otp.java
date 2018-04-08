@@ -73,7 +73,7 @@ public class Otp extends AppCompatActivity {
                             {"email", ""},
                             {"otp", ""}
                     };
-                    Helper pa = new Helper(u + "emailverify", 4, arr);
+                    Helper pa = new Helper(u + "emailverify/" + em, 4, arr);
                     JsonHandler jh = new JsonHandler();
                     jo = jh.execute(pa).get();
                     if (jo.isNull("error"))

@@ -88,6 +88,7 @@ public class MainActivity extends Activity {
     ImageButton ok;
     ImageView asd;
     static int in = 0;
+    int flag = 0;
 
     FirebaseAuth mAuth;
     String u;
@@ -266,10 +267,13 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        pp.parse1(y);
-        op.setText(t);
-        tinp.setText("");
-        y = "";
+        if (flag == 1) {
+            pp.parse1(y);
+            op.setText(t);
+            tinp.setText("");
+            y = "";
+            flag = 0;
+        }
     }
 
     @Override
@@ -281,6 +285,7 @@ public class MainActivity extends Activity {
                 if (resultCode == RESULT_OK && null != data) {
                     ArrayList<String> rslt = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     y = rslt.get(0);
+                    flag = 1;
                 }
             }
             break;

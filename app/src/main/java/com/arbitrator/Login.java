@@ -46,7 +46,7 @@ public class Login extends AppCompatActivity {
 
     Button login, c;
     EditText em, pwd;
-    TextView reg;
+    TextView reg, fgtpwd;
     SignInButton sib;
     CheckBox re;
     String arr[][], ud[][];
@@ -83,6 +83,7 @@ public class Login extends AppCompatActivity {
         reg = (TextView) findViewById(R.id.link_signup);
         sib = (SignInButton) findViewById(R.id.gsio);
         re = (CheckBox) findViewById(R.id.rem_me);
+        fgtpwd = (TextView) findViewById(R.id.link_frgt);
 
         sib.setColorScheme(SignInButton.COLOR_LIGHT);
 
@@ -153,6 +154,13 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Gsin();
+            }
+        });
+
+        fgtpwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frgt_pwd();
             }
         });
 
@@ -455,5 +463,23 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    private void frgt_pwd() {
+        try {
+            JSONObject jo = null;
+            String arr[][] = null;
+            Helper pa = new Helper(u + "forgotpassword/" + em.getText().toString(), 1, arr);
+            JsonHandler jh = new JsonHandler();
+            jo = jh.execute(pa).get();
+            if (jo.isNull("error")) {
+                Intent ot = new Intent(getApplicationContext(), Otp.class);
+                startActivity(ot);
+            } else {
+                Toast.makeText(getApplicationContext(), "Unable to process your request right now!", Toast.LENGTH_LONG).show();
+                Log.e("login_frgtpwd", jo.getString("error"));
+            }
+        } catch (Exception e) {
+            Log.e("login_frgtpwd", e.getMessage());
+        }
+    }
 
 }

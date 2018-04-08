@@ -18,7 +18,7 @@
             android:layout_height="72dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="24dp"
-            android:src="@drawable/ic_mic_white_24dp" />
+            android:src="@drawable/logo" />
 
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
@@ -61,6 +61,16 @@
             android:layout_height="wrap_content"
             android:text="Remember Me"
             android:id="@+id/rem_me"/>
+
+        <TextView
+            android:id="@+id/link_frgt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/white"
+            android:text="@string/frgt"
+            android:textSize="16dp" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_login"

@@ -62,11 +62,11 @@ public class Parser {
                 ss.caller(parts);
             }
             break;
-            case "lock": {
-                if (MainActivity.DPM.isAdminActive(MainActivity.CN))
-                    MainActivity.DPM.lockNow();
-            }
-            break;
+//            case "lock": {
+//                if (MainActivity.DPM.isAdminActive(MainActivity.CN))
+//                    MainActivity.DPM.lockNow();
+//            }
+//            break;
             case "set": {
                 if (y.contains("alarm")) {
                     int t = -1;
