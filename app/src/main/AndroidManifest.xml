@@ -96,6 +96,10 @@
             android:name=".ProfileSetting"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
+
+        <activity android:name=".call_choose"
+            android:theme="@style/AppTheme.Dark.Dialog"
+            android:label=""/>
     </application>
 
 </manifest>

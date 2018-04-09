@@ -22,8 +22,10 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.logging.Handler;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,6 +47,7 @@ public class Systemser {
     String t = "";
     SharedPreferences q;
     String user, u;
+    ArrayList<String> ar;
 
     public void caller(String[] parts) {
 
@@ -52,33 +55,32 @@ public class Systemser {
         if (parts.length == 2) {
             Matcher m = p.matcher(parts[1]);
             if (m.find()) {
-                call(parts[1]);
                 t = "Calling " + parts[1];
                 MainActivity.t = t;
                 MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                call(parts[1]);
             } else {
+                ar = new ArrayList<>();
                 String NAME = "";
                 for (int i = 1; i < parts.length; i++) {
                     NAME += parts[i] + " ";
                 }
                 NAME = NAME.trim();
                 ContentResolver cr = context.getContentResolver();
-                Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, "DISPLAY_NAME = '" + NAME + "'", null, null);
+                Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, "lower(DISPLAY_NAME) = lower('" + NAME + "')", null, null);
                 if (cursor.moveToFirst()) {
                     String ci = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
                     Cursor ph = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + ci, null, null);
                     while (ph.moveToNext()) {
                         String num = ph.getString(ph.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        int type = ph.getInt(ph.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));
-                        switch (type) {
-                            case ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE: {
-
-                            }
-                        }
+                        ar.add(num);
                     }
+                    call_choose.xc = ar;
                     ph.close();
                 }
                 cursor.close();
+                Intent cc = new Intent(context, call_choose.class);
+                context.startActivity(cc);
             }
         } else {
             String number = "";
@@ -87,33 +89,32 @@ public class Systemser {
             }
             Matcher m = p.matcher(number);
             if (m.find()) {
-                call(number);
                 t = "Calling " + number;
                 MainActivity.t = t;
                 MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                call(number);
             } else {
+                ar = new ArrayList<>();
                 String NAME = "";
                 for (int i = 1; i < parts.length; i++) {
                     NAME += parts[i] + " ";
                 }
                 NAME = NAME.trim();
                 ContentResolver cr = context.getContentResolver();
-                Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, "DISPLAY_NAME = '" + NAME + "'", null, null);
+                Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, "lower(DISPLAY_NAME) = lower('" + NAME + "')", null, null);
                 if (cursor.moveToFirst()) {
                     String ci = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
                     Cursor ph = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + ci, null, null);
                     while (ph.moveToNext()) {
                         String num = ph.getString(ph.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        int type = ph.getInt(ph.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));
-                        switch (type) {
-                            case ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE: {
-
-                            }
-                        }
+                        ar.add(num);
                     }
+                    call_choose.xc = ar;
                     ph.close();
                 }
                 cursor.close();
+                Intent cc = new Intent(context, call_choose.class);
+                context.startActivity(cc);
             }
         }
 
