@@ -8,7 +8,11 @@ import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.Instant;
 
 public class Set {
@@ -62,23 +66,53 @@ public class Set {
         }
     }
 
+//    public void mobdata(String a) {
+//        try {
+//            Method dc;
+//            Class<?> teleMC;
+//            Object ITS;
+//            Class<?> ITC;
+//
+//            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+//            teleMC = Class.forName(tm.getClass().getName());
+//            Method getITM = teleMC.getDeclaredMethod("getITelephony");
+//            getITM.setAccessible(true);
+//            ITS = getITM.invoke(tm);
+//            ITC = Class.forName(ITS.getClass().getName());
+//            if (a.toLowerCase().equalsIgnoreCase("open")) {
+//                dc = ITC.getDeclaredMethod("enableDataConnectivity");
+//            } else {
+//                dc = ITC.getDeclaredMethod("disableDataConnectivity");
+//            }
+//            dc.setAccessible(true);
+//            dc.invoke(ITS);
+//
+//        } catch (InvocationTargetException e) {
+//            Log.e("asdf", e.getTargetException().toString());
+//        } catch (Exception e) {
+//            Log.e("asd", e.getMessage());
+//        }
+//    }
+
+    //    public void arplmd(String a) {
+//        int c = -1;
+//        switch (a.toLowerCase()) {
+//            case "open":
+//                Settings.System.putInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 1);
+//                c = 1;
+//                break;
+//            case "close":
+//                Settings.System.putInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0);
+//                c = 0;
+//                break;
+//        }
+//        Intent i = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+//        i.putExtra("state", c);
+//        context.sendBroadcast(i);
+//    }
+
 }
-    /*
-    public void arplmd(String a) {
-        int c = -1;
-        switch (a.toLowerCase()) {
-            case "open":
-                Settings.System.putInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 1);
-                c = 1;
-                break;
-            case "close":
-                Settings.System.putInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0);
-                c = 0;
-                break;
-        }
-        Intent i = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
-        i.putExtra("state", c);
-        context.sendBroadcast(i);
-    }
-    */
+
+
+
 

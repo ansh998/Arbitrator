@@ -8,6 +8,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -46,84 +47,101 @@ public class Parser {
 
         parts = y.split(" ");
 
+        if (y.toLowerCase().contains("what is the time")) {
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat s = new SimpleDateFormat("h:mm a");
+            String cd = s.format(c.getTime());
+            t = "The time is " + cd;
+            MainActivity.t = t;
+            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+        } else if (y.toLowerCase().contains("what is date")||y.toLowerCase().contains("what is today's date")) {
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat s = new SimpleDateFormat("EEE, MMM d yyyy");
+            String cd = s.format(c.getTime());
+            t = "Today is " + cd;
+            MainActivity.t = t;
+            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+        } else {
 
-        switch (parts[0].toLowerCase()) {
-            case "open":
-            case "start": {
-                openCase();
-            }
-            break;
-            case "close":
-            case "turn": {
-                settingcase();
-            }
-            break;
-            case "call": {
-                ss.caller(parts);
-            }
-            break;
+
+            switch (parts[0].toLowerCase()) {
+                case "open":
+                case "start": {
+                    openCase(y);
+                }
+                break;
+                case "close":
+                case "turn": {
+                    settingcase();
+                }
+                break;
+                case "call": {
+                    ss.caller(parts);
+                }
+                break;
 //            case "lock": {
 //                if (MainActivity.DPM.isAdminActive(MainActivity.CN))
 //                    MainActivity.DPM.lockNow();
 //            }
 //            break;
-            case "set": {
-                if (y.contains("alarm")) {
-                    int t = -1;
-                    for (int i = 0; i < parts.length; i++) {
-                        if (parts[i].contains(":")) {
-                            t = i;
-                        }
-                    }
-                    if (t != -1) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
-                        Date d = null;
-                        try {
-                            d = sdf.parse(parts[t]);
-                            if (parts.length > t + 1) {
-                                String da = "" + d.getHours();
-                                int n = Integer.parseInt(da);
-                                if ((y.contains("pm") || y.contains("p.m") || y.contains("p.m.")) && n < 13) {
-                                    n += 12;
-                                    if (n >= 24)
-                                        n -= 12;
-                                } else if ((y.contains("am") || y.contains("a.m") || y.contains("a.m.")) && n > 11) {
-                                    n -= 12;
-                                }
-                                da = n + ":" + d.getMinutes();
-                                d = sdf.parse(da);
+                case "set": {
+                    if (y.contains("alarm")) {
+                        int t = -1;
+                        for (int i = 0; i < parts.length; i++) {
+                            if (parts[i].contains(":")) {
+                                t = i;
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
                         }
-                        ss.alarm(d);
+                        if (t != -1) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+                            Date d = null;
+                            try {
+                                d = sdf.parse(parts[t]);
+                                if (parts.length > t + 1) {
+                                    String da = "" + d.getHours();
+                                    int n = Integer.parseInt(da);
+                                    if ((y.contains("pm") || y.contains("p.m") || y.contains("p.m.")) && n < 13) {
+                                        n += 12;
+                                        if (n >= 24)
+                                            n -= 12;
+                                    } else if ((y.contains("am") || y.contains("a.m") || y.contains("a.m.")) && n > 11) {
+                                        n -= 12;
+                                    }
+                                    da = n + ":" + d.getMinutes();
+                                    d = sdf.parse(da);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            ss.alarm(d);
+                        }
                     }
                 }
-            }
-            break;
-            case "calculate": {
-                try {
-                    y = y.replace("X", "*");
-                    y = y.replace("into", "*");
-                    y = y.replace("x", "*");
-                    t = String.valueOf(ca.evaluate(y.substring(y.indexOf(" ") + 1)));
+                break;
+                case "calculate": {
+                    try {
+                        y = y.replace("X", "*");
+                        y = y.replace("into", "*");
+                        y = y.replace("x", "*");
+                        t = String.valueOf(ca.evaluate(y.substring(y.indexOf(" ") + 1)));
+                        MainActivity.t = t;
+                        MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+                default: {
+                    t = "Sorry can't help with this right now!";
                     MainActivity.t = t;
                     MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+                break;
             }
-            break;
-            default: {
-                t = "Sorry can't help with this right now!";
-                MainActivity.t = t;
-                MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
-            }
-            break;
         }
     }
 
-    public void openCase() {
+    public void openCase(String q) {
         //ao.startApp();
 
         if (parts.length > 1 && !parts[1].equalsIgnoreCase("arbitrator")) {
@@ -165,6 +183,13 @@ public class Parser {
                 MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                 MainActivity.am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             }
+//            //mobile data
+//            else if (q.toLowerCase().contains("mobile") && q.toLowerCase().contains("data")) {
+//                set.mobdata("open");
+//                t = "Switching on Mobile Data";
+//                MainActivity.t = t;
+//                MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+//            }
             //app
             else {
                 int hits[] = new int[ao.appNameList.size()];
@@ -220,6 +245,20 @@ public class Parser {
                     MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                     set.flash("close");
                     break;
+//                case "mobile":
+//                    if (parts[3].equalsIgnoreCase("data")) {
+//                        set.mobdata("close");
+//                        t = "Switching on Mobile Data";
+//                        MainActivity.t = t;
+//                        MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+//                    }
+//                    break;
+//                case "data":
+//                    set.mobdata("close");
+//                    t = "Switching on Mobile Data";
+//                    MainActivity.t = t;
+//                    MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+//                    break;
             }
         } else if (parts[0].equalsIgnoreCase("turn")) {
             switch (parts[1].toLowerCase()) {
@@ -258,6 +297,20 @@ public class Parser {
                             MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                             MainActivity.am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             break;
+//                        case "mobile":
+//                            if (parts[3].equalsIgnoreCase("data")) {
+//                                set.mobdata("open");
+//                                t = "Switching on Mobile Data";
+//                                MainActivity.t = t;
+//                                MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+//                            }
+//                            break;
+//                        case "data":
+//                            set.mobdata("open");
+//                            t = "Switching on Mobile Data";
+//                            MainActivity.t = t;
+//                            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+//                            break;
                     }
                     break;
                 case "off":
@@ -288,6 +341,20 @@ public class Parser {
                             MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                             MainActivity.am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             break;
+//                        case "mobile":
+//                            if (parts[3].equalsIgnoreCase("data")) {
+//                                set.mobdata("close");
+//                                t = "Switching on Mobile Data";
+//                                MainActivity.t = t;
+//                                MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+//                            }
+//                            break;
+//                        case "data":
+//                            set.mobdata("close");
+//                            t = "Switching on Mobile Data";
+//                            MainActivity.t = t;
+//                            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+//                            break;
                     }
                     break;
             }
