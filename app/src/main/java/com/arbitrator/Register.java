@@ -179,7 +179,7 @@ public class Register extends AppCompatActivity {
             try {
                 JSONObject jo = null;
                 String arr[][] = null;
-                Helper pa = new Helper(u + "usernamecheck/" + un, 1, arr);
+                Helper pa = new Helper(u + "usernamecheck/" + un, 1, arr, getApplicationContext());
                 JsonHandler jh = new JsonHandler();
                 jo = jh.execute(pa).get(2, TimeUnit.SECONDS);
                 if (!jo.isNull("error")) {
@@ -203,7 +203,7 @@ public class Register extends AppCompatActivity {
             try {
                 JSONObject jo = null;
                 String arr[][] = null;
-                Helper pa = new Helper(u + "emailcheck/" + em, 1, arr);
+                Helper pa = new Helper(u + "emailcheck/" + em, 1, arr, getApplicationContext());
                 JsonHandler jh = new JsonHandler();
                 jo = jh.execute(pa).get(2, TimeUnit.SECONDS);
                 if (!jo.isNull("error")) {
@@ -256,7 +256,7 @@ public class Register extends AppCompatActivity {
                     {"email", em},
                     {"gender", gen}
             };
-            Helper pa = new Helper(u + "Register", 2, arr);
+            Helper pa = new Helper(u + "Register", 2, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
             jo = jh.execute(pa).get();
             if (jo.isNull("error"))
@@ -279,7 +279,7 @@ public class Register extends AppCompatActivity {
         try {
             JSONObject jo = null;
             String arr[][] = null;
-            Helper pa = new Helper(u + "emailverify/" + em, 1, arr);
+            Helper pa = new Helper(u + "emailverify/" + em, 1, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
             jo = jh.execute(pa).get();
             if (jo.isNull("error")) {

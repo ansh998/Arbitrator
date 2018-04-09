@@ -89,7 +89,7 @@ public class Otp extends AppCompatActivity {
                                 {"email", em},
                                 {"password", np.getText().toString()}
                         };
-                        Helper pa = new Helper(u + "user/1234", 4, arr);
+                        Helper pa = new Helper(u + "user/1234", 4, arr, getApplicationContext());
                         JsonHandler jh = new JsonHandler();
                         jo = jh.execute(pa).get();
                         if (jo.isNull("error")) {
@@ -122,7 +122,7 @@ public class Otp extends AppCompatActivity {
                             {"email", em},
                             {"otp", ""}
                     };
-                    Helper pa = new Helper(u + "emailverify/" + em, 4, arr);
+                    Helper pa = new Helper(u + "emailverify/" + em, 4, arr, getApplicationContext());
                     JsonHandler jh = new JsonHandler();
                     jo = jh.execute(pa).get();
                     if (jo.isNull("error"))
@@ -142,7 +142,7 @@ public class Otp extends AppCompatActivity {
                     {"email", em},
                     {"otp", k.getText().toString()}
             };
-            Helper pa = new Helper(u + "emailverify", 2, arr);
+            Helper pa = new Helper(u + "emailverify", 2, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
             jo = jh.execute(pa).get();
             if (jo.isNull("error"))
@@ -163,7 +163,7 @@ public class Otp extends AppCompatActivity {
                     {"email", em},
                     {"gender", gen}
             };
-            Helper pa = new Helper(u + "Register", 2, arr);
+            Helper pa = new Helper(u + "Register", 2, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
             jo = jh.execute(pa).get();
             if (jo.isNull("error"))
@@ -187,7 +187,7 @@ public class Otp extends AppCompatActivity {
         try {
             JSONObject jo = null;
             String arr[][] = null;
-            Helper pa = new Helper(u + "emailverify/" + em, 3, arr);
+            Helper pa = new Helper(u + "emailverify/" + em, 3, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
             jo = jh.execute(pa).get();
             if (jo.isNull("error"))

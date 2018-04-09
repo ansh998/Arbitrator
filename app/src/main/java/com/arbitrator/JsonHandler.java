@@ -1,6 +1,8 @@
 package com.arbitrator;
 
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -18,10 +20,11 @@ public class JsonHandler extends AsyncTask<Helper, Void, JSONObject> {
     public String url;
     public int c;
     public String arr[][];
+    public Context con;
+    ProgressDialog pD;
 
 
     private String TAG = this.getClass().getSimpleName();
-
 
 
     @Override
@@ -30,6 +33,9 @@ public class JsonHandler extends AsyncTask<Helper, Void, JSONObject> {
         url = helpers[0].url;
         c = helpers[0].c;
         arr = helpers[0].arr;
+        con = helpers[0].con;
+
+        //pD=ProgressDialog.show(con,"Working...",null);
 
         HttpHandler hh = new HttpHandler();
         JSONObject jsonObj = null;
@@ -80,7 +86,7 @@ public class JsonHandler extends AsyncTask<Helper, Void, JSONObject> {
             } else {
                 Log.e(TAG, "Couldn't get json from Server.");
             }
-        }else if (c == 4) {
+        } else if (c == 4) {
             try {
                 JSONObject obj = new JSONObject();
                 for (int i = 0; i < arr.length; i++)
@@ -107,6 +113,11 @@ public class JsonHandler extends AsyncTask<Helper, Void, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject aVoid) {
         super.onPostExecute(aVoid);
+        //pD.dismiss();
     }
 
+    @Override
+    protected void onPreExecute() {
+
+    }
 }

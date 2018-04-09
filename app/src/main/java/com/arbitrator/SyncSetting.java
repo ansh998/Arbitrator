@@ -131,7 +131,7 @@ public class SyncSetting extends AppCompatActivity {
                                 {"id", spu.getString("id", "-1")},
                                 {"sync", "1"}
                         };
-                        Helper pa = new Helper(u + "synctoggle", 2, arr);
+                        Helper pa = new Helper(u + "synctoggle", 2, arr, getApplicationContext());
                         JsonHandler jh = new JsonHandler();
                         jo = jh.execute(pa).get();
                         if (jo.isNull("error")) {
@@ -154,7 +154,7 @@ public class SyncSetting extends AppCompatActivity {
                                 {"id", spu.getString("id", "-1")},
                                 {"sync", "0"}
                         };
-                        Helper pa = new Helper(u + "synctoggle", 2, arr);
+                        Helper pa = new Helper(u + "synctoggle", 2, arr, getApplicationContext());
                         JsonHandler jh = new JsonHandler();
                         jo = jh.execute(pa).get();
                         if (jo.isNull("error")) {
@@ -190,7 +190,7 @@ public class SyncSetting extends AppCompatActivity {
     private void getdev() {
         try {
             String arr[][] = null;
-            Helper pa = new Helper(u + "userdevices/" + spu.getString("id", "-1"), 1, arr);
+            Helper pa = new Helper(u + "userdevices/" + spu.getString("id", "-1"), 1, arr, getApplicationContext());
             JsonHandler2 jh = new JsonHandler2();
             JSONArray jo = jh.execute(pa).get();
             ud = new String[jo.length()][4];
@@ -220,7 +220,7 @@ public class SyncSetting extends AppCompatActivity {
         try {
             JSONObject jo = null;
             String arr[][] = null;
-            Helper pa = new Helper(u + "userdevices/" + id, 3, arr);
+            Helper pa = new Helper(u + "userdevices/" + id, 3, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
             jo = jh.execute(pa).get();
             if (jo.isNull("error")) {

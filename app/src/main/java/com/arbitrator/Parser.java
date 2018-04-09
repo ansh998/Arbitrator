@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,7 +26,7 @@ public class Parser {
     private Calc ca = null;
 
 
-    String parts[], t = "";
+    String parts[], t = "", u;
 
 
     public Parser(Context context) {
@@ -54,7 +56,7 @@ public class Parser {
             t = "The time is " + cd;
             MainActivity.t = t;
             MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
-        } else if (y.toLowerCase().contains("what is date")||y.toLowerCase().contains("what is today's date")) {
+        } else if (y.toLowerCase().contains("what is date") || y.toLowerCase().contains("what is today's date")) {
             Calendar c = Calendar.getInstance();
             SimpleDateFormat s = new SimpleDateFormat("EEE, MMM d yyyy");
             String cd = s.format(c.getTime());
@@ -63,6 +65,7 @@ public class Parser {
             MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
         } else {
 
+            u = context.getResources().getString(R.string.url);
 
             switch (parts[0].toLowerCase()) {
                 case "open":
@@ -132,9 +135,25 @@ public class Parser {
                 }
                 break;
                 default: {
-                    t = "Sorry can't help with this right now!";
-                    MainActivity.t = t;
-                    MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                    try {
+                        JSONObject jo = null;
+                        String arr[][] = {
+                                {"question", y}
+                        };
+                        Helper pa = new Helper(u + "aiquestion", 2, arr, context);
+                        JsonHandler jh = new JsonHandler();
+                        jo = jh.execute(pa).get();
+                        if (jo.isNull("error")) {
+                            t = jo.getString("answer");
+                            MainActivity.t = t;
+                            //MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                        }
+                    } catch (Exception e) {
+                        Log.e("aiserverques_catch", e.getMessage());
+                    }
+//                    t = "Sorry can't help with this right now!";
+//                    MainActivity.t = t;
+//                    MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                 }
                 break;
             }

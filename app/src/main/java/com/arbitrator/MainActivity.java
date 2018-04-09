@@ -200,7 +200,6 @@ public class MainActivity extends Activity {
                 pp.parse1(y);
 
                 op.setText(t);
-                tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                 tinp.setText("");
                 y = "";
             }
@@ -234,7 +233,7 @@ public class MainActivity extends Activity {
                                     {"id", idd},
                                     {"device_id", dev_id}
                             };
-                            Helper pa = new Helper(u + "Logout", 2, arr);
+                            Helper pa = new Helper(u + "Logout", 2, arr, getApplicationContext());
                             JsonHandler jh = new JsonHandler();
                             jo = jh.execute(pa).get();
                             if (jo.getString("success").equalsIgnoreCase("Successfully Logged Out")) {

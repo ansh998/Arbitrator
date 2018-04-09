@@ -147,7 +147,7 @@ public class ProfileSetting extends AppCompatActivity {
                     {"email", su.getString("em", "")},
                     {"id", su.getString("id", "-1")}
             };
-            Helper pa = new Helper(u + "user", 2, arr);
+            Helper pa = new Helper(u + "user", 2, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
             jo = jh.execute(pa).get();
             if (jo.isNull("error")) {

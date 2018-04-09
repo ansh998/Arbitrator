@@ -155,7 +155,7 @@ public class Systemser {
                     {"alarm_time", hr + ":" + min},
                     {"alarm_text", "Wake up Time!"}
             };
-            Helper pa = new Helper(u + "alarm", 2, arr);
+            Helper pa = new Helper(u + "alarm", 2, arr, context);
             JsonHandler jh = new JsonHandler();
             jo = jh.execute(pa).get();
             if (jo.isNull("error")) {

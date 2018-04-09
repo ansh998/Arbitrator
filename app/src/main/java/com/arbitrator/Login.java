@@ -241,7 +241,7 @@ public class Login extends AppCompatActivity {
     }
 
     public JSONObject Json(String url, String func, int w, String ar[][]) {
-        Helper pa = new Helper(url + func, w, ar);
+        Helper pa = new Helper(url + func, w, ar, getApplicationContext());
         JsonHandler jh = new JsonHandler();
         JSONObject jq = null;
         try {
@@ -279,7 +279,7 @@ public class Login extends AppCompatActivity {
 
             try {
                 JSONObject jo = null;
-                Helper pa = new Helper(u + "emailcheck/" + a.getEmail(), 1, arr);
+                Helper pa = new Helper(u + "emailcheck/" + a.getEmail(), 1, arr, getApplicationContext());
                 JsonHandler jh = new JsonHandler();
                 try {
                     jo = jh.execute(pa).get();
@@ -399,7 +399,7 @@ public class Login extends AppCompatActivity {
         try {
             JSONObject jo = null;
             String arr[][] = null;
-            Helper pa = new Helper(u + "synctoggle/" + spu.getString("id", "-1"), 1, arr);
+            Helper pa = new Helper(u + "synctoggle/" + spu.getString("id", "-1"), 1, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
             jo = jh.execute(pa).get();
             if (jo.isNull("error")) {
@@ -415,7 +415,7 @@ public class Login extends AppCompatActivity {
         try {
             JSONObject ob = null;
             String arr[][] = null;
-            Helper pa = new Helper(u + "user/" + em, 1, arr);
+            Helper pa = new Helper(u + "user/" + em, 1, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
             ob = jh.execute(pa).get();
             if (ob != null) {
@@ -440,7 +440,7 @@ public class Login extends AppCompatActivity {
                     {"email", em},
                     {"device_id", dev_id}
             };
-            Helper pa = new Helper(u + "logingmail", 2, arr);
+            Helper pa = new Helper(u + "logingmail", 2, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
             ob = jh.execute(pa).get();
         } catch (Exception e) {
@@ -451,7 +451,7 @@ public class Login extends AppCompatActivity {
     private void getdev() {
         try {
             String arr[][] = null;
-            Helper pa = new Helper(u + "userdevices/" + spu.getString("id", "-1"), 1, arr);
+            Helper pa = new Helper(u + "userdevices/" + spu.getString("id", "-1"), 1, arr, getApplicationContext());
             JsonHandler2 jh = new JsonHandler2();
             JSONArray jo = jh.execute(pa).get();
             ud = new String[jo.length()][4];
@@ -471,7 +471,7 @@ public class Login extends AppCompatActivity {
         try {
             JSONObject jo = null;
             String arr[][] = null;
-            Helper pa = new Helper(u + "forgotpassword/" + em.getText().toString(), 1, arr);
+            Helper pa = new Helper(u + "forgotpassword/" + em.getText().toString(), 1, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
             jo = jh.execute(pa).get();
             if (jo.isNull("error")) {
