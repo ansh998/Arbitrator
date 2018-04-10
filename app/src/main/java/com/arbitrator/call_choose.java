@@ -45,7 +45,7 @@ public class call_choose extends AppCompatActivity {
                     String y = r.getText().toString();
                     String parts[] = y.split(" ");
                     Pattern p = Pattern.compile("\\d+");
-                    if (parts.length == 2) {
+                    if (parts.length == 1) {
                         Matcher m = p.matcher(parts[1]);
                         if (m.find()) {
                             t = "Calling " + parts[1];
