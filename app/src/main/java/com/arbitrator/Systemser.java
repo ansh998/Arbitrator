@@ -114,6 +114,7 @@ public class Systemser {
                 }
                 cursor.close();
                 Intent cc = new Intent(context, call_choose.class);
+                cc.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(cc);
             }
         }
@@ -123,6 +124,7 @@ public class Systemser {
     private void call(String s) {
 
         Intent i = new Intent(Intent.ACTION_CALL);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.setData(Uri.parse("tel:" + s));
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -142,6 +144,7 @@ public class Systemser {
         i.putExtra(AlarmClock.EXTRA_HOUR, hr);
         i.putExtra(AlarmClock.EXTRA_MINUTES, min);
         i.putExtra(AlarmClock.EXTRA_MESSAGE, "");
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         t = "Alarm set for " + hr + ":" + min;
         Calendar c = Calendar.getInstance();
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");

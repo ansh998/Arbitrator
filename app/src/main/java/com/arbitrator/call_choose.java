@@ -76,6 +76,7 @@ public class call_choose extends AppCompatActivity {
     private void call(String s) {
 
         Intent i = new Intent(Intent.ACTION_CALL);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.setData(Uri.parse("tel:" + s));
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             return;

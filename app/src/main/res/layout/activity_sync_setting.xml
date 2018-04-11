@@ -27,10 +27,11 @@
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:text="Sync  "
-            android:textColor="@color/white"
+            android:textColor="#ff0000"
             android:textOff="Off"
             android:textOn="On"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -52,14 +53,14 @@
             android:layout_height="20dp"
             android:layout_marginTop="13dp"
             android:paddingLeft="20dp"
-            android:text="Device:"
+            android:text="Devices:"
             android:textColor="#ffffff"
             android:textSize="18dp" />
 
         <Spinner
             android:id="@+id/d"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="80dp"
             android:layout_marginTop="13dp"
             android:layout_marginRight="20dp"
@@ -80,7 +81,8 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp">
 
         <!--Name -->
         <TableRow>
@@ -116,7 +118,7 @@
             <TextView
                 android:id="@+id/g"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="25dp"
                 android:layout_column="1"
                 android:layout_below="@+id/e"
                 android:layout_marginTop="13dp"
@@ -193,18 +195,18 @@
                 android:textSize="18dp" />
         </TableRow>
 
-        <TableRow>
-
-            <Button
-                android:id="@+id/btn_remdev"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_marginTop="15dp"
-                android:paddingLeft="20dp"
-                android:text="Remove Device" />
-        </TableRow>
     </TableLayout>
+
+    <Button
+        android:id="@+id/btn_remdev"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:paddingLeft="20dp"
+        android:text="Remove Device" />
 
 
 </LinearLayout>

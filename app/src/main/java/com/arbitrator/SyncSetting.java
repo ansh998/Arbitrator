@@ -3,6 +3,7 @@ package com.arbitrator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -84,6 +85,8 @@ public class SyncSetting extends AppCompatActivity {
             check = false;
 
         b.setChecked(check);
+        if (check)
+            b.setTextColor(Color.GREEN);
         //changer(check);
 
         List<String> cat = new ArrayList<String>();
@@ -137,11 +140,13 @@ public class SyncSetting extends AppCompatActivity {
                         if (jo.isNull("error")) {
                             Toast.makeText(getApplicationContext(), "Sync Started", Toast.LENGTH_SHORT).show();
                             //changer(true);
+                            b.setTextColor(Color.GREEN);
                             spue.putString("sync", "1");
                             spue.commit();
                         } else {
                             Toast.makeText(getApplicationContext(), "Unable to start Sync! Retry later", Toast.LENGTH_SHORT).show();
                             b.setChecked(false);
+                            b.setTextColor(Color.RED);
                             //changer(false);
                         }
                     } catch (Exception e) {
@@ -160,11 +165,13 @@ public class SyncSetting extends AppCompatActivity {
                         if (jo.isNull("error")) {
                             Toast.makeText(getApplicationContext(), "Sync Closed", Toast.LENGTH_SHORT).show();
                             //changer(false);
+                            b.setTextColor(Color.RED);
                             spue.putString("sync", "0");
                             spue.commit();
                         } else {
                             Toast.makeText(getApplicationContext(), "Unable to close Sync! Retry later", Toast.LENGTH_SHORT).show();
                             b.setChecked(true);
+                            b.setTextColor(Color.GREEN);
                             //changer(true);
                         }
                     } catch (Exception e) {
