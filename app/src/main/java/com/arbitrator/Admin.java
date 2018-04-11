@@ -29,7 +29,7 @@ public class Admin extends DeviceAdminReceiver {
 
     @Override
     public CharSequence onDisableRequested(Context context, Intent intent) {
-        return "This is an optional message to warn the user about disabling.";
+        return "This is an optional message to warn the user about  disabling.";
     }
 
     @Override
