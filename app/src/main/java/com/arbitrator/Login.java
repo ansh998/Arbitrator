@@ -102,7 +102,7 @@ public class Login extends AppCompatActivity {
         spu = getSharedPreferences(user, getApplicationContext().MODE_PRIVATE);
         spue = spu.edit();
 
-        //gotomain();
+        gotomain();
 
         if (Integer.parseInt(spu.getString("id", "-1")) > -1) {
             getdev();

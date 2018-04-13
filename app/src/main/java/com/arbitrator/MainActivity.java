@@ -28,7 +28,13 @@ import android.speech.RecognizerIntent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 
@@ -39,6 +45,7 @@ import java.time.Instant;
 import java.time.LocalTime;
 import java.util.*;
 
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -75,10 +82,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    TextView tin, op;
+    TextView tin, op, dr_name, dr_em;
     EditText tinp;
     ImageButton bspk;
     final int req = 100;
@@ -117,7 +124,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_ui);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         dev_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         u = getResources().getString(R.string.url);
@@ -152,8 +161,11 @@ public class MainActivity extends Activity {
         ok = findViewById(R.id.okbtn);
         asd = findViewById(R.id.menubtn);
         op = findViewById(R.id.optv);
+        dr_name = (TextView) findViewById(R.id.nav_name);
+        dr_em = (TextView) findViewById(R.id.nav_em);
 
         op.setMovementMethod(new ScrollingMovementMethod());
+
 
         tinp.clearFocus();
 
@@ -204,6 +216,15 @@ public class MainActivity extends Activity {
                 y = "";
             }
         });
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
@@ -339,6 +360,83 @@ public class MainActivity extends Activity {
                 "Additional text explaining why this needs to be added.");
 
         startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_activity_actions, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.menu_btn_sync) {
+            int i = 0;
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_setting) {
+            Intent si = new Intent(getApplicationContext(), Setting.class);
+            startActivity(si);
+        } else if (id == R.id.nav_abt_us) {
+
+        } else if (id == R.id.nav_cnglog) {
+            Intent i = new Intent(getApplicationContext(), changelog.class);
+            startActivity(i);
+        } else if (id == R.id.nav_logout) {
+            FirebaseUser account = mAuth.getCurrentUser();
+            if (account != null)
+                FirebaseAuth.getInstance().signOut();
+            try {
+                JSONObject jo = null;
+                String[][] arr = new String[][]{
+                        {"id", idd},
+                        {"device_id", dev_id}
+                };
+                Helper pa = new Helper(u + "Logout", 2, arr, getApplicationContext());
+                JsonHandler jh = new JsonHandler();
+                jo = jh.execute(pa).get();
+                if (jo.getString("success").equalsIgnoreCase("Successfully Logged Out")) {
+                    Intent li = new Intent(getApplicationContext(), Login.class);
+                    startActivity(li);
+                    spue.remove("id");
+                    spue.commit();
+                    finish();
+                }
+            } catch (Exception e) {
+                Log.i("logout", e.getMessage());
+            }
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 }

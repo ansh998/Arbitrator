@@ -34,7 +34,7 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".Splash"
             android:screenOrientation="portrait"
@@ -84,6 +84,7 @@
             </intent-filter>
         </receiver
         -->
+
         <activity
             android:name=".Otp"
             android:screenOrientation="portrait"
@@ -96,10 +97,10 @@
             android:name=".ProfileSetting"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
-
-        <activity android:name=".call_choose"
-            android:theme="@style/AppTheme.Dark.Dialog"
-            android:label=""/>
+        <activity
+            android:name=".call_choose"
+            android:label=""
+            android:theme="@style/AppTheme.Dark.Dialog" />
     </application>
 
 </manifest>
