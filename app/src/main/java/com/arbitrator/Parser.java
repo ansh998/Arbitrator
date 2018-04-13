@@ -138,7 +138,7 @@ public class Parser {
                     try {
                         JSONObject jo = null;
                         String arr[][] = {
-                                {"question", y}
+                                {"question", "android:" + y}
                         };
                         Helper pa = new Helper(u + "aiquestion", 2, arr, context);
                         JsonHandler jh = new JsonHandler();
@@ -147,6 +147,12 @@ public class Parser {
                             t = jo.getString("answer");
                             MainActivity.t = t;
                             //MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                            if (t.charAt(0) == '#') {
+                                t = t.substring(1);
+                                t = "open " + t;
+                                parts = t.split(" ");
+                                openCase(" ");
+                            }
                         }
                     } catch (Exception e) {
                         Log.e("aiserverques_catch", e.getMessage());
