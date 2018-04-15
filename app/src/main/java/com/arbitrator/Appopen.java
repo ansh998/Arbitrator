@@ -64,7 +64,8 @@ public class Appopen {
         if (f != -1) {
             activityStarter(context, appPackageList.get(f));
         } else {
-            Toast.makeText(context, "App not Installed !", Toast.LENGTH_SHORT).show();
+
+            //Toast.makeText(context, "App not Installed !", Toast.LENGTH_SHORT).show();
         }
     }
 

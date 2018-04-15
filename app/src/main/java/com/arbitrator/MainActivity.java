@@ -161,8 +161,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ok = findViewById(R.id.okbtn);
         asd = findViewById(R.id.menubtn);
         op = findViewById(R.id.optv);
-        dr_name = (TextView) findViewById(R.id.nav_name);
-        dr_em = (TextView) findViewById(R.id.nav_em);
 
         op.setMovementMethod(new ScrollingMovementMethod());
 
@@ -226,6 +224,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headv = navigationView.getHeaderView(0);
+
+        dr_name = (TextView) headv.findViewById(R.id.nav_name);
+        dr_em = (TextView) headv.findViewById(R.id.nav_em);
+
+        dr_name.setText(spu.getString("un", "").toLowerCase());
+        dr_em.setText(spu.getString("em", ""));
+
+        dr_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ProfileSetting.class);
+                startActivity(i);
+            }
+        });
+
+        dr_em.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ProfileSetting.class);
+                startActivity(i);
+            }
+        });
+
+
     }
 
     private void menupop() {
@@ -270,7 +293,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         break;
 
                     case R.id.menu_btn_sync:
-                        Intent si = new Intent(getApplicationContext(), Setting.class);
+                        Intent si = new Intent(getApplicationContext(), SyncSetting.class);
                         startActivity(si);
                         break;
 
@@ -402,9 +425,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_setting) {
-            Intent si = new Intent(getApplicationContext(), Setting.class);
-            startActivity(si);
+            Intent i = new Intent(getApplicationContext(), SyncSetting.class);
+            startActivity(i);
         } else if (id == R.id.nav_abt_us) {
+
 
         } else if (id == R.id.nav_cnglog) {
             Intent i = new Intent(getApplicationContext(), changelog.class);

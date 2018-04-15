@@ -90,16 +90,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".Setting"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dark" />
-        <activity
             android:name=".ProfileSetting"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".call_choose"
             android:label=""
+            android:theme="@style/AppTheme.Dark.Dialog" />
+        <activity
+            android:name=".App_Chooser"
+            android:label="Select One"
             android:theme="@style/AppTheme.Dark.Dialog" />
     </application>
 

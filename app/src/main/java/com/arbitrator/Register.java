@@ -249,7 +249,7 @@ public class Register extends AppCompatActivity {
         try {
             JSONObject jo = null;
             String arr[][] = new String[][]{
-                    {"username", un},
+                    {"username", un.toUpperCase()},
                     {"fullname", fn},
                     {"password", pwd},
                     {"dob", dob},

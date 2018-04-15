@@ -1,8 +1,10 @@
 package com.arbitrator;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.util.Log;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -21,12 +24,13 @@ public class Parser {
 
 
     private Set set = null;
-    private Appopen ao = null;
+    public static Appopen ao = null;
     private Systemser ss = null;
     private Calc ca = null;
 
 
     String parts[], t = "", u;
+    ArrayList<String> appList;
 
 
     public Parser(Context context) {
@@ -145,21 +149,11 @@ public class Parser {
                         jo = jh.execute(pa).get();
                         if (jo.isNull("error")) {
                             t = jo.getString("answer");
-                            MainActivity.t = t;
-                            //MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
-                            if (t.charAt(0) == '#') {
-                                t = t.substring(1);
-                                t = "open " + t;
-                                parts = t.split(" ");
-                                openCase(" ");
-                            }
+                            aiparser(t);
                         }
                     } catch (Exception e) {
                         Log.e("aiserverques_catch", e.getMessage());
                     }
-//                    t = "Sorry can't help with this right now!";
-//                    MainActivity.t = t;
-//                    MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                 }
                 break;
             }
@@ -219,6 +213,7 @@ public class Parser {
             else {
                 int hits[] = new int[ao.appNameList.size()];
                 int max = 0, in = -1;
+                appList = new ArrayList<>();
                 for (int i = 0; i < ao.appNameList.size(); i++) {
                     String ww = ao.appNameList.get(i);
                     int tt = 0;
@@ -227,22 +222,38 @@ public class Parser {
                             if (ww.contains(parts[j].toLowerCase())) {
                                 tt++;
                             }
-                        Log.i("hits:", ww + " " + tt);
+                        Log.i("hits:", ww + "\t\t\t\t\t" + tt + "\ti=" + i + "\tj=" + j);
                     }
                     hits[i] = tt;
                     if (tt > max) {
                         max = tt;
                         in = i;
                     }
+                    if (tt > 0) {
+                        appList.add(ao.appPackageList.get(i));
+                    }
                 }
-                if (in != -1) {
-                    t = "opening " + ao.appNameList.get(in);
+
+                if (appList.size() > 1) {
+                    Intent aci = new Intent(context, App_Chooser.class);
+                    aci.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    App_Chooser.App_List = appList;
+                    context.startActivity(aci);
                 } else {
-                    t = "Requested app is not installed !";
+                    if (in != -1) {
+                        t = "opening " + ao.appNameList.get(in);
+                    } else {
+                        String na = "";
+                        for (int i = 1; i < parts.length; i++)
+                            na = na + parts[i] + " ";
+                        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=" + na));
+                        context.startActivity(i);
+                        t = "Requested app is not installed !";
+                    }
+                    MainActivity.t = t;
+                    MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                    ao.startApp(in);
                 }
-                MainActivity.t = t;
-                MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
-                ao.startApp(in);
             }
         }
     }
@@ -382,6 +393,30 @@ public class Parser {
 //                            break;
                     }
                     break;
+            }
+        }
+    }
+
+    public void aiparser(String t) {
+
+        switch (t.charAt(0)) {
+            case '#': {
+                t = t.substring(1);
+                t = "open " + t;
+                parts = t.split(" ");
+                openCase(" ");
+            }
+            break;
+            case '@': {
+                t = t.substring(1);
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(t));
+                context.startActivity(i);
+            }
+            break;
+            default: {
+                t = "Sorry can't help with this right now!";
+                MainActivity.t = t;
+                MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
             }
         }
     }
