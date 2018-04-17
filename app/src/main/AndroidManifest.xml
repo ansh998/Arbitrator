@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.arbitrator">
 
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -24,6 +25,7 @@
         android:name="android.permission.BIND_DEVICE_ADMIN"
         tools:ignore="ProtectedPermissions" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ico_mic"
@@ -31,32 +33,37 @@
         android:roundIcon="@drawable/ico_mic"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
+
         <activity
             android:name=".Splash"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Login"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
+
         <activity
             android:name=".changelog"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
+
         <activity
             android:name=".Register"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
+
         <activity
             android:name=".SyncSetting"
             android:screenOrientation="portrait"
@@ -66,7 +73,6 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/mic_widget_info" />
@@ -89,18 +95,44 @@
             android:name=".Otp"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
+
         <activity
             android:name=".ProfileSetting"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
+
         <activity
             android:name=".call_choose"
             android:label=""
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark.Dialog" />
+
         <activity
             android:name=".App_Chooser"
             android:label="Select One"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark.Dialog" />
+
+        <activity
+            android:name=".Arduino.DeviceList"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+
+        <receiver android:name=".Arduino.Phnstate">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".Arduino.NotificationListenerExampleService"
+            android:label=""
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

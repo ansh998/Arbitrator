@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_settings_white_48dp"
             android:title="Sync Settings" />
         <item
+            android:id="@+id/nav_arduino"
+            android:icon="@drawable/ic_devices_other_white_48dp"
+            android:title="Connect to Wearable" />
+        <item
             android:id="@+id/nav_abt_us"
             android:icon="@drawable/ic_group_white_48dp"
             android:title="About Us" />

@@ -3,9 +3,12 @@ package com.arbitrator;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.ProgressDialog;
 import android.app.admin.DevicePolicyManager;
 import android.appwidget.AppWidgetProvider;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -21,6 +24,7 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.service.autofill.RegexValidator;
@@ -38,6 +42,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 
+import java.io.IOException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -67,6 +72,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.arbitrator.Arduino.DeviceList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -96,10 +102,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageView asd;
     static int in = 0;
     int flag = 0;
+    public static String address=null;
+
 
     FirebaseAuth mAuth;
     String u;
     String idd, dev_id;
+
 
     public static DevicePolicyManager DPM;
     public static ActivityManager AM;
@@ -116,9 +125,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static TextToSpeech tt;
     public static AudioManager am;
 
+
     String user;
     SharedPreferences spu;
     SharedPreferences.Editor spue;
+
+
+    private ProgressDialog progress;
+    BluetoothAdapter myBluetooth = null;
+    static BluetoothSocket btSocket = null;
+    private boolean isBtConnected = false;
+    //SPP UUID. Look for it
+    static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
 
     @Override
@@ -317,6 +335,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             y = "";
             flag = 0;
         }
+
+        if (address!=null){
+            new ConnectBT().execute();
+        }
     }
 
     @Override
@@ -426,12 +448,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_setting) {
             Intent i = new Intent(getApplicationContext(), SyncSetting.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
         } else if (id == R.id.nav_abt_us) {
 
 
+        } else if (id == R.id.nav_arduino) {
+            Intent i = new Intent(getApplicationContext(), DeviceList.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
         } else if (id == R.id.nav_cnglog) {
             Intent i = new Intent(getApplicationContext(), changelog.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
         } else if (id == R.id.nav_logout) {
             FirebaseUser account = mAuth.getCurrentUser();
@@ -448,6 +476,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 jo = jh.execute(pa).get();
                 if (jo.getString("success").equalsIgnoreCase("Successfully Logged Out")) {
                     Intent li = new Intent(getApplicationContext(), Login.class);
+                    li.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(li);
                     spue.remove("id");
                     spue.commit();
@@ -463,4 +492,80 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    public static void asd(String a) {
+        if (btSocket != null) {
+            try {
+                //c++;
+                //a=c+"    "+a;
+                //String q=asdsd.getString("un","nhi chalunga");
+                btSocket.getOutputStream().write(a.getBytes());
+            } catch (IOException e) {
+                //msg("Error");
+            }
+        }
+    }
+
+
+    private class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
+    {
+        private boolean ConnectSuccess = true; //if it's here, it's almost connected
+
+        @Override
+        protected void onPreExecute() {
+            progress = ProgressDialog.show(getApplicationContext(), "Connecting...", "Please wait!!!");  //show a progress dialog
+        }
+
+        @Override
+        protected Void doInBackground(Void... devices) //while the progress dialog is shown, the connection is done in background
+        {
+            try {
+                if (btSocket == null || !isBtConnected) {
+                    myBluetooth = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
+                    BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);//connects to the device's address and checks if it's available
+                    btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
+                    BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
+                    btSocket.connect();//start connection
+                }
+            } catch (IOException e) {
+                ConnectSuccess = false;//if the try failed, you can check the exception here
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) //after the doInBackground, it checks if everything went fine
+        {
+            super.onPostExecute(result);
+
+            if (!ConnectSuccess) {
+                Toast.makeText(getApplicationContext(), "Connection Failed. Is it a SPP Bluetooth? Try again.", Toast.LENGTH_LONG).show();
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(), "Connected.", Toast.LENGTH_LONG).show();
+                try {
+                    String q = "";
+                    btSocket.getOutputStream().write(q.getBytes());
+                } catch (Exception e) {
+                    Log.e("cnctbt_async", e.getMessage());
+                }
+                isBtConnected = true;
+            }
+            progress.dismiss();
+        }
+    }
+
+    //    private void Disconnect() {
+//        if (btSocket != null) //If the btSocket is busy
+//        {
+//            try {
+//                btSocket.close(); //close connection
+//            } catch (IOException e) {
+//                msg("Error");
+//            }
+//        }
+//        finish(); //return to the first layout
+//
+//    }
+
 }
+
