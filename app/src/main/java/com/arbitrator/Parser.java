@@ -107,7 +107,7 @@ public class Parser {
                                 if (parts.length > t + 1) {
                                     String da = "" + d.getHours();
                                     int n = Integer.parseInt(da);
-                                    y = y.toLowerCase();
+                                    //y = y.toLowerCase();
                                     if ((y.contains("pm") || y.contains("p.m") || y.contains("p.m.")) && n < 13) {
                                         n += 12;
                                         if (n >= 24)
