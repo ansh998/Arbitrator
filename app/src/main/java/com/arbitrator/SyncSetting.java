@@ -110,10 +110,14 @@ public class SyncSetting extends AppCompatActivity {
                 else
                     j.setText(ud[position][1]);
                 String n = ud[position][3];
-                if (n.equalsIgnoreCase("1"))
+                if (n.equalsIgnoreCase("1")) {
                     l.setText("Online");
-                else if (n.equalsIgnoreCase("0"))
+                    l.setTextColor(Color.GREEN);
+                }
+                else if (n.equalsIgnoreCase("0")) {
                     l.setText("Offline");
+                    l.setTextColor(Color.RED);
+                }
                 curr_id = ud[position][1];
             }
 

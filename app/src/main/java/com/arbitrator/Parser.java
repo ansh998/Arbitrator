@@ -248,6 +248,7 @@ public class Parser {
                         for (int i = 1; i < parts.length; i++)
                             na = na + parts[i] + " ";
                         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=" + na));
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(i);
                         t = "Requested app is not installed !";
                     }

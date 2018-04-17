@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageButton ok;
     ImageView asd;
     static int in = 0;
-    int flag = 0;
+    int flag = 0, f_bt=0;
     public static String address=null;
 
 
@@ -336,8 +336,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             flag = 0;
         }
 
-        if (address!=null){
+        if (address!=null&&f_bt==0){
             new ConnectBT().execute();
+            f_bt=1;
         }
     }
 
@@ -395,6 +396,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             tt.stop();
             tt.shutdown();
         }
+        Disconnect();
     }
 
     private void per() {
@@ -512,7 +514,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         protected void onPreExecute() {
-            progress = ProgressDialog.show(getApplicationContext(), "Connecting...", "Please wait!!!");  //show a progress dialog
+            //progress = ProgressDialog.show(getApplicationContext(), "Connecting...", "Please wait!!!");  //show a progress dialog
         }
 
         @Override
@@ -543,29 +545,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } else {
                 Toast.makeText(getApplicationContext(), "Connected.", Toast.LENGTH_LONG).show();
                 try {
-                    String q = "";
+                    String q = spu.getString("un","").toLowerCase()+"                     ";
+                    q=q.substring(0,8);
                     btSocket.getOutputStream().write(q.getBytes());
                 } catch (Exception e) {
                     Log.e("cnctbt_async", e.getMessage());
                 }
                 isBtConnected = true;
             }
-            progress.dismiss();
+            //progress.dismiss();
         }
     }
 
-    //    private void Disconnect() {
-//        if (btSocket != null) //If the btSocket is busy
-//        {
-//            try {
-//                btSocket.close(); //close connection
-//            } catch (IOException e) {
-//                msg("Error");
-//            }
-//        }
-//        finish(); //return to the first layout
-//
-//    }
+        private void Disconnect() {
+        if (btSocket != null) //If the btSocket is busy
+        {
+            try {
+                btSocket.close(); //close connection
+            } catch (IOException e) {
+                Log.e("Main_disconnect","Error");
+            }
+        }
+        finish(); //return to the first layout
+
+    }
 
 }
 
