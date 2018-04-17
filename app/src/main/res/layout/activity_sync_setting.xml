@@ -7,25 +7,25 @@
     android:background="@color/primary_dark"
     android:orientation="vertical">
 
-    <View
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#cccccc"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"></View>
+        android:layout_height="wrap_content"
+        android:text="Syncronisation Setting"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Switch
             android:id="@+id/b"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
             android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:text="Sync  "
             android:textColor="#ff0000"
             android:textOff="Off"
@@ -34,6 +34,13 @@
             android:textStyle="bold" />
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"></View>
 
     <RelativeLayout
         android:id="@+id/y"
@@ -68,16 +75,14 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/c"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="13dp"
         android:background="#cccccc"
-        android:layout_marginBottom="10dp"
         android:paddingBottom="16dp"></View>
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        >
+        android:paddingBottom="20dp">
 
         <!--Name -->
         <TableRow>
