@@ -107,6 +107,7 @@ public class Parser {
                                 if (parts.length > t + 1) {
                                     String da = "" + d.getHours();
                                     int n = Integer.parseInt(da);
+                                    y = y.toLowerCase();
                                     if ((y.contains("pm") || y.contains("p.m") || y.contains("p.m.")) && n < 13) {
                                         n += 12;
                                         if (n >= 24)
@@ -222,7 +223,7 @@ public class Parser {
                             if (ww.contains(parts[j].toLowerCase())) {
                                 tt++;
                             }
-                        Log.i("hits:", ww + "\t\t\t\t\t" + tt + "\ti=" + i + "\tj=" + j);
+                        //Log.i("hits:", ww + "\t\t\t\t\t" + tt + "\ti=" + i + "\tj=" + j);
                     }
                     hits[i] = tt;
                     if (tt > max) {
@@ -372,7 +373,7 @@ public class Parser {
                             set.flash("close");
                             break;
                         case "silent":
-                            t = "Stchinh to General Mode";
+                            t = "Switching to General Mode";
                             MainActivity.t = t;
                             MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                             MainActivity.am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
