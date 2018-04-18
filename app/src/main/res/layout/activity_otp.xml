@@ -13,7 +13,7 @@
         android:paddingLeft="24dp"
         android:paddingTop="25dp"
         android:paddingRight="24dp"
-        tools:context=".Otp">
+        tools:context=".Activities.Otp">
 
         <TextView
             android:layout_width="match_parent"
@@ -75,7 +75,7 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
         android:visibility="invisible"
-        tools:context=".Otp">
+        tools:context=".Activities.Otp">
 
         <TextView
             android:layout_width="match_parent"

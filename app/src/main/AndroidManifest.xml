@@ -35,12 +35,12 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
 
         <activity
-            android:name=".Splash"
+            android:name=".Activities.Splash"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -50,26 +50,26 @@
         </activity>
 
         <activity
-            android:name=".Login"
+            android:name=".Activities.Login"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
 
         <activity
-            android:name=".changelog"
+            android:name=".Activities.changelog"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
 
         <activity
-            android:name=".Register"
+            android:name=".Activities.Register"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
 
         <activity
-            android:name=".SyncSetting"
+            android:name=".Activities.SyncSetting"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <receiver android:name=".MicWidget">
+        <receiver android:name=".Widget.MicWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -92,23 +92,23 @@
         -->
 
         <activity
-            android:name=".Otp"
+            android:name=".Activities.Otp"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
 
         <activity
-            android:name=".ProfileSetting"
+            android:name=".Activities.ProfileSetting"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
 
         <activity
-            android:name=".call_choose"
+            android:name=".Activities.call_choose"
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark.Dialog" />
 
         <activity
-            android:name=".App_Chooser"
+            android:name=".Activities.App_Chooser"
             android:label="Select One"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark.Dialog" />
@@ -118,14 +118,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
 
-        <receiver android:name=".Arduino.Phnstate">
+        <receiver android:name=".Services.Phnstate">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
 
         <service
-            android:name=".Arduino.NotificationListenerExampleService"
+            android:name=".Services.NotificationService"
             android:label=""
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>

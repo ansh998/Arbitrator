@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".App_Chooser">
+    tools:context=".Activities.App_Chooser">
 
     <LinearLayout
         android:id="@+id/LL_all"

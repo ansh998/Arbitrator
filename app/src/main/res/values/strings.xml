@@ -12,9 +12,9 @@
 
 
     <string name="url2">http\:\/\/gs98\.ddns\.net\/api\/</string>
-    <string name="url4">http\:\/\/aiproject7579\.ddns\.net\/api\/</string>
+    <string name="url">http\:\/\/aiproject7579\.ddns\.net\/api\/</string>
     <string name="url3">http\:\/\/localhost\/api\/</string>
-    <string name="url">http\:\/\/103\.109\.218\.171\/api\/</string>
+    <string name="url4">http\:\/\/103\.109\.218\.171\/api\/</string>
 
 
     <string name="appwidget_text">EXAMPLE</string>
