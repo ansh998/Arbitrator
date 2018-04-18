@@ -12,6 +12,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.provider.Settings;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     TextView tin, op, dr_name, dr_em;
+    ImageView dr_im;
     EditText tinp;
     ImageButton bspk;
     final int req = 100;
@@ -73,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageButton ok;
     ImageView asd;
     public static int in = 0;
-    int flag = 0, f_bt=0;
-    public static String address=null;
+    int flag = 0, f_bt = 0;
+    public static String address = null;
 
 
     FirebaseAuth mAuth;
@@ -218,14 +220,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         dr_name = (TextView) headv.findViewById(R.id.nav_name);
         dr_em = (TextView) headv.findViewById(R.id.nav_em);
+        dr_im = (ImageView) headv.findViewById(R.id.nav_im);
+
 
         dr_name.setText(spu.getString("un", "").toLowerCase());
         dr_em.setText(spu.getString("em", ""));
+        String c = spu.getString("fn", "").charAt(0) + "";
+        c = c.toLowerCase();
+        String cc = "@drawable/" + c;
+        int ccc = getResources().getIdentifier(cc, null, getPackageName());
+        dr_im.setImageDrawable(getDrawable(ccc));
 
         dr_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ProfileSetting.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
         });
@@ -234,6 +244,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ProfileSetting.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+            }
+        });
+
+        dr_im.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ProfileSetting.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
         });
@@ -308,9 +328,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             flag = 0;
         }
 
-        if (address!=null&&f_bt==0){
+        if (address != null && f_bt == 0) {
             new ConnectBT().execute();
-            f_bt=1;
+            f_bt = 1;
         }
     }
 
@@ -517,8 +537,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } else {
                 Toast.makeText(getApplicationContext(), "Connected.", Toast.LENGTH_LONG).show();
                 try {
-                    String q = spu.getString("un","").toLowerCase()+"                     ";
-                    q=q.substring(0,8);
+                    String q = spu.getString("un", "").toLowerCase() + "                     ";
+                    q = q.substring(0, 8);
                     btSocket.getOutputStream().write(q.getBytes());
                 } catch (Exception e) {
                     Log.e("cnctbt_async", e.getMessage());
@@ -529,13 +549,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-        private void Disconnect() {
+    private void Disconnect() {
         if (btSocket != null) //If the btSocket is busy
         {
             try {
                 btSocket.close(); //close connection
             } catch (IOException e) {
-                Log.e("Main_disconnect","Error");
+                Log.e("Main_disconnect", "Error");
             }
         }
         finish(); //return to the first layout
