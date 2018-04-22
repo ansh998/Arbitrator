@@ -133,7 +133,10 @@
         <activity
             android:name=".Activities.QrScan"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dark"></activity>
+            android:theme="@style/AppTheme.Dark" />
+        <activity android:name=".Activities.WearableSetting"
+            android:theme="@style/AppTheme.Dark"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

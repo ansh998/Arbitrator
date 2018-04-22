@@ -96,6 +96,7 @@ public class SyncSetting extends AppCompatActivity {
         List<String> cat = new ArrayList<String>();
         for (int i = 0; i < ud.length; i++) {
             cat.add(ud[i][2]);
+
         }
 
         ArrayAdapter<String> da = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cat);
@@ -103,6 +104,7 @@ public class SyncSetting extends AppCompatActivity {
         da.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         d.setAdapter(da);
+
 
         d.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
