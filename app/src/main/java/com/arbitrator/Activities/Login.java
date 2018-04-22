@@ -1,8 +1,10 @@
 package com.arbitrator.Activities;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
@@ -14,9 +16,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arbitrator.Background.RSA;
 import com.arbitrator.Middleware.Helper;
 import com.arbitrator.Middleware.JsonHandler;
 import com.arbitrator.Middleware.JsonHandler2;
@@ -38,8 +42,11 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 
 public class Login extends AppCompatActivity {
@@ -50,11 +57,13 @@ public class Login extends AppCompatActivity {
     TextView reg, fgtpwd;
     SignInButton sib;
     CheckBox re;
+    ImageButton qr_scan;
     String arr[][], ud[][];
-    int ud_len;
-    String u, dev_id, dev_name;
+    int ud_len, frsa = 0;
+    String u, dev_id, dev_name, emrsa[], pwdrsa;
     public static String det[] = new String[5];
     public static int goog = -1;
+    public static String barcode = "";
 
 
     private FirebaseAuth mAuth;
@@ -72,6 +81,8 @@ public class Login extends AppCompatActivity {
     SharedPreferences spu;
     SharedPreferences.Editor spue;
 
+    RSA rs = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +96,7 @@ public class Login extends AppCompatActivity {
         sib = (SignInButton) findViewById(R.id.gsio);
         re = (CheckBox) findViewById(R.id.rem_me);
         fgtpwd = (TextView) findViewById(R.id.link_frgt);
+        qr_scan = (ImageButton) findViewById(R.id.qr_scan);
 
         sib.setColorScheme(SignInButton.COLOR_LIGHT);
 
@@ -101,6 +113,8 @@ public class Login extends AppCompatActivity {
 
         spu = getSharedPreferences(user, getApplicationContext().MODE_PRIVATE);
         spue = spu.edit();
+
+        rs = new RSA(getApplicationContext());
 
         //gotomain();
 
@@ -168,6 +182,44 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        qr_scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkcamera()) {
+                    frsa = 0;
+                    Intent cam = new Intent(getApplicationContext(), QrScan.class);
+                    cam.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(cam);
+                }
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (barcode.length() > 0 && frsa == 0) {
+            try {
+                frsa = 1;
+                emrsa = barcode.split(":");
+                pwdrsa = rs.Decode(emrsa[1], 77, 221);
+                em.setText(emrsa[0]);
+                pwd.setText(pwdrsa);
+                barcode = "";
+                check();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private boolean checkcamera() {
+        if (getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void check() {
@@ -236,7 +288,8 @@ public class Login extends AppCompatActivity {
                 gotomain();
             }
         } catch (Exception e) {
-            Log.d("nrml check", e.getMessage());
+            Log.d("nrml check", "down");
+            e.printStackTrace();
         }
     }
 
@@ -245,10 +298,12 @@ public class Login extends AppCompatActivity {
         JsonHandler jh = new JsonHandler();
         JSONObject jq = null;
         try {
-            jq = jh.execute(pa).get();
+            jq = jh.execute(pa).get(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
             e.printStackTrace();
         }
         return jq;
@@ -282,7 +337,7 @@ public class Login extends AppCompatActivity {
                 Helper pa = new Helper(u + "emailcheck/" + a.getEmail(), 1, arr, getApplicationContext());
                 JsonHandler jh = new JsonHandler();
                 try {
-                    jo = jh.execute(pa).get();
+                    jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
@@ -324,7 +379,8 @@ public class Login extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                Log.d("google", e.getMessage());
+                Log.d("google", "down");
+                e.printStackTrace();
             }
 
         }
@@ -401,13 +457,14 @@ public class Login extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "synctoggle/" + spu.getString("id", "-1"), 1, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get();
+            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 spue.putString("sync", jo.getString("success"));
                 spue.commit();
             }
         } catch (Exception e) {
-            Log.e("stogget", e.getMessage());
+            Log.e("stogget", "down");
+            e.printStackTrace();
         }
     }
 
@@ -417,7 +474,7 @@ public class Login extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "user/" + em, 1, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            ob = jh.execute(pa).get();
+            ob = jh.execute(pa).get(10, TimeUnit.SECONDS);
             if (ob != null) {
                 spue.putString("id", ob.getString("id"));
                 spue.putString("un", ob.getString("username"));
@@ -429,7 +486,8 @@ public class Login extends AppCompatActivity {
                 spue.commit();
             }
         } catch (Exception e) {
-            Log.e("getdata", e.getMessage());
+            Log.e("getdata", "down");
+            e.printStackTrace();
         }
     }
 
@@ -442,9 +500,10 @@ public class Login extends AppCompatActivity {
             };
             Helper pa = new Helper(u + "logingmail", 2, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            ob = jh.execute(pa).get();
+            ob = jh.execute(pa).get(10, TimeUnit.SECONDS);
         } catch (Exception e) {
-            Log.e("logingmail", e.getMessage());
+            Log.e("logingmail", "down");
+            e.printStackTrace();
         }
     }
 
@@ -453,7 +512,7 @@ public class Login extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "userdevices/" + spu.getString("id", "-1"), 1, arr, getApplicationContext());
             JsonHandler2 jh = new JsonHandler2();
-            JSONArray jo = jh.execute(pa).get();
+            JSONArray jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
             ud = new String[jo.length()][4];
             ud_len = jo.length();
             for (int i = 0; i < jo.length(); i++) {
@@ -463,7 +522,8 @@ public class Login extends AppCompatActivity {
                 ud[i][3] = (jo.getJSONObject(i).getString("status"));
             }
         } catch (Exception e) {
-            Log.e("userdevget", e.getMessage());
+            Log.e("userdevget", "down");
+            e.printStackTrace();
         }
     }
 
@@ -473,7 +533,7 @@ public class Login extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "forgotpassword/" + em.getText().toString(), 1, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get();
+            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 Intent ot = new Intent(getApplicationContext(), Otp.class);
                 startActivity(ot);
@@ -487,7 +547,8 @@ public class Login extends AppCompatActivity {
                 Log.e("login_frgtpwd", jo.getString("error"));
             }
         } catch (Exception e) {
-            Log.e("login_frgtpwd", e.getMessage());
+            Log.e("login_frgtpwd", "down");
+            e.printStackTrace();
         }
     }
 

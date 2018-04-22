@@ -111,7 +111,8 @@ public class App_Chooser extends AppCompatActivity {
                 }
             }
         } catch (Exception e) {
-            Log.e("app_chooser", e.getMessage());
+            Log.e("app_chooser", "down");
+            e.printStackTrace();
         }
     }
 }

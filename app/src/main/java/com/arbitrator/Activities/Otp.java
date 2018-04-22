@@ -17,6 +17,7 @@ import com.arbitrator.R;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class Otp extends AppCompatActivity {
 
@@ -95,7 +96,7 @@ public class Otp extends AppCompatActivity {
                         };
                         Helper pa = new Helper(u + "user/1234", 4, arr, getApplicationContext());
                         JsonHandler jh = new JsonHandler();
-                        jo = jh.execute(pa).get();
+                        jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
                         if (jo.isNull("error")) {
                             Log.e("cngpwd_success", "ho gaya");
                             Intent lo = new Intent(getApplicationContext(), Login.class);
@@ -109,7 +110,8 @@ public class Otp extends AppCompatActivity {
                             finish();
                         }
                     } catch (Exception e) {
-                        Log.e("cngpwd_catch", e.getMessage());
+                        Log.e("cngpwd_catch", "down");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -128,11 +130,12 @@ public class Otp extends AppCompatActivity {
                     };
                     Helper pa = new Helper(u + "emailverify/" + em, 4, arr, getApplicationContext());
                     JsonHandler jh = new JsonHandler();
-                    jo = jh.execute(pa).get();
+                    jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
                     if (jo.isNull("error"))
                         Log.e("otpsuccess", "dsf");
                 } catch (Exception e) {
-                    Log.e("otp", e.getMessage());
+                    Log.e("otp", "down");
+                    e.printStackTrace();
                 }
             }
         });
@@ -148,11 +151,12 @@ public class Otp extends AppCompatActivity {
             };
             Helper pa = new Helper(u + "emailverify", 2, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get();
+            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
             if (jo.isNull("error"))
                 Register.otpc = true;
         } catch (Exception e) {
-            Log.e("otp", e.getMessage());
+            Log.e("otp", "down");
+            e.printStackTrace();
         }
     }
 
@@ -169,13 +173,14 @@ public class Otp extends AppCompatActivity {
             };
             Helper pa = new Helper(u + "Register", 2, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get();
+            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
             if (jo.isNull("error"))
                 return true;
             else
                 return false;
         } catch (Exception e) {
-            Log.e("RegProcess", e.getMessage());
+            Log.e("RegProcess", "down");
+            e.printStackTrace();
             return false;
         }
     }
@@ -193,13 +198,14 @@ public class Otp extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "emailverify/" + em, 3, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get();
+            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
             if (jo.isNull("error"))
                 Log.e("otpdel_success", "ho gaya");
             else
                 Log.e("otpdel_success", jo.getString("error"));
         } catch (Exception e) {
-            Log.e("otpdel_catch", e.getMessage());
+            Log.e("otpdel_catch", "down");
+            e.printStackTrace();
         }
     }
 

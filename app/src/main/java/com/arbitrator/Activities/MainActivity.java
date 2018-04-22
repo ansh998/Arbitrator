@@ -24,13 +24,16 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.*;
 
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,10 +41,15 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arbitrator.ChatDisplayHelper.ChatAdapter;
+import com.arbitrator.ChatDisplayHelper.ChatMessage;
 import com.arbitrator.Services.Admin;
 import com.arbitrator.Background.Appopen;
 import com.arbitrator.Arduino.DeviceList;
@@ -59,6 +67,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -77,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int in = 0;
     int flag = 0, f_bt = 0;
     public static String address = null;
+    public ListView msgs;
+    private ChatAdapter adapter;
 
 
     FirebaseAuth mAuth;
@@ -140,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ao.startApp();
 
-        //per();
+//        per();
 
         spu = getSharedPreferences(user, Context.MODE_PRIVATE);
         spue = spu.edit();
@@ -151,9 +162,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tinp = findViewById(R.id.txtinp1);
         bspk = findViewById(R.id.btnSpeak);
         ok = findViewById(R.id.okbtn);
-        asd = findViewById(R.id.menubtn);
-        op = findViewById(R.id.optv);
+//        msgs = findViewById(R.id.msg_lv);
 
+//        asd = findViewById(R.id.menubtn);
+        op = findViewById(R.id.optv);
+//
         op.setMovementMethod(new ScrollingMovementMethod());
 
 
@@ -161,12 +174,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        asd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menupop();
-            }
-        });
+//        asd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                menupop();
+//            }
+//        });
 
         bspk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,12 +189,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-        /*tinp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tinp.setText("");
-            }
-        });*/
+//        tinp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                tinp.setText("");
+//            }
+//        });
 
 
         tt = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -258,6 +271,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        //loadWelcome();
 
     }
 
@@ -289,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             };
                             Helper pa = new Helper(u + "Logout", 2, arr, getApplicationContext());
                             JsonHandler jh = new JsonHandler();
-                            jo = jh.execute(pa).get();
+                            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
                             if (jo.getString("success").equalsIgnoreCase("Successfully Logged Out")) {
                                 Intent li = new Intent(getApplicationContext(), Login.class);
                                 startActivity(li);
@@ -298,7 +312,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 finish();
                             }
                         } catch (Exception e) {
-                            Log.i("logout", e.getMessage());
+                            Log.i("logout", "down");
+                            e.printStackTrace();
                         }
                         break;
 
@@ -411,28 +426,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_activity_actions, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main_activity_actions, menu);
+//        return true;
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.menu_btn_sync) {
-            int i = 0;
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.menu_btn_sync) {
+//            int i = 0;
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -467,7 +482,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 };
                 Helper pa = new Helper(u + "Logout", 2, arr, getApplicationContext());
                 JsonHandler jh = new JsonHandler();
-                jo = jh.execute(pa).get();
+                jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
                 if (jo.getString("success").equalsIgnoreCase("Successfully Logged Out")) {
                     Intent li = new Intent(getApplicationContext(), Login.class);
                     li.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -477,7 +492,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     finish();
                 }
             } catch (Exception e) {
-                Log.i("logout", e.getMessage());
+                Log.i("logout", "down");
+                e.printStackTrace();
             }
         }
 
@@ -537,11 +553,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } else {
                 Toast.makeText(getApplicationContext(), "Connected.", Toast.LENGTH_LONG).show();
                 try {
-                    String q = spu.getString("un", "").toLowerCase() + "                     ";
-                    q = q.substring(0, 8);
+                    String q = spu.getString("un", "").toLowerCase() + spu.getString("em", "");
                     btSocket.getOutputStream().write(q.getBytes());
                 } catch (Exception e) {
-                    Log.e("cnctbt_async", e.getMessage());
+                    Log.e("cnctbt_async", "down");
+                    e.printStackTrace();
                 }
                 isBtConnected = true;
             }
@@ -561,6 +577,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         finish(); //return to the first layout
 
     }
+
+//    private void loadWelcome() {
+//        ChatMessage a = new ChatMessage();
+//        a.setId(1);
+//        a.setMe(true);
+//        a.setMessage("Welcome To Arbitrator");
+//        a.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+//        adapter = new ChatAdapter(MainActivity.this, new ArrayList<ChatMessage>());
+//        displayMessage(a);
+//
+//    }
+//
+//    public void displayMessage(ChatMessage message) {
+//        adapter.add(message);
+//        adapter.notifyDataSetChanged();
+//        msgs.setSelection(msgs.getCount() - 1);
+//    }
 
 }
 

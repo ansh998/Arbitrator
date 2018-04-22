@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.arbitrator">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -25,6 +24,9 @@
         android:name="android.permission.BIND_DEVICE_ADMIN"
         tools:ignore="ProtectedPermissions" />
 
+    <uses-feature
+        android:name="android.hardware.Camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -33,37 +35,36 @@
         android:roundIcon="@drawable/ico_mic"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
 
         <activity
             android:name=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
-
         <activity
             android:name=".Activities.Splash"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activities.Login"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
-
         <activity
             android:name=".Activities.changelog"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
-
         <activity
             android:name=".Activities.Register"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
-
         <activity
             android:name=".Activities.SyncSetting"
             android:screenOrientation="portrait"
@@ -73,6 +74,7 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/mic_widget_info" />
@@ -95,24 +97,20 @@
             android:name=".Activities.Otp"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
-
         <activity
             android:name=".Activities.ProfileSetting"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
-
         <activity
             android:name=".Activities.call_choose"
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark.Dialog" />
-
         <activity
             android:name=".Activities.App_Chooser"
             android:label="Select One"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark.Dialog" />
-
         <activity
             android:name=".Arduino.DeviceList"
             android:screenOrientation="portrait"
@@ -132,6 +130,10 @@
             </intent-filter>
         </service>
 
+        <activity
+            android:name=".Activities.QrScan"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark"></activity>
     </application>
 
 </manifest>

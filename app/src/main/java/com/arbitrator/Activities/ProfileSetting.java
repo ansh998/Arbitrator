@@ -18,6 +18,8 @@ import com.arbitrator.R;
 
 import org.json.JSONObject;
 
+import java.util.concurrent.TimeUnit;
+
 public class ProfileSetting extends AppCompatActivity {
 
     EditText un, fn, dob;
@@ -153,7 +155,7 @@ public class ProfileSetting extends AppCompatActivity {
             };
             Helper pa = new Helper(u + "user", 2, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get();
+            jo = jh.execute(pa).get(10,TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 se.putString("un", un.getText().toString().toUpperCase());
                 se.putString("fn", fn.getText().toString());
@@ -164,7 +166,8 @@ public class ProfileSetting extends AppCompatActivity {
             } else
                 Toast.makeText(getApplicationContext(), "Unable to Update currently! \nRetry Later", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Log.e("user_update", e.getMessage());
+            Log.e("user_update", "down");
+            e.printStackTrace();
         }
     }
 }

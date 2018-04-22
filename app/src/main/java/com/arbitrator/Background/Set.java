@@ -90,7 +90,8 @@ public class Set {
 //        } catch (InvocationTargetException e) {
 //            Log.e("asdf", e.getTargetException().toString());
 //        } catch (Exception e) {
-//            Log.e("asd", e.getMessage());
+//            Log.e("asd", "down");
+//            e.printStackTrace();
 //        }
 //    }
 

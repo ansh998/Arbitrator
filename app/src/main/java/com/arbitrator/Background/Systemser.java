@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -80,8 +81,15 @@ public class Systemser {
                     ph.close();
                 }
                 cursor.close();
-                Intent cc = new Intent(context, call_choose.class);
-                context.startActivity(cc);
+                if (ar.size() > 0) {
+                    Intent cc = new Intent(context, call_choose.class);
+                    cc.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(cc);
+                } else {
+                    t = "Sorry Contact not Found !";
+                    MainActivity.t = t;
+                    MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                }
             }
         } else {
             String number = "";
@@ -114,9 +122,15 @@ public class Systemser {
                     ph.close();
                 }
                 cursor.close();
-                Intent cc = new Intent(context, call_choose.class);
-                cc.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(cc);
+                if (ar.size() > 0) {
+                    Intent cc = new Intent(context, call_choose.class);
+                    cc.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(cc);
+                } else {
+                    t = "Sorry Contact not found!";
+                    MainActivity.t = t;
+                    MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                }
             }
         }
 
@@ -161,14 +175,15 @@ public class Systemser {
             };
             Helper pa = new Helper(u + "alarm", 2, arr, context);
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get();
+            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 Log.i("Alarm_sync", "Alarm Synced Successfully");
             } else {
                 Toast.makeText(context, "Unable to Sync Alarm with server currently", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            Log.e("alarm_post", e.getMessage());
+            Log.e("alarm_post", "down");
+            e.printStackTrace();
         }
         MainActivity.t = t;
         MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);

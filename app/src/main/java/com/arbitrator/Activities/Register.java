@@ -153,7 +153,8 @@ public class Register extends AppCompatActivity {
             Log.i("qwe", my);
         } catch (ParseException e) {
             f.setError("Invalid Date");
-            Log.e("hgfdakj", e.getMessage());
+            Log.e("hgfdakj", "down");
+            e.printStackTrace();
         }
     }
 
@@ -186,7 +187,8 @@ public class Register extends AppCompatActivity {
                     return false;
                 }
             } catch (Exception e) {
-                Log.e("uncheck", e.getMessage());
+                Log.e("uncheck", "down");
+                e.printStackTrace();
             }
         } else {
             a.setError("This Field cannot be left Blank");
@@ -210,7 +212,8 @@ public class Register extends AppCompatActivity {
                     return false;
                 }
             } catch (Exception e) {
-                Log.e("emcheck", e.getMessage());
+                Log.e("emcheck", "down");
+                e.printStackTrace();
             }
         } else {
             c.setError("This Field cannot be left Blank");
@@ -257,13 +260,14 @@ public class Register extends AppCompatActivity {
             };
             Helper pa = new Helper(u + "Register", 2, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get();
+            jo = jh.execute(pa).get(10,TimeUnit.SECONDS);
             if (jo.isNull("error"))
                 return true;
             else
                 return false;
         } catch (Exception e) {
-            Log.e("RegProcess", e.getMessage());
+            Log.e("RegProcess", "down");
+            e.printStackTrace();
             return false;
         }
     }
@@ -280,7 +284,7 @@ public class Register extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "emailverify/" + em, 1, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get();
+            jo = jh.execute(pa).get(10,TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 otpf = 1;
                 Intent qw = new Intent(getApplicationContext(), Otp.class);

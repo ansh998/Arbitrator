@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 
 public class Parser {
@@ -36,7 +37,7 @@ public class Parser {
 
 
     String parts[], t = "", u;
-    ArrayList<String> appList;
+    ArrayList<String> appList, temp1, temp2;
 
 
     public Parser(Context context) {
@@ -153,13 +154,14 @@ public class Parser {
                         };
                         Helper pa = new Helper(u + "aiquestion", 2, arr, context);
                         JsonHandler jh = new JsonHandler();
-                        jo = jh.execute(pa).get();
+                        jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
                         if (jo.isNull("error")) {
                             t = jo.getString("answer");
                             aiparser(t);
                         }
                     } catch (Exception e) {
-                        Log.e("aiserverques_catch", e.getMessage());
+                        Log.e("aiserverques_catch", "below");
+                        e.printStackTrace();
                     }
                 }
                 break;
@@ -221,6 +223,8 @@ public class Parser {
                 int hits[] = new int[ao.appNameList.size()];
                 int max = 0, in = -1;
                 appList = new ArrayList<>();
+                temp1 = new ArrayList<>();
+                temp2 = new ArrayList<>();
                 for (int i = 0; i < ao.appNameList.size(); i++) {
                     String ww = ao.appNameList.get(i);
                     int tt = 0;
@@ -237,7 +241,14 @@ public class Parser {
                         in = i;
                     }
                     if (tt > 0) {
-                        appList.add(ao.appPackageList.get(i));
+                        temp1.add(ao.appPackageList.get(i));
+                        temp2.add(tt + "");
+                    }
+                }
+
+                for (int i = 0; i < temp1.size(); i++) {
+                    if (temp2.get(i).equalsIgnoreCase(max+"")) {
+                        appList.add(temp1.get(i));
                     }
                 }
 

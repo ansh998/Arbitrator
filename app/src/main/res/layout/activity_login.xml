@@ -10,8 +10,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="24dp"
-        android:paddingTop="56dp"
+        android:paddingTop="26dp"
         android:paddingRight="24dp">
+
+        <ImageButton
+            android:id="@+id/qr_scan"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_filter_center_focus_white_48dp"
+            android:layout_gravity="right"/>
 
         <ImageView
             android:layout_width="72dp"

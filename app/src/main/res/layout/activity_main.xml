@@ -8,14 +8,14 @@
     android:orientation="vertical"
     tools:context=".Activities.MainActivity">
 
-    <ImageView
+    <!--ImageView
         android:id="@+id/menubtn"
         android:layout_width="40dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="8dp"
         android:layout_marginRight="15dp"
-        android:src="@drawable/ic_more_vert_white_48dp" />
+        android:src="@drawable/ic_more_vert_white_48dp" /-->
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/txtinp"
@@ -53,14 +53,36 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <TextView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/txtinp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/primary"
+        android:scrollbars="vertical">
+
+        <ListView
+            android:id="@+id/messagesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:divider="@null"
+            android:listSelector="@android:color/transparent"
+            android:transcriptMode="alwaysScroll" />
+
+    </RelativeLayout>
+
+    <!--TextView
         android:id="@+id/optv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/txtinp"
-        android:layout_below="@+id/menubtn"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="68dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
         android:background="@color/primary"
@@ -70,7 +92,7 @@
         android:text="Welcome To Arbitrator!"
         android:textAlignment="center"
         android:textColor="#cccccc"
-        android:textSize="20dp" />
+        android:textSize="20dp" /-->
 
     <LinearLayout
         android:id="@+id/Linlay"
@@ -99,7 +121,6 @@
             android:textColor="#ffffff"
             android:textSize="15dp"
             android:textStyle="normal" /-->
-
 
     </LinearLayout>
 

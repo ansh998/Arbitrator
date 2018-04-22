@@ -24,14 +24,14 @@
 
     <include layout="@layout/content_main_ui" />
 
-    <ImageView
+    <!--ImageView
         android:id="@+id/menubtn"
         android:layout_width="40dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="8dp"
         android:layout_marginRight="15dp"
-        android:src="@drawable/ic_more_vert_white_48dp" />
+        android:src="@drawable/ic_more_vert_white_48dp" /-->
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/txtinp"
@@ -69,14 +69,38 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <!--RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/txtinp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/primary"
+        android:scrollbars="vertical">
+
+        <ListView
+            android:id="@+id/msg_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:listSelector="@android:color/transparent"
+            android:transcriptMode="alwaysScroll"
+            android:divider="@null" />
+
+    </RelativeLayout-->
+
     <TextView
         android:id="@+id/optv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/txtinp"
-        android:layout_below="@+id/menubtn"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="68dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
         android:background="@color/primary"
