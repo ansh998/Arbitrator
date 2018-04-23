@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ImageView
@@ -22,19 +24,22 @@
             android:textColor="#00ff00"
             android:textSize="23dp" />
 
-        <TableLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:orientation="vertical">
 
             <!--Name -->
-            <TableRow>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_column="1"
                     android:layout_marginLeft="15dp"
                     android:text="Incoming Call Alerts "
                     android:textColor="#cccccc"
@@ -44,21 +49,22 @@
                     android:id="@+id/b"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="60dp"
                     android:textColor="#ff0000"
                     android:textOff="Off"
                     android:textOn="On" />
 
-            </TableRow>
+            </LinearLayout>
 
             <!-- type -->
-            <TableRow>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_column="1"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
                     android:text="Notification Alerts "
@@ -69,16 +75,15 @@
                     android:id="@+id/c"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_column="2"
                     android:layout_marginLeft="70dp"
                     android:layout_marginTop="10dp"
                     android:textColor="#ff0000"
                     android:textOff="Off"
                     android:textOn="On" />
 
-            </TableRow>
+            </LinearLayout>
 
-        </TableLayout>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -96,7 +101,6 @@
             android:textSize="23dp" />
 
         <RelativeLayout
-            android:id="@+id/y"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -137,6 +141,11 @@
             android:text="Flash"
             android:textColor="#cccccc" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#cccccc" />
+
         <Button
             android:id="@+id/asdfg"
             android:layout_width="match_parent"
@@ -144,6 +153,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="15dp"
+            android:background="#ba0000"
             android:text="Unpair Device"
             android:textColor="#cccccc" />
 

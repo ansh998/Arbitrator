@@ -12,7 +12,7 @@ public class BootReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent i = new Intent(context, Splash.class);
+        Intent i = new Intent(context, BackgroundService.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //context.startActivity(i);
     }

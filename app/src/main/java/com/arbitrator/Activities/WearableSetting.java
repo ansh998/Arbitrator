@@ -66,8 +66,12 @@ public class WearableSetting extends AppCompatActivity {
             b.setChecked(true);
 
         if (spu.getInt("notif", 0) == 1)
-            if (NotificationService.isOn)
+            if (NotificationService.isOn) {
                 c.setChecked(true);
+            } else {
+                spue.putInt("notif", 0);
+                spue.commit();
+            }
 
         getalarms();
 
@@ -92,7 +96,7 @@ public class WearableSetting extends AppCompatActivity {
         asdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.asd("");
+                MainActivity.asd("^");
             }
         });
 

@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.os.Bundle;
@@ -242,7 +243,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         c = c.toLowerCase();
         String cc = "@drawable/" + c;
         int ccc = getResources().getIdentifier(cc, null, getPackageName());
-        dr_im.setImageDrawable(getDrawable(ccc));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dr_im.setImageDrawable(getDrawable(ccc));
+        }
 
         dr_name.setOnClickListener(new View.OnClickListener() {
             @Override

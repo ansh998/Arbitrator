@@ -80,9 +80,8 @@
                 android:resource="@xml/mic_widget_info" />
         </receiver>
 
-        <!--
-        receiver
-            android:name=".BootReceiver"
+        <!--receiver
+            android:name=".Services.BootReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
@@ -90,8 +89,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </receiver
-        -->
+        </receiver-->
 
         <activity
             android:name=".Activities.Otp"
@@ -134,9 +132,15 @@
             android:name=".Activities.QrScan"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
-        <activity android:name=".Activities.WearableSetting"
-            android:theme="@style/AppTheme.Dark"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activities.WearableSetting"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+
+        <service
+            android:name=".Services.BackgroundService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

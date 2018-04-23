@@ -17,8 +17,8 @@
             android:id="@+id/qr_scan"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_filter_center_focus_white_48dp"
-            android:layout_gravity="right"/>
+            android:layout_gravity="right"
+            android:src="@drawable/ic_filter_center_focus_white_48dp" />
 
         <ImageView
             android:layout_width="72dp"
@@ -39,8 +39,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
-                android:inputType="textEmailAddress"/>
-                <!--android:text="saatvik@gmail.com"-->
+                android:inputType="textEmailAddress" />
+            <!--android:text="saatvik@gmail.com"-->
 
         </android.support.design.widget.TextInputLayout>
 
@@ -57,26 +57,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
-                android:inputType="textPassword"/>
-                <!--android:text="pass"-->
+                android:inputType="textPassword" />
+            <!--android:text="pass"-->
 
 
         </android.support.design.widget.TextInputLayout>
 
         <CheckBox
+            android:id="@+id/rem_me"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Remember Me"
-            android:id="@+id/rem_me"/>
+            android:text="Remember Me" />
 
         <TextView
             android:id="@+id/link_frgt"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
             android:layout_marginTop="12dp"
-            android:textColor="@color/white"
+            android:gravity="left"
             android:text="@string/frgt"
+            android:textColor="@color/white"
             android:textSize="16dp" />
 
         <android.support.v7.widget.AppCompatButton
@@ -85,10 +85,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
-            android:padding="12dp"
             android:background="@color/black"
-            android:textColor="@color/white"
-            android:text="Login" />
+            android:padding="12dp"
+            android:text="Login"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/link_signup"
@@ -96,8 +96,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:gravity="center"
-            android:textColor="@color/white"
             android:text="@string/reg"
+            android:textColor="@color/white"
             android:textSize="16dp" />
 
         <com.google.android.gms.common.SignInButton

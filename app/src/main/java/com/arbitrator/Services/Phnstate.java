@@ -28,7 +28,7 @@ public class Phnstate extends BroadcastReceiver {
                 user = context.getResources().getString(R.string.user);
                 spu = context.getSharedPreferences(user, Context.MODE_PRIVATE);
 
-                if (spu.getInt("notif", 0) == 1) {
+                if (spu.getInt("call", 0) == 1) {
 
                     Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(incomingNumber));
 
