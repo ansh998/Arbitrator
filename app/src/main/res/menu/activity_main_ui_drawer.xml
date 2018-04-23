@@ -14,9 +14,8 @@
             android:title="Connect to Wearable" />
         <item
             android:id="@+id/nav_jack"
-
-            android:title="Wearable Setting"
-            />
+            android:icon="@drawable/smart"
+            android:title="Wearable Setting" />
         <item
             android:id="@+id/nav_abt_us"
             android:icon="@drawable/ic_group_white_48dp"

@@ -202,12 +202,16 @@ public class Login extends AppCompatActivity {
         if (barcode.length() > 0 && frsa == 0) {
             try {
                 frsa = 1;
-                emrsa = barcode.split(":");
-                pwdrsa = rs.Decode(emrsa[1], 77, 221);
-                em.setText(emrsa[0]);
-                pwd.setText(pwdrsa);
-                barcode = "";
-                check();
+                String s = barcode.substring(0, 6);
+                if (s.equalsIgnoreCase("inarco")) {
+                    barcode = barcode.substring(6);
+                    emrsa = barcode.split(":");
+                    pwdrsa = rs.Decode(emrsa[1], 77, 221);
+                    em.setText(emrsa[0]);
+                    pwd.setText(pwdrsa);
+                    barcode = "";
+                    check();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

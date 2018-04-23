@@ -1,18 +1,26 @@
 package com.arbitrator.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.support.design.widget.BaseTransientBottomBar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 
+import com.arbitrator.Manifest;
 import com.arbitrator.Middleware.Helper;
 import com.arbitrator.Middleware.JsonHandler2;
 import com.arbitrator.R;
+import com.arbitrator.Services.NotificationService;
 
 import org.json.JSONArray;
 
@@ -32,7 +40,8 @@ public class WearableSetting extends AppCompatActivity {
     Spinner a;
     ArrayList<String> cat;
     String u, ud[][];
-    Button asd;
+    Button asd, asdf;
+    Switch b, c;
 
     String user;
     SharedPreferences spu;
@@ -43,12 +52,24 @@ public class WearableSetting extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wearable_setting);
 
-        u=getResources().getString(R.string.url);
+        u = getResources().getString(R.string.url);
         user = getResources().getString(R.string.user);
         spu = getSharedPreferences(user, Context.MODE_PRIVATE);
         spue = spu.edit();
-        asd=findViewById(R.id.asdfgh);
-        a=findViewById(R.id.qweasd);
+        asd = findViewById(R.id.asdfgh);
+        a = findViewById(R.id.qweasd);
+        asdf = findViewById(R.id.asdfg);
+        b = findViewById(R.id.b);
+        c = findViewById(R.id.c);
+
+        if (spu.getInt("call", 0) == 1)
+            b.setChecked(true);
+
+        if (spu.getInt("notif", 0) == 1)
+            if (NotificationService.isOn)
+                c.setChecked(true);
+
+        getalarms();
 
         cat = new ArrayList<String>();
         for (int i = 0; i < ud.length; i++) {
@@ -64,20 +85,46 @@ public class WearableSetting extends AppCompatActivity {
         asd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tyu = null;
-                Date cc = Calendar.getInstance().getTime();
-                String aq=a.getSelectedItem().toString();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
-                Date tt = null;
-                try {
-                    tt=dateFormat.parse(aq);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                long mills = tt.getTime()-cc.getTime();
-                System.out.print(mills);
+                setalarm();
+            }
+        });
 
-              //  MainActivity.asd(tyu);
+        asdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.asd("");
+            }
+        });
+
+        b.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    int PC = ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.READ_PHONE_STATE);
+                    if (PC != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(WearableSetting.this, new String[]{android.Manifest.permission.READ_PHONE_STATE}, 131);
+                    }
+                    spue.putInt("call", 1);
+                } else
+                    spue.putInt("call", 0);
+                spue.commit();
+            }
+        });
+
+        c.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    if (!NotificationService.isOn) {
+//                        ActivityCompat.requestPermissions(WearableSetting.this, new String[]{android.Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE}, 131);
+                        Intent in = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                        in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(in);
+                    }
+                    spue.putInt("notif", 1);
+                } else
+                    spue.putInt("notif", 0);
+                spue.commit();
             }
         });
 
@@ -97,8 +144,61 @@ public class WearableSetting extends AppCompatActivity {
                 ud[i][3] = (jo.getJSONObject(i).getString("alarm_text"));
             }
 
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
+
+    private void setalarm() {
+        Date Ct = Calendar.getInstance().getTime();
+        String val = a.getSelectedItem().toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+        Date St = null;
+        try {
+            St = sdf.parse(val);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        int Chr, Cmin, Shr, Smin, dif = -99;
+
+        Chr = Ct.getHours();
+        Cmin = Ct.getMinutes();
+        Shr = St.getHours();
+        Smin = St.getMinutes();
+
+        if (Shr > Chr) {
+            dif = Shr - Chr;
+            dif *= 60;
+
+            if (Smin > Cmin) {
+                dif += (Smin - Cmin);
+            } else {
+                dif -= 60;
+                dif += 60 - (Cmin - Smin);
+            }
+        } else if (Shr == Chr) {
+            dif = 0;
+            if (Smin > Cmin) {
+                dif += (Smin - Cmin);
+            } else {
+                dif -= 60;
+                dif += 60 - (Cmin - Smin);
+            }
+        } else {
+            dif = 24 - (Chr - Shr);
+            dif *= 60;
+
+            if (Smin > Cmin) {
+                dif += (Smin - Cmin);
+            } else {
+                dif -= 60;
+                dif += 60 - (Cmin - Smin);
+            }
+        }
+        dif *= 60;
+
+        MainActivity.asd("@" + dif);
+    }
+
 }
