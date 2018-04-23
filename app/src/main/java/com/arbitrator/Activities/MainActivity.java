@@ -495,11 +495,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.i("logout", "down");
                 e.printStackTrace();
             }
-        }
-        else if (id==R.id.nav_jack) {
-Intent ws=new Intent(getApplicationContext(),WearableSetting.class);
-ws.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-startActivity(ws);
+        } else if (id == R.id.nav_jack) {
+            Intent ws = new Intent(getApplicationContext(), WearableSetting.class);
+            ws.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(ws);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -558,7 +557,7 @@ startActivity(ws);
             } else {
                 Toast.makeText(getApplicationContext(), "Connected.", Toast.LENGTH_LONG).show();
                 try {
-                    String q = spu.getString("un", "").toLowerCase() +":"+ spu.getString("em", "");
+                    String q = spu.getString("un", "").toLowerCase() + ":" + spu.getString("em", "");
                     btSocket.getOutputStream().write(q.getBytes());
                 } catch (Exception e) {
                     Log.e("cnctbt_async", "down");

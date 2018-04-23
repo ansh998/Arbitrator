@@ -116,7 +116,6 @@ public class WearableSetting extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     if (!NotificationService.isOn) {
-//                        ActivityCompat.requestPermissions(WearableSetting.this, new String[]{android.Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE}, 131);
                         Intent in = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                         in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(in);
