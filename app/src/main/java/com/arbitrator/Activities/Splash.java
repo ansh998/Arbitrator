@@ -51,7 +51,7 @@ public class Splash extends AppCompatActivity {
                 startActivity(i);
                 finish();
             }
-        }, 300);
+        }, 5000);
     }
 
     private boolean haspms(Context context, String pm[]) {
