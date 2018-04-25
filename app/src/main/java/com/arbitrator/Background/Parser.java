@@ -8,11 +8,13 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.arbitrator.Activities.App_Chooser;
 import com.arbitrator.Activities.MainActivity;
 import com.arbitrator.Activities.NoteList;
 import com.arbitrator.Activities.ReminderSet;
+import com.arbitrator.Manifest;
 import com.arbitrator.Middleware.Helper;
 import com.arbitrator.Middleware.JsonHandler;
 import com.arbitrator.R;
@@ -36,6 +38,9 @@ public class Parser {
     public static Appopen ao = null;
     private Systemser ss = null;
     private Calc ca = null;
+
+    String user;
+    SharedPreferences spu;
 
 
     String parts[], t = "", u;
@@ -61,6 +66,9 @@ public class Parser {
 
 
         parts = y.split(" ");
+
+        user = context.getResources().getString(R.string.user);
+        spu = context.getSharedPreferences(user, Context.MODE_PRIVATE);
 
         if (y.toLowerCase().contains("what is the time")) {
             Calendar c = Calendar.getInstance();
@@ -102,17 +110,29 @@ public class Parser {
 //            break;
                 case "show": {
                     if (y.contains("note")) {
-                        Intent no = new Intent(context.getApplicationContext(), NoteList.class);
-                        no.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(no);
+                        if (spu.getString("id", "0").equalsIgnoreCase("1")) {
+                            Intent no = new Intent(context.getApplicationContext(), NoteList.class);
+                            no.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(no);
+                        } else {
+                            t = "Sync is Disabled\nEnable it to view notes";
+                            MainActivity.t = t;
+                            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                        }
                     }
                 }
                 break;
                 case "create": {
                     if (y.contains("note")) {
-                        Intent no = new Intent(context.getApplicationContext(), NoteList.class);
-                        no.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(no);
+                        if (spu.getString("sync", "0").equalsIgnoreCase("1")) {
+                            Intent no = new Intent(context.getApplicationContext(), NoteList.class);
+                            no.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(no);
+                        } else {
+                            t = "Sync is Disabled\nEnable it to create notes";
+                            MainActivity.t = t;
+                            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                        }
                     }
                 }
                 break;
