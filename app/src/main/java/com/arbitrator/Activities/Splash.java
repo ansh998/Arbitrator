@@ -4,11 +4,11 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.Toast;
 
 import com.arbitrator.R;
@@ -43,6 +43,7 @@ public class Splash extends AppCompatActivity {
         }
     }
 
+    //SENDING TO LOGIN PAGE
     private void sta() {
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -54,6 +55,7 @@ public class Splash extends AppCompatActivity {
         }, 4500);
     }
 
+    //CHECKING FOR PERMISSIONS
     private boolean haspms(Context context, String pm[]) {
         boolean allpm = true;
         for (int i = 0; i < pm.length; i++) {

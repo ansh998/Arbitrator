@@ -1,8 +1,8 @@
 package com.arbitrator.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -144,6 +144,7 @@ public class Register extends AppCompatActivity {
         });
     }
 
+    //GETTING DATE
     private void get_date() {
         date = f.getText().toString();
 
@@ -158,6 +159,7 @@ public class Register extends AppCompatActivity {
         }
     }
 
+    //VERIFYING DETAILS
     private Boolean verify_details() {
         un = a.getText().toString();
         fn = b.getText().toString();
@@ -247,6 +249,7 @@ public class Register extends AppCompatActivity {
         return true;
     }
 
+    //PROCESSING REGISTRATION
     private Boolean process() {
         try {
             JSONObject jo = null;
@@ -272,12 +275,14 @@ public class Register extends AppCompatActivity {
         }
     }
 
+    //FORWARDING TO LOGIN PAGE
     public void fwd() {
         Intent i = new Intent(getApplicationContext(), Login.class);
         startActivity(i);
         finish();
     }
 
+    //SENDING OTP
     private boolean otp() {
         try {
             JSONObject jo = null;

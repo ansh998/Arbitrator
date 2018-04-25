@@ -55,6 +55,7 @@ public class DeviceList extends AppCompatActivity {
 
     }
 
+    //GET PAIRED DEVICES LIS
     private void pairedDevicesList() {
 
         pairedDevices = myBluetooth.getBondedDevices();

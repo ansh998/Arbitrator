@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -238,6 +238,7 @@ public class SyncSetting extends AppCompatActivity {
 
     }
 
+    //GET USER DEVICES
     private void getdev() {
         try {
             String arr[][] = null;
@@ -257,6 +258,7 @@ public class SyncSetting extends AppCompatActivity {
         }
     }
 
+    //LOGOUT
     private void logout() {
         FirebaseUser account = mAuth.getCurrentUser();
         if (account != null)
@@ -268,6 +270,7 @@ public class SyncSetting extends AppCompatActivity {
         spue.commit();
     }
 
+    //REMOVE DEVICE
     private void remdev(String id) {
         try {
             JSONObject jo = null;
@@ -286,6 +289,7 @@ public class SyncSetting extends AppCompatActivity {
         }
     }
 
+    //GET SYNC VALUE
     private void getval() {
         try {
             JSONObject jo = null;

@@ -12,62 +12,51 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
-import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-
-import java.io.IOException;
-import java.text.DateFormat;
-import java.util.*;
-
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupMenu;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.arbitrator.ChatDisplayHelper.ChatAdapter;
-import com.arbitrator.ChatDisplayHelper.ChatMessage;
-import com.arbitrator.Services.Admin;
-import com.arbitrator.Background.Appopen;
 import com.arbitrator.Arduino.DeviceList;
+import com.arbitrator.Background.Appopen;
 import com.arbitrator.Background.Calc;
-import com.arbitrator.Middleware.Helper;
-import com.arbitrator.Middleware.JsonHandler;
 import com.arbitrator.Background.Parser;
-import com.arbitrator.R;
 import com.arbitrator.Background.Set;
 import com.arbitrator.Background.Systemser;
+import com.arbitrator.ChatDisplayHelper.ChatAdapter;
+import com.arbitrator.Middleware.Helper;
+import com.arbitrator.Middleware.JsonHandler;
+import com.arbitrator.R;
+import com.arbitrator.Services.Admin;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 
@@ -323,6 +312,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    //activating voice recognition
     public void voiceRecog() {
 
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -453,27 +443,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+
+    //sending data to wearable
     public static void asd(String a) {
         if (btSocket != null) {
             try {
-                //c++;
-                //a=c+"    "+a;
-                //String q=asdsd.getString("un","nhi chalunga");
                 btSocket.getOutputStream().write(a.getBytes());
             } catch (IOException e) {
-                //msg("Error");
+                e.printStackTrace();
             }
         }
     }
 
 
+    //establishing bluetooth connection to wearable
     private class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
     {
         private boolean ConnectSuccess = true; //if it's here, it's almost connected
 
         @Override
         protected void onPreExecute() {
-            //progress = ProgressDialog.show(getApplicationContext(), "Connecting...", "Please wait!!!");  //show a progress dialog
         }
 
         @Override
@@ -512,7 +501,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 isBtConnected = true;
             }
-            //progress.dismiss();
         }
     }
 

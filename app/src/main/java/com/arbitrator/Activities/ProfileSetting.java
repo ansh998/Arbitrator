@@ -1,8 +1,8 @@
 package com.arbitrator.Activities;
 
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -137,6 +137,7 @@ public class ProfileSetting extends AppCompatActivity {
 
     }
 
+    //UPDATING PROFILE
     private void update() {
         try {
             if (ma.isChecked())

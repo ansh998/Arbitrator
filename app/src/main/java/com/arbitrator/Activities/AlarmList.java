@@ -1,10 +1,9 @@
 package com.arbitrator.Activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -46,6 +45,7 @@ public class AlarmList extends AppCompatActivity {
 
         getalarms();
 
+        //ALARM LIST ON CLICK LISTENER
         alarmlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -77,6 +77,7 @@ public class AlarmList extends AppCompatActivity {
 
     }
 
+    //GETTING ALARMS FROM MIDDLEWARE API
     private void getalarms() {
         ArrayList li = new ArrayList();
         try {

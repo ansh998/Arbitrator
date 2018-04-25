@@ -1,16 +1,15 @@
 package com.arbitrator.Activities;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -140,6 +139,7 @@ public class Login extends AppCompatActivity {
             pwd.setText(sp.getString("pwd", ""));
         }
 
+        //SETTING ON CLICK LISTENER ON LOGIN BUTTON
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,6 +147,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        //SETTING ON CLICK LISTENER ON REGISTER BUTTON
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,6 +164,7 @@ public class Login extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        //SETTING ON CLICK LISTENER ON GOOGLE SIGN IN BUTTON
         sib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,6 +172,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        //SETTING ON CLICK LISTENER ON FORGOT PASSWORD
         fgtpwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,6 +183,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        //SETTING ON CLICK LISTENER ON QR SCANNER
         qr_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -227,6 +231,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    //CHECKING FOR CAMERA HARDWARE
     private boolean checkcamera() {
         if (getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             return true;
@@ -235,6 +240,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    //MAIN CHECKER FUNCTION
     private void check() {
         try {
 
@@ -306,6 +312,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    //COMBINED JSON FUNCTION
     public JSONObject Json(String url, String func, int w, String ar[][]) {
         Helper pa = new Helper(url + func, w, ar, getApplicationContext());
         JsonHandler jh = new JsonHandler();
@@ -322,11 +329,13 @@ public class Login extends AppCompatActivity {
         return jq;
     }
 
+    //ACTIVATING GOOGLE SINGIN
     private void Gsin() {
         Intent sii = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(sii, RC_SIGN_IN);
     }
 
+    //TRANSFERRING TO MAIN ACTIVITY
     private void gotomain() {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
@@ -341,6 +350,7 @@ public class Login extends AppCompatActivity {
         start(account);
     }
 
+    //CHECKING USER REGISTRATION
     public void start(FirebaseUser a) {
         if (a != null) {
             //sendmail(a);
@@ -399,6 +409,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    //SIGNING IN USER
     private void signIn() {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
@@ -426,6 +437,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    //AUTHORISING USER FIREBASE
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
@@ -447,6 +459,7 @@ public class Login extends AppCompatActivity {
                 });
     }
 
+    //SENDING EMAIL THROUGH FIREBASE
     public void sendmail(FirebaseUser a) {
         a.sendEmailVerification()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -459,11 +472,13 @@ public class Login extends AppCompatActivity {
                 });
     }
 
+    //OPENING REGISTRATION FORM
     public void regis() {
         Intent bi = new Intent(getApplicationContext(), Register.class);
         startActivity(bi);
     }
 
+    //GETTING SYNC VALUE
     private void getval() {
         try {
             JSONObject jo = null;
@@ -481,6 +496,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    //GETTING USER DETAILS
     public void getdet(String em) {
         try {
             JSONObject ob = null;
@@ -504,6 +520,8 @@ public class Login extends AppCompatActivity {
         }
     }
 
+
+    //USER REGISTRATION CHECK USING FIREBASE
     public void loggoog(String em) {
         try {
             JSONObject ob = null;
@@ -520,6 +538,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    //GETTING USER DEVICES
     private void getdev() {
         try {
             String arr[][] = null;
@@ -540,6 +559,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    //FORGOT PASSWORD
     private void frgt_pwd() {
         try {
             JSONObject jo = null;

@@ -2,13 +2,12 @@ package com.arbitrator.Activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +15,6 @@ import com.arbitrator.Middleware.Helper;
 import com.arbitrator.Middleware.JsonHandler;
 import com.arbitrator.R;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.concurrent.TimeUnit;
@@ -74,6 +72,7 @@ public class NotesEdit extends AppCompatActivity {
         finish();
     }
 
+    //sending notes to Middleware server
     private void sendnote() {
         try {
             String arr[][] = {
@@ -98,6 +97,7 @@ public class NotesEdit extends AppCompatActivity {
         }
     }
 
+    //sending new notes
     private void newnote() {
         try {
             String arr[][] = {

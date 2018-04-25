@@ -4,12 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.support.design.widget.BaseTransientBottomBar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,7 +15,6 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.arbitrator.Manifest;
 import com.arbitrator.Middleware.Helper;
 import com.arbitrator.Middleware.JsonHandler2;
 import com.arbitrator.R;
@@ -26,16 +22,11 @@ import com.arbitrator.Services.NotificationService;
 
 import org.json.JSONArray;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-
-import javax.xml.datatype.Duration;
 
 public class WearableSetting extends AppCompatActivity {
 
@@ -151,6 +142,7 @@ public class WearableSetting extends AppCompatActivity {
 
     }
 
+    //GET USER ALARMS
     private void getalarms() {
         try {
             String arr[][] = null;
@@ -170,6 +162,7 @@ public class WearableSetting extends AppCompatActivity {
         }
     }
 
+    //SET ALARM ON WEARABLE
     private void setalarm() {
         Date Ct = Calendar.getInstance().getTime();
         String val = a.getSelectedItem().toString();

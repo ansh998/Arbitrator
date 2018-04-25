@@ -1,9 +1,9 @@
 package com.arbitrator.Activities;
 
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -40,14 +40,17 @@ public class App_Chooser extends AppCompatActivity {
             if (App_List.size() > 0) {
                 for (int i = 0; i < App_List.size(); i++) {
 
+                    //CREATING NEW LINEAR LAYOUT
                     LinearLayout l = new LinearLayout(this);
                     l.setOrientation(LinearLayout.HORIZONTAL);
                     l.setId(i);
 
+                    //CREATING NEW IMAGE VIEW
                     ImageView iv = new ImageView(this);
                     iv.setImageDrawable(getApplicationContext().getPackageManager().getApplicationIcon(App_List.get(i)));
                     iv.setId(i);
 
+                    //CREATING NEW TEXT VIEW
                     TextView tv = new TextView(this);
                     tv.setText(
                             getApplicationContext()
@@ -62,6 +65,7 @@ public class App_Chooser extends AppCompatActivity {
                     tv.setGravity(Gravity.CENTER_VERTICAL);
                     tv.setId(i);
 
+                    //SETTING ON CLICK LISTENER ON LINEAR LAYOUT
                     l.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -76,6 +80,7 @@ public class App_Chooser extends AppCompatActivity {
                         }
                     });
 
+                    //SETTING ON CLICK LISTENER ON IMAGE VIEW
                     iv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -90,6 +95,7 @@ public class App_Chooser extends AppCompatActivity {
                         }
                     });
 
+                    //SETTING ON CLICK LISTENER ON TEXT VIEW
                     tv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

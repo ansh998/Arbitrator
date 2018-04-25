@@ -51,6 +51,7 @@ public class Systemser {
     String user, u;
     ArrayList<String> ar;
 
+    //CALLING HELPER
     public void caller(String[] parts) {
 
         Pattern p = Pattern.compile("\\d+");
@@ -136,6 +137,7 @@ public class Systemser {
 
     }
 
+    //CALLING DIALER APP
     private void call(String s) {
 
         Intent i = new Intent(Intent.ACTION_CALL);
@@ -148,6 +150,7 @@ public class Systemser {
 
     }
 
+    //SETTING ALARMS
     public void alarm(Date d) {
         user = context.getResources().getString(R.string.user);
         u = context.getResources().getString(R.string.url);

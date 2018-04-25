@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +31,7 @@ public class Appopen {
         //tts = new Speaker(context);
     }
 
+    //GETTING USER APPS LIST
     public void startApp() {
 
         PackageManager pm = context.getPackageManager();
@@ -60,6 +59,7 @@ public class Appopen {
         }
     }
 
+    //STARTING USER APP
     public void startApp(int f) {
         if (f != -1) {
             activityStarter(context, appPackageList.get(f));
@@ -69,6 +69,7 @@ public class Appopen {
         }
     }
 
+    //ACTIVITY STARTER
     public void activityStarter(Context c, String pn) {
         Intent i = c.getPackageManager().getLaunchIntentForPackage(pn);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

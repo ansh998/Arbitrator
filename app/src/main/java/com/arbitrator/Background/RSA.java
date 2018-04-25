@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.math.BigInteger;
 
 
@@ -47,7 +46,7 @@ public class RSA {
         return s1;
     }
 
-
+    //ENCODING
     public long Ec(int a, int k, int n) {
         BigInteger aa = new BigInteger(String.valueOf(k));
         BigInteger bb = new BigInteger(String.valueOf(n));
@@ -56,6 +55,7 @@ public class RSA {
         return dd.intValue();
     }
 
+    //DECODING
     public int De(int a, int d, int n) throws IOException {
 
         BigInteger aa = new BigInteger(String.valueOf(d));

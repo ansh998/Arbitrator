@@ -1,8 +1,8 @@
 package com.arbitrator.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -142,6 +142,7 @@ public class Otp extends AppCompatActivity {
 
     }
 
+    //verifying otp
     private void ottp() {
         try {
             JSONObject jo = null;
@@ -160,6 +161,7 @@ public class Otp extends AppCompatActivity {
         }
     }
 
+    //PROCESSING REGISTERATION
     private Boolean process() {
         try {
             JSONObject jo = null;
@@ -185,6 +187,7 @@ public class Otp extends AppCompatActivity {
         }
     }
 
+    //FORWARDING TO LOGIN PAGE
     public void fwd() {
         otpd();
         Intent i = new Intent(getApplicationContext(), Login.class);
@@ -192,6 +195,8 @@ public class Otp extends AppCompatActivity {
         finish();
     }
 
+
+    //DELETING OTP
     private void otpd() {
         try {
             JSONObject jo = null;

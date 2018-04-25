@@ -4,9 +4,9 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +35,8 @@ public class call_choose extends AppCompatActivity {
             a.setText(xc.get(i));
             a.setId(i);
             a.setTextSize(22);
+
+            //SETTING ON CLICK LISTENER ON TEXT VIEW
             a.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -69,7 +71,7 @@ public class call_choose extends AppCompatActivity {
 
     }
 
-
+    //CALLING CALL INTENT
     private void call(String s) {
 
         Intent i = new Intent(Intent.ACTION_CALL);

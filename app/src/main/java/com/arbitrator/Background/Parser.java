@@ -8,13 +8,11 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.arbitrator.Activities.App_Chooser;
 import com.arbitrator.Activities.MainActivity;
 import com.arbitrator.Activities.NoteList;
 import com.arbitrator.Activities.ReminderSet;
-import com.arbitrator.Manifest;
 import com.arbitrator.Middleware.Helper;
 import com.arbitrator.Middleware.JsonHandler;
 import com.arbitrator.R;
@@ -55,6 +53,7 @@ public class Parser {
         this.context = context;
     }
 
+    //SETTING CONTEXT
     public void setter(Set a, Appopen b, Systemser c, Calc d) {
         set = a;
         ao = b;
@@ -62,6 +61,7 @@ public class Parser {
         ca = d;
     }
 
+    //PARSING INPUT
     public void parse1(String y) {
 
 
@@ -180,6 +180,7 @@ public class Parser {
         }
     }
 
+    //SETTING REMINDER
     private void reminderset() {
         String time = "";
         Intent rem = new Intent(context, ReminderSet.class);
@@ -187,6 +188,7 @@ public class Parser {
 
     }
 
+    //PARSER FOR OPEN KEYWORD
     public void openCase(String q) {
         //ao.startApp();
 
@@ -295,6 +297,7 @@ public class Parser {
         }
     }
 
+    //PARSER FOR SETTINGS
     public void settingcase() {
         if (parts[0].equalsIgnoreCase("close")) {
             switch (parts[1].toLowerCase()) {
@@ -434,6 +437,7 @@ public class Parser {
         }
     }
 
+    //AI PARSER
     public void aiparser(String t) {
 
         switch (t.charAt(0)) {
@@ -458,6 +462,7 @@ public class Parser {
         }
     }
 
+    //SETTING ALARM
     private void alarmset(String y) {
         int t = -1;
         for (int i = 0; i < parts.length; i++) {
