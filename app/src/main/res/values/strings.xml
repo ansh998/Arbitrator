@@ -25,18 +25,6 @@
     <string name="rem">remember_me</string>
     <string name="user">user_details</string>
 
-
-    <string name="changelog">\[version- \'beta-0.01\'\] \n -Congrats for Finally in Beta Phase :-) :-) \n -added AI Server Support (Finally...)
-        \n \n \[version- \'alpha-1.19\'\] \n -added toggle to silent and general mode \n -added more tts usage \n -fixed bugs \n -corrected number calling \n -created activity for profile settings \n -created activity for settings \n -added contacts support for calling \n -corrected support of remember me \n -fixed login if device had been removed \n -refresh in remove device \n -added calculate functionality \n -revamped profile settings \n -improved Sync Settings \n -added alarm send to server \n -added Forgot Password \n -improved startup TTS \n -added new icon on login \n -fixed Forgot Password \n -fixed resend otp \n -added new icon on login \n - added contacts support for call
-        \n \n \[version- \'alpha-1.18\'\] \n -improved tts \n -added \"start\" keyword hit \n -added normal login \n -added registration \n -added otp \n -added google registration \n -added Sync Settings
-        \n \n \[version- \'alpha-1.17\'\] \n -added normal login \n -improved stability \n -added app widget \n -added support of middleware server \n -corrected tts \n -rearranged Main Activity Layout \n -Added output Box \n -added Sync tab layout
-        \n \n \[version- \'alpha-1.16\'\] \n -improved system stability \n -fixed bugs
-        \n \n \[version- \'alpha-1.15\'\] \n -removed register page\n -set link to divert to registration site\n -added Google Sign In Method\n -added functionality of Sign out button
-        \n \n \[version- \'alpha-1.14\'\] \n -changed menu button icon\n -added register page
-        \n \n \[version- \'alpha-1.13\'\] \n -added login screen
-        \n \n \[version- \'alpha-1.12\'\] \n -added menu\n -removed login screen due to errors
-    </string>
-
     <string name="title_activity_main_ui">MainUI</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -47,5 +35,107 @@
     <string name="nav_na">%1$s</string>
     <string name="nav_ema">%1$s</string>
     <string name="title_activity_note_list">NoteList</string>
+
+    <string name="changelog">
+        \[version- \'beta-0.02\'\]
+            \n -added support for arduino
+            \n -added arduino disconnect on destroy
+            \n -improved sync setting layout
+            \n -Reformatted Project Structure
+            \n -added image to nav drawer
+            \n -corrected empty name in notification permmission access
+            \n -updated dependencies
+            \n -added QR code scan to login
+            \n -added middleware server request timeout to 10 sec
+            \n -corrected app parser for multi word
+            \n -added RSA encryption support
+            \n -corrected crash if contact not found
+            \n -added wearable settings page
+            \n -added service flags
+            \n -added flags for notification and phone state service
+            \n -gif splash screen
+            \n -corrected wearable setting ui
+            \n -added functions to sync setting ui
+            \n -added notes support
+            \n -added sync alarm
+            \n -corrected tts for and stt for notes
+
+        \n\n \[version- \'beta-0.01\'\]
+            \n -added AI Server Support
+            \n -corrected call_chooser for length of 2
+            \n -fixed startactivity bug on marshmallow
+            \n -fixed color change of sync toggle
+            \n -added colored Sync button
+            \n -add flags for NEW_TASK
+            \n -improved parser system for ai
+            \n -added new navigation layout to home screen
+            \n -added new Multi app chooser
+            \n -added AI Parser
+            \n -corrected alarm bug
+            \n -added notification listener service
+            \n -added phone state listener service
+
+        \n \n \[version- \'alpha-1.19\'\]
+            \n -added toggle to silent and general mode
+            \n -added more tts usage
+            \n -fixed bugs
+            \n -corrected number calling
+            \n -created activity for profile settings
+            \n -created activity for settings
+            \n -added contacts support for calling
+            \n -corrected support of remember me
+            \n -fixed login if device had been removed
+            \n -refresh in remove device
+            \n -added calculate functionality
+            \n -revamped profile settings
+            \n -improved Sync Settings
+            \n -added alarm send to server
+            \n -added Forgot Password
+            \n -improved startup TTS
+            \n -added new icon on login
+            \n -fixed Forgot Password
+            \n -fixed resend otp
+            \n -added new icon on login
+            \n -added contacts support for call
+
+        \n \n \[version- \'alpha-1.18\'\]
+            \n -improved tts
+            \n -added \"start\" keyword hit
+            \n -added normal login
+            \n -added registration
+            \n -added otp
+            \n -added google registration
+            \n -added Sync Settings
+
+        \n \n \[version- \'alpha-1.17\'\]
+            \n -added normal login \n -improved stability
+            \n -added app widget
+            \n -added support of middleware server
+            \n -corrected tts
+            \n -rearranged Main Activity Layout
+            \n -Added output Box
+            \n -added Sync tab layout
+
+        \n \n \[version- \'alpha-1.16\'\]
+            \n -improved system stability
+            \n -fixed bugs
+
+        \n \n \[version- \'alpha-1.15\'\]
+            \n -removed register page
+            \n -set link to divert to registration site
+            \n -added Google Sign In Method
+            \n -added functionality of Sign out button
+
+        \n \n \[version- \'alpha-1.14\'\]
+            \n -changed menu button icon
+            \n -added register page
+
+        \n \n \[version- \'alpha-1.13\'\]
+            \n -added login screen
+
+        \n \n \[version- \'alpha-1.12\'\]
+            \n -added menu
+            \n -removed login screen due to errors
+    </string>
 
 </resources>
