@@ -91,8 +91,11 @@ public class SyncSetting extends AppCompatActivity {
             check = false;
 
         b.setChecked(check);
-        if (check)
+        if (check) {
             b.setTextColor(Color.GREEN);
+            ala.setVisibility(View.VISIBLE);
+            note.setVisibility(View.VISIBLE);
+        }
         //changer(check);
 
         List<String> cat = new ArrayList<String>();
@@ -152,12 +155,16 @@ public class SyncSetting extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Sync Started", Toast.LENGTH_SHORT).show();
                             //changer(true);
                             b.setTextColor(Color.GREEN);
+                            ala.setVisibility(View.VISIBLE);
+                            note.setVisibility(View.VISIBLE);
                             spue.putString("sync", "1");
                             spue.commit();
                         } else {
                             Toast.makeText(getApplicationContext(), "Unable to start Sync! Retry later", Toast.LENGTH_SHORT).show();
                             b.setChecked(false);
                             b.setTextColor(Color.RED);
+                            ala.setVisibility(View.INVISIBLE);
+                            note.setVisibility(View.INVISIBLE);
                             //changer(false);
                         }
                     } catch (Exception e) {
@@ -178,12 +185,16 @@ public class SyncSetting extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Sync Closed", Toast.LENGTH_SHORT).show();
                             //changer(false);
                             b.setTextColor(Color.RED);
+                            ala.setVisibility(View.INVISIBLE);
+                            note.setVisibility(View.INVISIBLE);
                             spue.putString("sync", "0");
                             spue.commit();
                         } else {
                             Toast.makeText(getApplicationContext(), "Unable to close Sync! Retry later", Toast.LENGTH_SHORT).show();
                             b.setChecked(true);
                             b.setTextColor(Color.GREEN);
+                            ala.setVisibility(View.VISIBLE);
+                            note.setVisibility(View.VISIBLE);
                             //changer(true);
                         }
                     } catch (Exception e) {
@@ -210,6 +221,15 @@ public class SyncSetting extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent no = new Intent(getApplicationContext(), NoteList.class);
+                no.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(no);
+            }
+        });
+
+        ala.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent no = new Intent(getApplicationContext(), AlarmList.class);
                 no.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(no);
             }
@@ -266,33 +286,3 @@ public class SyncSetting extends AppCompatActivity {
     }
 
 }
-/*
-    private void changer(Boolean a) {
-        if (a) {
-            c.setVisibility(View.VISIBLE);
-            d.setVisibility(View.VISIBLE);
-            e.setVisibility(View.VISIBLE);
-            f.setVisibility(View.VISIBLE);
-            g.setVisibility(View.VISIBLE);
-            h.setVisibility(View.VISIBLE);
-            i.setVisibility(View.VISIBLE);
-            j.setVisibility(View.VISIBLE);
-            k.setVisibility(View.VISIBLE);
-            l.setVisibility(View.VISIBLE);
-            rem.setVisibility(View.VISIBLE);
-        } else {
-            c.setVisibility(View.INVISIBLE);
-            d.setVisibility(View.INVISIBLE);
-            e.setVisibility(View.INVISIBLE);
-            f.setVisibility(View.INVISIBLE);
-            g.setVisibility(View.INVISIBLE);
-            h.setVisibility(View.INVISIBLE);
-            i.setVisibility(View.INVISIBLE);
-            j.setVisibility(View.INVISIBLE);
-            k.setVisibility(View.INVISIBLE);
-            l.setVisibility(View.INVISIBLE);
-            rem.setVisibility(View.INVISIBLE);
-        }
-    }
-
- */

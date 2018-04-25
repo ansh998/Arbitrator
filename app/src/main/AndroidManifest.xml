@@ -148,17 +148,18 @@
             android:name=".Activities.ReminderSet"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
-
         <activity
             android:name=".Activities.NotesEdit"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
-
         <activity
             android:name=".Activities.NoteList"
-            android:label="@string/title_activity_note_list"
-            android:theme="@style/AppTheme.Dark"></activity>
-        
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".Activities.AlarmList"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
     </application>
 
 </manifest>

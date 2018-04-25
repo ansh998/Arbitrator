@@ -209,7 +209,7 @@
         android:text="Remove Device" />
 
     <View
-        android:id="@+id/z"
+        android:id="@+id/zz"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/c"
@@ -225,7 +225,8 @@
         android:layout_marginTop="15dp"
         android:layout_marginRight="20dp"
         android:paddingLeft="20dp"
-        android:text="Sync Alarms" />
+        android:text="Sync Alarms"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/btn_syncnote"
@@ -235,6 +236,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginRight="20dp"
         android:paddingLeft="20dp"
-        android:text="Sync Notes" />
+        android:text="Sync Notes"
+        android:visibility="invisible" />
 
 </LinearLayout>

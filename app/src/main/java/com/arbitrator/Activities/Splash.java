@@ -51,7 +51,7 @@ public class Splash extends AppCompatActivity {
                 startActivity(i);
                 finish();
             }
-        }, 5000);
+        }, 4500);
     }
 
     private boolean haspms(Context context, String pm[]) {
@@ -81,7 +81,7 @@ public class Splash extends AppCompatActivity {
                         && grantResults[6] == PackageManager.PERMISSION_GRANTED) {
                     sta();
                 } else {
-                    Toast.makeText(this, "Permission dede!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Permission Please!!", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
