@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -102,7 +103,7 @@
             <TextView
                 android:id="@+id/f"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="25dp"
                 android:layout_column="2"
                 android:layout_below="@id/z"
                 android:layout_marginLeft="5dp"
@@ -201,12 +202,39 @@
         android:id="@+id/btn_remdev"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_column="2"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="20dp"
         android:paddingLeft="20dp"
         android:text="Remove Device" />
 
+    <View
+        android:id="@+id/z"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/c"
+        android:layout_marginTop="13dp"
+        android:background="#cccccc"
+        android:paddingBottom="16dp"></View>
+
+    <Button
+        android:id="@+id/btn_syncalarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:paddingLeft="20dp"
+        android:text="Sync Alarms" />
+
+    <Button
+        android:id="@+id/btn_syncnote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:paddingLeft="20dp"
+        android:text="Sync Notes" />
 
 </LinearLayout>

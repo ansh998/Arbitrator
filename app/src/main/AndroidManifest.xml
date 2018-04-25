@@ -80,7 +80,8 @@
                 android:resource="@xml/mic_widget_info" />
         </receiver>
 
-        <!--receiver
+        <!--
+        receiver
             android:name=".Services.BootReceiver"
             android:enabled="true"
             android:exported="true"
@@ -89,7 +90,8 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </receiver-->
+        </receiver
+        -->
 
         <activity
             android:name=".Activities.Otp"
@@ -140,7 +142,23 @@
         <service
             android:name=".Services.BackgroundService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity
+            android:name=".Activities.ReminderSet"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+
+        <activity
+            android:name=".Activities.NotesEdit"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+
+        <activity
+            android:name=".Activities.NoteList"
+            android:label="@string/title_activity_note_list"
+            android:theme="@style/AppTheme.Dark"></activity>
+        
     </application>
 
 </manifest>

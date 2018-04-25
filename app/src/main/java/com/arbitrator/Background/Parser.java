@@ -11,6 +11,8 @@ import android.util.Log;
 
 import com.arbitrator.Activities.App_Chooser;
 import com.arbitrator.Activities.MainActivity;
+import com.arbitrator.Activities.NoteList;
+import com.arbitrator.Activities.ReminderSet;
 import com.arbitrator.Middleware.Helper;
 import com.arbitrator.Middleware.JsonHandler;
 import com.arbitrator.R;
@@ -98,38 +100,27 @@ public class Parser {
 //                    MainActivity.DPM.lockNow();
 //            }
 //            break;
+                case "show": {
+                    if (y.contains("note")) {
+                        Intent no = new Intent(context.getApplicationContext(), NoteList.class);
+                        no.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(no);
+                    }
+                }
+                break;
+                case "create": {
+                    if (y.contains("note")) {
+                        Intent no = new Intent(context.getApplicationContext(), NoteList.class);
+                        no.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(no);
+                    }
+                }
+                break;
                 case "set": {
                     if (y.contains("alarm")) {
-                        int t = -1;
-                        for (int i = 0; i < parts.length; i++) {
-                            if (parts[i].contains(":")) {
-                                t = i;
-                            }
-                        }
-                        if (t != -1) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
-                            Date d = null;
-                            try {
-                                d = sdf.parse(parts[t]);
-                                if (parts.length > t + 1) {
-                                    String da = "" + d.getHours();
-                                    int n = Integer.parseInt(da);
-                                    y = y.toLowerCase();
-                                    if ((y.contains("pm") || y.contains("p.m") || y.contains("p.m.")) && n < 13) {
-                                        n += 12;
-                                        if (n >= 24)
-                                            n -= 12;
-                                    } else if ((y.contains("am") || y.contains("a.m") || y.contains("a.m.")) && n > 11) {
-                                        n -= 12;
-                                    }
-                                    da = n + ":" + d.getMinutes();
-                                    d = sdf.parse(da);
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            ss.alarm(d);
-                        }
+                        alarmset(y);
+                    } else if (y.contains("reminder")) {
+                        reminderset();
                     }
                 }
                 break;
@@ -167,6 +158,13 @@ public class Parser {
                 break;
             }
         }
+    }
+
+    private void reminderset() {
+        String time = "";
+        Intent rem = new Intent(context, ReminderSet.class);
+        rem.putExtra("time", time);
+
     }
 
     public void openCase(String q) {
@@ -247,7 +245,7 @@ public class Parser {
                 }
 
                 for (int i = 0; i < temp1.size(); i++) {
-                    if (temp2.get(i).equalsIgnoreCase(max+"")) {
+                    if (temp2.get(i).equalsIgnoreCase(max + "")) {
                         appList.add(temp1.get(i));
                     }
                 }
@@ -437,6 +435,39 @@ public class Parser {
                 MainActivity.t = t;
                 MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
             }
+        }
+    }
+
+    private void alarmset(String y) {
+        int t = -1;
+        for (int i = 0; i < parts.length; i++) {
+            if (parts[i].contains(":")) {
+                t = i;
+            }
+        }
+        if (t != -1) {
+            SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+            Date d = null;
+            try {
+                d = sdf.parse(parts[t]);
+                if (parts.length > t + 1) {
+                    String da = "" + d.getHours();
+                    int n = Integer.parseInt(da);
+                    y = y.toLowerCase();
+                    if ((y.contains("pm") || y.contains("p.m") || y.contains("p.m.")) && n < 13) {
+                        n += 12;
+                        if (n >= 24)
+                            n -= 12;
+                    } else if ((y.contains("am") || y.contains("a.m") || y.contains("a.m.")) && n > 11) {
+                        n -= 12;
+                    }
+                    da = n + ":" + d.getMinutes();
+                    d = sdf.parse(da);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ss.alarm(d);
         }
     }
 

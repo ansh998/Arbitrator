@@ -37,7 +37,7 @@ public class SyncSetting extends AppCompatActivity {
     Switch b;
     TextView c, e, f, g, h, i, j, k, l;
     Spinner d;
-    Button rem;
+    Button rem, ala, note;
     Boolean check;
     String u, dev_id, curr_id;
     String ud[][];
@@ -79,6 +79,8 @@ public class SyncSetting extends AppCompatActivity {
         k = (TextView) findViewById(R.id.k);
         l = (TextView) findViewById(R.id.l);
         rem = (Button) findViewById(R.id.btn_remdev);
+        ala = (Button) findViewById(R.id.btn_syncalarm);
+        note = (Button) findViewById(R.id.btn_syncnote);
 
 
         getdev();
@@ -119,8 +121,7 @@ public class SyncSetting extends AppCompatActivity {
                 if (n.equalsIgnoreCase("1")) {
                     l.setText("Online");
                     l.setTextColor(Color.GREEN);
-                }
-                else if (n.equalsIgnoreCase("0")) {
+                } else if (n.equalsIgnoreCase("0")) {
                     l.setText("Offline");
                     l.setTextColor(Color.RED);
                 }
@@ -146,7 +147,7 @@ public class SyncSetting extends AppCompatActivity {
                         };
                         Helper pa = new Helper(u + "synctoggle", 2, arr, getApplicationContext());
                         JsonHandler jh = new JsonHandler();
-                        jo = jh.execute(pa).get(10,TimeUnit.SECONDS);
+                        jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
                         if (jo.isNull("error")) {
                             Toast.makeText(getApplicationContext(), "Sync Started", Toast.LENGTH_SHORT).show();
                             //changer(true);
@@ -172,7 +173,7 @@ public class SyncSetting extends AppCompatActivity {
                         };
                         Helper pa = new Helper(u + "synctoggle", 2, arr, getApplicationContext());
                         JsonHandler jh = new JsonHandler();
-                        jo = jh.execute(pa).get(10,TimeUnit.SECONDS);
+                        jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
                         if (jo.isNull("error")) {
                             Toast.makeText(getApplicationContext(), "Sync Closed", Toast.LENGTH_SHORT).show();
                             //changer(false);
@@ -204,6 +205,16 @@ public class SyncSetting extends AppCompatActivity {
                 startActivity(getIntent());
             }
         });
+
+        note.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent no = new Intent(getApplicationContext(), NoteList.class);
+                no.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(no);
+            }
+        });
+
     }
 
     private void getdev() {
@@ -211,7 +222,7 @@ public class SyncSetting extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "userdevices/" + spu.getString("id", "-1"), 1, arr, getApplicationContext());
             JsonHandler2 jh = new JsonHandler2();
-            JSONArray jo = jh.execute(pa).get(10,TimeUnit.SECONDS);
+            JSONArray jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
             ud = new String[jo.length()][4];
             for (int i = 0; i < jo.length(); i++) {
                 ud[i][0] = (jo.getJSONObject(i).getString("type"));
@@ -242,7 +253,7 @@ public class SyncSetting extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "userdevices/" + id, 3, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get(10,TimeUnit.SECONDS);
+            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 Toast.makeText(getApplicationContext(), "Device Removed Successfully", Toast.LENGTH_LONG).show();
             } else {

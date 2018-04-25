@@ -46,5 +46,6 @@
 
     <string name="nav_na">%1$s</string>
     <string name="nav_ema">%1$s</string>
+    <string name="title_activity_note_list">NoteList</string>
 
 </resources>
