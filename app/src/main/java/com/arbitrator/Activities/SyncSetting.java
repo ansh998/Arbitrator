@@ -84,6 +84,7 @@ public class SyncSetting extends AppCompatActivity {
 
 
         getdev();
+        getval();
 
         if (s == 1) {
             check = true;
@@ -281,6 +282,23 @@ public class SyncSetting extends AppCompatActivity {
             }
         } catch (Exception e) {
             Log.e("rem_dev", "down");
+            e.printStackTrace();
+        }
+    }
+
+    private void getval() {
+        try {
+            JSONObject jo = null;
+            String arr[][] = null;
+            Helper pa = new Helper(u + "synctoggle/" + spu.getString("id", "-1"), 1, arr, getApplicationContext());
+            JsonHandler jh = new JsonHandler();
+            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            if (jo.isNull("error")) {
+                spue.putString("sync", jo.getString("success"));
+                spue.commit();
+            }
+        } catch (Exception e) {
+            Log.e("stogget", "down");
             e.printStackTrace();
         }
     }

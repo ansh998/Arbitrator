@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.arbitrator.Manifest;
 import com.arbitrator.Middleware.Helper;
@@ -42,6 +44,8 @@ public class WearableSetting extends AppCompatActivity {
     String u, ud[][];
     Button asd, asdf;
     Switch b, c;
+    int f = 0;
+    TextView aler;
 
     String user;
     SharedPreferences spu;
@@ -61,6 +65,7 @@ public class WearableSetting extends AppCompatActivity {
         asdf = findViewById(R.id.asdfg);
         b = findViewById(R.id.b);
         c = findViewById(R.id.c);
+        aler = findViewById(R.id.alert);
 
         if (spu.getInt("call", 0) == 1)
             b.setChecked(true);
@@ -89,7 +94,16 @@ public class WearableSetting extends AppCompatActivity {
         asd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setalarm();
+                if (!aler.getText().toString().equalsIgnoreCase("Device is not paired Yet!")) {
+                    if (f == 0) {
+                        aler.setText("Flashing Alarm will stop any other functionality!\nTo continue press Flash again.");
+                        f++;
+                    } else if (f == 1) {
+                        setalarm();
+                        f = 0;
+                        aler.setText("");
+                    }
+                }
             }
         });
 
@@ -130,6 +144,10 @@ public class WearableSetting extends AppCompatActivity {
                 spue.commit();
             }
         });
+
+        if (MainActivity.f_bt == 0) {
+            aler.setText("Device is not paired Yet!");
+        }
 
     }
 

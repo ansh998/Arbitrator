@@ -55,8 +55,9 @@ public class NoteList extends AppCompatActivity {
                 SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 NotesEdit.nId = s.format(c.getTime());
                 Calendar cc = Calendar.getInstance();
-                SimpleDateFormat ss = new SimpleDateFormat("dd-MMM--yyyy");
+                SimpleDateFormat ss = new SimpleDateFormat("dd-MMM-yyyy");
                 NotesEdit.nDate = ss.format(cc.getTime());
+                NotesEdit.nData = "";
                 editno.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(editno);
                 finish();

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
+    android:orientation="vertical"
     android:theme="@style/AppTheme.Dark.Dialog"
     tools:context=".Activities.ReminderSet">
 
@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Add a Title" />
+
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -30,5 +31,7 @@
             android:layout_height="40dp">
 
         </Spinner>
+
     </android.support.design.widget.TextInputLayout>
+
 </LinearLayout>

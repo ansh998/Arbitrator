@@ -21,7 +21,13 @@
         android:text="Alarm List"
         android:textColor="#cccccc"
         android:textIsSelectable="false"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="110dp"
+        android:layout_height="2dp"
+        android:layout_below="@+id/textVie"
+        android:background="#cccccc" />
 
     <ListView
         android:id="@+id/alarmlist"

@@ -4,9 +4,19 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Open Settings page on Desktop App!"
+        android:textColor="#cccccc"
+        android:textSize="18sp" />
+
     <SurfaceView
         android:id="@+id/camera_preview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1" />
+
 </LinearLayout>

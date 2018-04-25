@@ -5,6 +5,6 @@
     android:minWidth="40dp"
     android:minHeight="40dp"
     android:previewImage="@drawable/ico_mic"
-    android:resizeMode="horizontal"
+    android:resizeMode="none"
     android:updatePeriodMillis="0"
     android:widgetCategory="home_screen"></appwidget-provider>

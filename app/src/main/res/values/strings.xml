@@ -59,6 +59,10 @@
             \n -added notes support
             \n -added sync alarm
             \n -corrected tts for and stt for notes
+            \n -corrected new note bug
+            \n -added get sync val on open sync settings
+            \n -added alerts on wearable setting
+            \n -corrected show notes parser
 
         \n\n \[version- \'beta-0.01\'\]
             \n -added AI Server Support

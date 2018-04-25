@@ -103,7 +103,7 @@
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".Activities.call_choose"
-            android:label=""
+            android:label="Select One"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark.Dialog" />
         <activity

@@ -22,14 +22,14 @@
             android:layout_marginLeft="8dp"
             android:text="Notification Settings"
             android:textColor="#00ff00"
-            android:textSize="23dp" />
+            android:textSize="23sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:paddingBottom="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="10dp">
 
             <!--Name -->
             <LinearLayout
@@ -43,7 +43,7 @@
                     android:layout_marginLeft="15dp"
                     android:text="Incoming Call Alerts "
                     android:textColor="#cccccc"
-                    android:textSize="19dp" />
+                    android:textSize="19sp" />
 
                 <Switch
                     android:id="@+id/b"
@@ -69,7 +69,7 @@
                     android:layout_marginTop="10dp"
                     android:text="Notification Alerts "
                     android:textColor="#cccccc"
-                    android:textSize="19dp" />
+                    android:textSize="19sp" />
 
                 <Switch
                     android:id="@+id/c"
@@ -98,7 +98,7 @@
             android:layout_marginTop="10dp"
             android:text="Alarm Settings"
             android:textColor="#00ff00"
-            android:textSize="23dp" />
+            android:textSize="23sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                 android:paddingLeft="15dp"
                 android:text="Your Alarms"
                 android:textColor="#cccccc"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/qweasd"
@@ -137,8 +137,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="15dp"
             android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
             android:text="Flash"
             android:textColor="#cccccc" />
 
@@ -157,6 +157,16 @@
             android:background="#ba0000"
             android:text="Unpair Device"
             android:textColor="#cccccc" />
+
+        <TextView
+            android:id="@+id/alert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:textColor="#ff0000"
+            android:textSize="20sp" />
 
     </LinearLayout>
 

@@ -77,7 +77,7 @@
             android:gravity="left"
             android:text="@string/frgt"
             android:textColor="@color/white"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_login"
@@ -98,7 +98,7 @@
             android:gravity="center"
             android:text="@string/reg"
             android:textColor="@color/white"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/gsio"

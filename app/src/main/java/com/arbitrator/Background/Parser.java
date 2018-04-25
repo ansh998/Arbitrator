@@ -110,7 +110,7 @@ public class Parser {
 //            break;
                 case "show": {
                     if (y.contains("note")) {
-                        if (spu.getString("id", "0").equalsIgnoreCase("1")) {
+                        if (spu.getString("sync", "0").equalsIgnoreCase("1")) {
                             Intent no = new Intent(context.getApplicationContext(), NoteList.class);
                             no.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(no);

@@ -69,6 +69,11 @@ public class NotesEdit extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
     private void sendnote() {
         try {
             String arr[][] = {

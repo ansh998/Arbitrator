@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageButton ok;
     ImageView asd;
     public static int in = 0;
-    int flag = 0, f_bt = 0;
+    public static int flag = 0, f_bt = 0;
     public static String address = null;
     public ListView msgs;
     private ChatAdapter adapter;
@@ -276,62 +276,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //loadWelcome();
 
-    }
-
-    private void menupop() {
-        PopupMenu pop = new PopupMenu(this, asd);
-        pop.getMenuInflater().inflate(R.menu.main_activity_actions, pop.getMenu());
-        pop.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menu_btn_abtus:
-                        //Code for option 1
-                        break;
-
-                    case R.id.menu_btn_cnglg:
-                        Intent i = new Intent(getApplicationContext(), changelog.class);
-                        startActivity(i);
-                        break;
-
-                    case R.id.menu_btn_lgout:
-                        FirebaseUser account = mAuth.getCurrentUser();
-                        if (account != null)
-                            FirebaseAuth.getInstance().signOut();
-                        try {
-                            JSONObject jo = null;
-                            String[][] arr = new String[][]{
-                                    {"id", idd},
-                                    {"device_id", dev_id}
-                            };
-                            Helper pa = new Helper(u + "Logout", 2, arr, getApplicationContext());
-                            JsonHandler jh = new JsonHandler();
-                            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
-                            if (jo.getString("success").equalsIgnoreCase("Successfully Logged Out")) {
-                                Intent li = new Intent(getApplicationContext(), Login.class);
-                                startActivity(li);
-                                spue.remove("id");
-                                spue.commit();
-                                finish();
-                            }
-                        } catch (Exception e) {
-                            Log.i("logout", "down");
-                            e.printStackTrace();
-                        }
-                        break;
-
-                    case R.id.menu_btn_sync:
-                        Intent si = new Intent(getApplicationContext(), SyncSetting.class);
-                        startActivity(si);
-                        break;
-
-                    default:
-                        break;
-                }
-                return false;
-            }
-        });
-        pop.show();
     }
 
     @Override

@@ -17,19 +17,7 @@
         android:text="Paired Devices"
         android:textColor="#cccccc"
         android:textIsSelectable="false"
-        android:textSize="20dp" />
-
-    <!--Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Paired Devices"
-        android:id="@+id/button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="#e75238" /-->
+        android:textSize="20sp" />
 
     <ListView
         android:id="@+id/listView"
