@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dr_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Profile.class);
+                Intent i = new Intent(getApplicationContext(), ProfileSetting.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dr_em.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Profile.class);
+                Intent i = new Intent(getApplicationContext(), ProfileSetting.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dr_im.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Profile.class);
+                Intent i = new Intent(getApplicationContext(), ProfileSetting.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }

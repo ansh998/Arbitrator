@@ -99,6 +99,7 @@
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".Activities.ProfileSetting"
+            android:label="@string/title_activity_profile"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
@@ -162,7 +163,6 @@
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".Activities.Profile"
-            android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.Dark"></activity>
     </application>
 

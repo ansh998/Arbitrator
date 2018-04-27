@@ -35,7 +35,9 @@ public class ProfileSetting extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_setting);
+        setContentView(R.layout.activity_profile);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         un = (EditText) findViewById(R.id.profile_un);
         fn = (EditText) findViewById(R.id.profile_fn);
