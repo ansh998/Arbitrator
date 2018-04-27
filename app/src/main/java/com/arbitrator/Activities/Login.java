@@ -338,6 +338,8 @@ public class Login extends AppCompatActivity {
     //TRANSFERRING TO MAIN ACTIVITY
     private void gotomain() {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.putExtra("mode", "normal");
         startActivity(i);
         finish();
     }
@@ -391,6 +393,8 @@ public class Login extends AppCompatActivity {
                         getdet(em.getText().toString());
                         //Toast.makeText(getApplicationContext(), "Ho Gaya", Toast.LENGTH_LONG).show();
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.putExtra("mode", "normal");
                         startActivity(i);
                         signIn();
                         getdet(a.getEmail());

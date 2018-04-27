@@ -54,7 +54,9 @@ import com.google.firebase.auth.FirebaseUser;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     FirebaseAuth mAuth;
-    String u;
+    String u, iVal = "";
     String idd, dev_id;
 
 
@@ -153,10 +155,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bspk = findViewById(R.id.btnSpeak);
         ok = findViewById(R.id.okbtn);
 //        msgs = findViewById(R.id.msg_lv);
-
-//        asd = findViewById(R.id.menubtn);
         op = findViewById(R.id.optv);
-//
         op.setMovementMethod(new ScrollingMovementMethod());
 
 
@@ -164,12 +163,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-//        asd.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                menupop();
-//            }
-//        });
+
+        Intent intent = getIntent();
+        iVal = intent.getStringExtra("mode");
+        if (iVal.equalsIgnoreCase("widget")) {
+            if (Integer.parseInt(spu.getString("id", "-1")) > -1) {
+                voiceRecog();
+            } else {
+                Intent log = new Intent(getApplicationContext(), Login.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(log);
+                finish();
+            }
+        }
 
         bspk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,8 +217,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -239,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dr_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ProfileSetting.class);
+                Intent i = new Intent(getApplicationContext(), Profile.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
@@ -248,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dr_em.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ProfileSetting.class);
+                Intent i = new Intent(getApplicationContext(), Profile.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
@@ -257,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dr_im.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ProfileSetting.class);
+                Intent i = new Intent(getApplicationContext(), Profile.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
@@ -283,6 +288,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             new ConnectBT().execute();
             f_bt = 1;
         }
+
+//        if (iVal.equalsIgnoreCase("widget")) {
+//            iVal = "";
+//            finish();
+//        }
     }
 
     @Override
@@ -495,6 +505,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 try {
                     String q = spu.getString("un", "").toLowerCase() + ":" + spu.getString("em", "");
                     btSocket.getOutputStream().write(q.getBytes());
+                    Calendar cc = Calendar.getInstance();
+                    SimpleDateFormat ss = new SimpleDateFormat("dd/MM");
+                    String qw = "%" + ss.format(cc.getTime());
+                    btSocket.getOutputStream().write(qw.getBytes());
                 } catch (Exception e) {
                     Log.e("cnctbt_async", "down");
                     e.printStackTrace();

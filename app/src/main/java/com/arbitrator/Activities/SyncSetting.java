@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -55,6 +56,8 @@ public class SyncSetting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sync_setting);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolb);
+        setSupportActionBar(toolbar);
 
         user = getResources().getString(R.string.user);
         spu = getSharedPreferences(user, Context.MODE_PRIVATE);

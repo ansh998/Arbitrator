@@ -68,7 +68,7 @@
         <activity
             android:name=".Activities.SyncSetting"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.Dark" />
 
         <receiver android:name=".Widget.MicWidget">
             <intent-filter>
@@ -160,6 +160,10 @@
             android:name=".Activities.AlarmList"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".Activities.Profile"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/AppTheme.Dark"></activity>
     </application>
 
 </manifest>
