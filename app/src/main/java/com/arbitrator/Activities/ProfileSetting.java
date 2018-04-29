@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -47,6 +48,10 @@ public class ProfileSetting extends AppCompatActivity {
         fe = (RadioButton) findViewById(R.id.profile_female);
         use = getResources().getString(R.string.user);
         u = getResources().getString(R.string.url);
+
+        un.clearFocus();
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         su = getSharedPreferences(use, MODE_PRIVATE);
         se = su.edit();

@@ -71,17 +71,17 @@
             android:textColor="#ffffff"
             android:textSize="18sp" />
 
+
         <Spinner
             android:id="@+id/d"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_marginLeft="80dp"
             android:layout_marginTop="13dp"
-            android:popupBackground="@color/white"
             android:layout_marginRight="20dp"
             android:layout_toRightOf="@+id/c"
-            android:background="@color/white"
             android:dropDownSelector="@color/white"
+            android:popupBackground="@color/white"
             android:textSize="18sp" />
 
     </RelativeLayout>

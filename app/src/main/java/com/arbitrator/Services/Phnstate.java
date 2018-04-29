@@ -64,7 +64,7 @@ public class Phnstate extends BroadcastReceiver {
                     Toast.makeText(context, "Ringing State Number is -" + contactName, Toast.LENGTH_LONG).show();
                     MainActivity.asd("c" + contactName);
 
-                    String val = "c:" + contactName + ":" + Build.MODEL + "-" + dev_id.substring(4, 9);
+                    String val = "c=" + contactName + "=" + Build.MODEL + "-" + dev_id.substring(4, 9);
                     sendpref(val, context);
 
                     Thread.sleep(5000);

@@ -169,6 +169,10 @@ public class Parser {
                         if (jo.isNull("error")) {
                             t = jo.getString("answer");
                             aiparser(t);
+                        } else {
+                            t = "Sorry can't help with this right now!";
+                            MainActivity.t = t;
+                            MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                         }
                     } catch (Exception e) {
                         Log.e("aiserverques_catch", "below");

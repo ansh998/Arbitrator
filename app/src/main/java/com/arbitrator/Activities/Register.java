@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -68,6 +69,10 @@ public class Register extends AppCompatActivity {
         k = (EditText) findViewById(R.id.input_otp);
         //l = (ImageButton) findViewById(R.id.otp_btn);
         reg = (Button) findViewById(R.id.btn_register);
+
+        a.clearFocus();
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         if (Login.goog == 99) {
             b.setText(Login.det[1] + " " + Login.det[2]);

@@ -67,6 +67,7 @@
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".Activities.SyncSetting"
+            android:label="Sync Settings"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
 

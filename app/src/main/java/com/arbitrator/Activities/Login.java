@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -96,6 +97,10 @@ public class Login extends AppCompatActivity {
         re = (CheckBox) findViewById(R.id.rem_me);
         fgtpwd = (TextView) findViewById(R.id.link_frgt);
         qr_scan = (ImageButton) findViewById(R.id.qr_scan);
+
+        em.clearFocus();
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         sib.setColorScheme(SignInButton.COLOR_LIGHT);
 
