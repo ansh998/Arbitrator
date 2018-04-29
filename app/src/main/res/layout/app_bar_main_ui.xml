@@ -60,7 +60,24 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <TextView
+    <ListView
+        android:id="@+id/optv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/txtinp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentTop="false"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:textColor="#cccccc"
+        android:textSize="20sp"
+        android:transcriptMode="alwaysScroll" />
+
+    <!--TextView
         android:id="@+id/optv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -76,7 +93,7 @@
         android:text="Welcome To Arbitrator!"
         android:textAlignment="center"
         android:textColor="#cccccc"
-        android:textSize="20sp" />
+        android:textSize="20sp" /-->
 
     <LinearLayout
         android:id="@+id/Linlay"

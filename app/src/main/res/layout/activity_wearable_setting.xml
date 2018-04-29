@@ -123,7 +123,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_toRightOf="@+id/qwe"
                 android:background="#c0c0c0"
-                android:dropDownSelector="@color/black"
+                android:dropDownSelector="@color/white"
                 android:paddingLeft="15dp"
                 android:popupBackground="@color/white"
                 android:textAlignment="center"

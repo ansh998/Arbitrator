@@ -162,8 +162,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".Activities.Profile"
-            android:theme="@style/AppTheme.Dark"></activity>
+            android:name=".Activities.AboutUs"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
     </application>
 
 </manifest>

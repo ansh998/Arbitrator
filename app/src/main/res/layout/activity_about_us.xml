@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.changelog">
+    tools:context=".Activities.AboutUs">
 
     <TextView
         android:layout_width="match_parent"
@@ -14,8 +14,8 @@
         android:paddingBottom="20dp"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbars="vertical"
-        android:text="@string/changelog"
+        android:text="@string/abt_us"
         android:textColor="@color/white"
-        android:textSize="17sp" />
+        android:textSize="25sp" />
 
 </ScrollView>

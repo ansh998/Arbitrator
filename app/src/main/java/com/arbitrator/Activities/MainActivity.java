@@ -25,7 +25,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,6 +43,7 @@ import com.arbitrator.Background.Parser;
 import com.arbitrator.Background.Set;
 import com.arbitrator.Background.Systemser;
 import com.arbitrator.ChatDisplayHelper.ChatAdapter;
+import com.arbitrator.ChatDisplayHelper.ChatMessage;
 import com.arbitrator.Middleware.Helper;
 import com.arbitrator.Middleware.JsonHandler;
 import com.arbitrator.R;
@@ -54,9 +54,7 @@ import com.google.firebase.auth.FirebaseUser;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -65,7 +63,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    TextView tin, op, dr_name, dr_em;
+    TextView tin, dr_name, dr_em;
     ImageView dr_im;
     EditText tinp;
     ImageButton bspk;
@@ -78,7 +76,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int in = 0;
     public static int flag = 0, f_bt = 0;
     public static String address = null;
-    public ListView msgs;
+    public ListView op;
+    //    TextView op;
     private ChatAdapter adapter;
 
 
@@ -154,9 +153,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tinp = findViewById(R.id.txtinp1);
         bspk = findViewById(R.id.btnSpeak);
         ok = findViewById(R.id.okbtn);
-//        msgs = findViewById(R.id.msg_lv);
         op = findViewById(R.id.optv);
-        op.setMovementMethod(new ScrollingMovementMethod());
+//        op.setMovementMethod(new ScrollingMovementMethod());
 
 
         tinp.clearFocus();
@@ -208,9 +206,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 //ao.startApp();
                 y = tinp.getText().toString();
+                setmessage(false, y);
                 pp.parse1(y);
 
-                op.setText(t);
+//                op.setText(t);
+                setmessage(true, t);
                 tinp.setText("");
                 y = "";
             }
@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        //loadWelcome();
+        loadWelcome();
 
     }
 
@@ -277,8 +277,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
 
         if (flag == 1) {
+            setmessage(false, y);
             pp.parse1(y);
-            op.setText(t);
+//            op.setText(t);
+            setmessage(true, t);
             tinp.setText("");
             y = "";
             flag = 0;
@@ -293,6 +295,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            iVal = "";
 //            finish();
 //        }
+    }
+
+    private void setmessage(Boolean val1, String val2) {
+        ChatMessage a = new ChatMessage();
+        a.setId(122);
+        a.setMe(val1);
+        a.setMessage(val2);
+        a.setDate("");
+        displayMessage(a);
     }
 
     @Override
@@ -353,15 +364,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Disconnect();
     }
 
-    private void per() {
-        Intent intent = new Intent(DevicePolicyManager
-                .ACTION_ADD_DEVICE_ADMIN);
-        intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, MainActivity.CN);
-        intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
-                "Additional text explaining why this needs to be added.");
-
-        startActivityForResult(intent, 1);
-    }
+//    private void per() {
+//        Intent intent = new Intent(DevicePolicyManager
+//                .ACTION_ADD_DEVICE_ADMIN);
+//        intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, MainActivity.CN);
+//        intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+//                "Additional text explaining why this needs to be added.");
+//
+//        startActivityForResult(intent, 1);
+//    }
 
     @Override
     public void onBackPressed() {
@@ -407,8 +418,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
         } else if (id == R.id.nav_abt_us) {
-
-
+            Intent i = new Intent(getApplicationContext(), AboutUs.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
         } else if (id == R.id.nav_arduino) {
             Intent i = new Intent(getApplicationContext(), DeviceList.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -505,10 +517,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 try {
                     String q = spu.getString("un", "").toLowerCase() + ":" + spu.getString("em", "");
                     btSocket.getOutputStream().write(q.getBytes());
-                    Calendar cc = Calendar.getInstance();
-                    SimpleDateFormat ss = new SimpleDateFormat("dd/MM");
-                    String qw = "%" + ss.format(cc.getTime());
-                    btSocket.getOutputStream().write(qw.getBytes());
+//                    Calendar cc = Calendar.getInstance();
+//                    SimpleDateFormat ss = new SimpleDateFormat("dd/MM");
+//                    String qw = "%" + ss.format(cc.getTime());
+//                    btSocket.getOutputStream().write(qw.getBytes());
                 } catch (Exception e) {
                     Log.e("cnctbt_async", "down");
                     e.printStackTrace();
@@ -531,22 +543,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-//    private void loadWelcome() {
-//        ChatMessage a = new ChatMessage();
-//        a.setId(1);
-//        a.setMe(true);
-//        a.setMessage("Welcome To Arbitrator");
-//        a.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-//        adapter = new ChatAdapter(MainActivity.this, new ArrayList<ChatMessage>());
-//        displayMessage(a);
-//
-//    }
-//
-//    public void displayMessage(ChatMessage message) {
-//        adapter.add(message);
-//        adapter.notifyDataSetChanged();
-//        msgs.setSelection(msgs.getCount() - 1);
-//    }
+    private void loadWelcome() {
+        ChatMessage a = new ChatMessage();
+        a.setId(1);
+        a.setMe(true);
+        a.setMessage("Welcome To Arbitrator");
+        a.setDate("");
+        adapter = new ChatAdapter(MainActivity.this, new ArrayList<ChatMessage>());
+        op.setAdapter(adapter);
+        displayMessage(a);
+
+    }
+
+    public void displayMessage(ChatMessage message) {
+        adapter.add(message);
+        adapter.notifyDataSetChanged();
+        scroll();
+    }
+
+    private void scroll() {
+        op.setSelection(op.getCount() - 1);
+    }
 
 }
 

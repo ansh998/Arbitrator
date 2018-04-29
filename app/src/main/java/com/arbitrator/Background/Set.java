@@ -61,6 +61,11 @@ public class Set {
         }
     }
 
+    //HOTSPOT SETTING
+    public void hotspot(String a) {
+
+    }
+
 //    public void mobdata(String a) {
 //        try {
 //            Method dc;
@@ -90,7 +95,7 @@ public class Set {
 //        }
 //    }
 
-    //    public void arplmd(String a) {
+//    public void arplmd(String a) {
 //        int c = -1;
 //        switch (a.toLowerCase()) {
 //            case "open":

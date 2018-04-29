@@ -65,6 +65,7 @@ public class ChatAdapter extends BaseAdapter {
         boolean myMsg = chatMessage.getIsme();//Just a dummy check to simulate whether it me or other sender
         setAlignment(holder, myMsg);
         holder.txtMessage.setText(chatMessage.getMessage());
+        holder.txtInfo.setText(chatMessage.getDate());
 
 
         return convertView;
@@ -126,7 +127,6 @@ public class ChatAdapter extends BaseAdapter {
         holder.txtInfo = (TextView) v.findViewById(R.id.txtInfo);
         return holder;
     }
-
 
     private static class ViewHolder {
         public TextView txtMessage;
