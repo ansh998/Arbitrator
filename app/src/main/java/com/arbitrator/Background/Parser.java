@@ -175,6 +175,9 @@ public class Parser {
                             MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                         }
                     } catch (Exception e) {
+                        t = "Sorry can't help with this right now!";
+                        MainActivity.t = t;
+                        MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                         Log.e("aiserverques_catch", "below");
                         e.printStackTrace();
                     }
@@ -459,9 +462,19 @@ public class Parser {
             }
             break;
             default: {
-                t = "Sorry can't help with this right now!";
-                MainActivity.t = t;
-                MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
+                String op = "";
+                String res[] = t.split("\n");
+                for (String line : res) {
+                    if (line.contains("<<>>")) {
+                        if (line.split("<<>>").length == 2) {
+                            op += line.split("<<>>")[0] + ":-\n" + line.split("<<>>")[1] + "\n\n";
+                        }
+                    } else {
+                        op += line + "\n";
+                    }
+                }
+                MainActivity.t = op;
+                MainActivity.tt.speak(op, TextToSpeech.QUEUE_FLUSH, null);
             }
         }
     }

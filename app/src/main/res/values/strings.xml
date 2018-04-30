@@ -11,11 +11,12 @@
     <string name="frgt">Forgot Password</string>
 
 
-    <string name="url2">http\:\/\/gs98\.ddns\.net\/api\/</string>
-    <string name="url1">http\:\/\/aiproject7579\.ddns\.net\/api\/</string>
+    <string name="url1">http\:\/\/gs98\.ddns\.net\/api\/</string>
+    <string name="url2">http\:\/\/aiproject7579\.ddns\.net\/api\/</string>
     <string name="url3">http\:\/\/localhost\/api\/</string>
-    <string name="url4">http\:\/\/103\.109\.218\.171\/api\/</string>
-    <string name="url">http\:\/\/ansh998\.ddns\.net\/api\/</string>
+    <string name="url4">http\:\/\/103\.109\.218\.44\/api\/</string>
+    <string name="url">http\:\/\/192\.168\.0\.71\/api\/</string>
+    <string name="url5">http\:\/\/ansh998\.ddns\.net\/api\/</string>
 
 
     <string name="appwidget_text">EXAMPLE</string>

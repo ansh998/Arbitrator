@@ -206,11 +206,9 @@ public class Login extends AppCompatActivity {
     Runnable as = new Runnable() {
         @Override
         public void run() {
-
             getdet(spu.getString("em", ""));
             getval();
             gotomain();
-
         }
     };
 
@@ -384,6 +382,7 @@ public class Login extends AppCompatActivity {
                     goog = 99;
                     FirebaseAuth.getInstance().signOut();
                     Intent i = new Intent(getApplicationContext(), Register.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i);
                 } else {
                     JSONObject Jt;
@@ -395,7 +394,6 @@ public class Login extends AppCompatActivity {
                     };
                     Jt = Json(u, "userdevices", 2, Ta);
                     if (Jt.isNull("error")) {
-                        getdet(em.getText().toString());
                         //Toast.makeText(getApplicationContext(), "Ho Gaya", Toast.LENGTH_LONG).show();
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -406,6 +404,28 @@ public class Login extends AppCompatActivity {
                         loggoog(a.getEmail());
                         finish();
                     } else {
+                        try {
+                            String arr[][] = null;
+                            Helper paa = new Helper(u + "logingmail/" + a.getEmail(), 1, arr, getApplicationContext());
+                            JsonHandler2 jhh = new JsonHandler2();
+                            JSONArray joo = jhh.execute(paa).get(10, TimeUnit.SECONDS);
+                            ud = new String[joo.length()][4];
+                            for (int i = 0; i < joo.length(); i++) {
+                                if (joo.getJSONObject(i).getString("device_id").equalsIgnoreCase(dev_id)) {
+                                    Intent ij = new Intent(getApplicationContext(), MainActivity.class);
+                                    ij.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    ij.putExtra("mode", "normal");
+                                    startActivity(ij);
+                                    signIn();
+                                    getdet(a.getEmail());
+                                    loggoog(a.getEmail());
+                                    finish();
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("userdevget", "down");
+                            e.printStackTrace();
+                        }
                         Toast.makeText(getApplicationContext(), "Device already registered!", Toast.LENGTH_LONG).show();
                         FirebaseAuth.getInstance().signOut();
                     }
@@ -528,7 +548,6 @@ public class Login extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 
     //USER REGISTRATION CHECK USING FIREBASE
     public void loggoog(String em) {
