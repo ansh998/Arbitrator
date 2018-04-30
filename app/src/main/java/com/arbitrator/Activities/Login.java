@@ -245,73 +245,79 @@ public class Login extends AppCompatActivity {
 
     //MAIN CHECKER FUNCTION
     private void check() {
-        try {
+        if (em.getText().toString().length() == 0)
+            em.setError("Enter Email");
+        else if (pwd.getText().toString().length() == 0)
+            pwd.setError("Enter Password");
+        else {
+            try {
 
-            JSONObject jo = null;
+                JSONObject jo = null;
 
-            arr = new String[][]{
-                    {"email", em.getText().toString()},
-                    {"password", pwd.getText().toString()},
-                    {"device_id", dev_id}
-            };
+                arr = new String[][]{
+                        {"email", em.getText().toString()},
+                        {"password", pwd.getText().toString()},
+                        {"device_id", dev_id}
+                };
 
-            jo = Json(u, "login", 2, arr);
+                jo = Json(u, "login", 2, arr);
 
-            if (jo.has("error")) {
-                if (jo.getString("error").equalsIgnoreCase("email not found")) {
-                    em.setError("Email not Found");
-                } else if (jo.getString("error").equalsIgnoreCase("passwords not matched")) {
-                    pwd.setError("Incorrect Password");
-                } else if (jo.getString("error").equalsIgnoreCase("device not registered")) {
-                    JSONObject Jt;
-                    String Ta[][] = new String[][]{
-                            {"type", "android"},
-                            {"email", em.getText().toString()},
-                            {"device_id", dev_id},
-                            {"device_name", dev_name + "-" + dev_id.substring(4, 9)}
-                    };
-                    Jt = Json(u, "userdevices", 2, Ta);
-                    if (Jt.isNull("error")) {
-                        getdet(em.getText().toString());
-                        //Toast.makeText(getApplicationContext(), "Ho Gaya", Toast.LENGTH_LONG).show();
-                        if (re.isChecked()) {
-                            spe.putString("em", em.getText().toString());
-                            spe.putString("pwd", pwd.getText().toString());
-                            spe.commit();
-                            spue.putInt("rem", 1);
-                            spue.commit();
-                        } else {
-                            spue.putInt("rem", 0);
-                            spue.commit();
-                        }
-                        gotomain();
-                    } else
-                        Toast.makeText(getApplicationContext(), "Device already registered!", Toast.LENGTH_LONG).show();
-                }
-            } else {
-                spue.putString("id", jo.getString("id"));
-                spue.putString("un", jo.getString("username"));
-                spue.putString("fn", jo.getString("fullname"));
-                spue.putString("dob", jo.getString("dob"));
-                spue.putString("em", jo.getString("email"));
-                spue.putString("gen", jo.getString("gender"));
-                spue.putString("sync", jo.getString("sync"));
-                spue.commit();
-                if (re.isChecked()) {
-                    spe.putString("em", em.getText().toString());
-                    spe.putString("pwd", pwd.getText().toString());
-                    spe.commit();
-                    spue.putInt("rem", 1);
-                    spue.commit();
+                if (jo.has("error")) {
+                    if (jo.getString("error").equalsIgnoreCase("email not found")) {
+                        em.setError("Email not Found");
+                    } else if (jo.getString("error").equalsIgnoreCase("passwords not matched")) {
+                        pwd.setError("Incorrect Password");
+                    } else if (jo.getString("error").equalsIgnoreCase("device not registered")) {
+                        JSONObject Jt;
+                        String Ta[][] = new String[][]{
+                                {"type", "android"},
+                                {"email", em.getText().toString()},
+                                {"device_id", dev_id},
+                                {"device_name", dev_name + "-" + dev_id.substring(4, 9)}
+                        };
+                        Jt = Json(u, "userdevices", 2, Ta);
+                        if (Jt.isNull("error")) {
+                            getdet(em.getText().toString());
+                            //Toast.makeText(getApplicationContext(), "Ho Gaya", Toast.LENGTH_LONG).show();
+                            if (re.isChecked()) {
+                                spe.putString("em", em.getText().toString());
+                                spe.putString("pwd", pwd.getText().toString());
+                                spe.commit();
+                                spue.putInt("rem", 1);
+                                spue.commit();
+                            } else {
+                                spue.putInt("rem", 0);
+                                spue.commit();
+                            }
+                            gotomain();
+                        } else
+                            Toast.makeText(getApplicationContext(), "Device already registered!", Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    spue.putInt("rem", 0);
+                    spue.putString("id", jo.getString("id"));
+                    spue.putString("un", jo.getString("username"));
+                    spue.putString("fn", jo.getString("fullname"));
+                    spue.putString("dob", jo.getString("dob"));
+                    spue.putString("em", jo.getString("email"));
+                    spue.putString("gen", jo.getString("gender"));
+                    spue.putString("sync", jo.getString("sync"));
                     spue.commit();
+                    if (re.isChecked()) {
+                        spe.putString("em", em.getText().toString());
+                        spe.putString("pwd", pwd.getText().toString());
+                        spe.commit();
+                        spue.putInt("rem", 1);
+                        spue.commit();
+                    } else {
+                        spue.putInt("rem", 0);
+                        spue.commit();
+                    }
+                    gotomain();
                 }
-                gotomain();
+            } catch (Exception e) {
+                Log.d("nrml check", "down");
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            Log.d("nrml check", "down");
-            e.printStackTrace();
         }
     }
 
