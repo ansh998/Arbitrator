@@ -23,6 +23,7 @@ import com.arbitrator.Middleware.Helper;
 import com.arbitrator.Middleware.JsonHandler;
 import com.arbitrator.Middleware.JsonHandler2;
 import com.arbitrator.R;
+import com.arbitrator.Services.NotificationService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -151,6 +152,11 @@ public class SyncSetting extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     MainActivity.f_s = 1;
+                    if (!NotificationService.isOn) {
+                        Intent in = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                        in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(in);
+                    }
                 } else {
                     MainActivity.f_s = 0;
                 }
