@@ -52,8 +52,10 @@ public class NotificationService extends NotificationListenerService {
                 String r = a.tickerText.toString();
                 MainActivity.asd("m" + r.replace("Message", "Msg"));
 
-                String val = "m=" + r + "=" + Build.MODEL + "-" + dev_id.substring(4, 9);
-                sendpref(val);
+                if (spu.getString("sync", "0").equalsIgnoreCase("1") && MainActivity.f_s == 1) {
+                    String val = "m=" + r + "=" + Build.MODEL + "-" + dev_id.substring(4, 9);
+                    sendpref(val);
+                }
 
                 Thread.sleep(5000);
                 MainActivity.asd("f");

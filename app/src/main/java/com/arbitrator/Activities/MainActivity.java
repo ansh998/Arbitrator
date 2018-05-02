@@ -29,6 +29,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageButton ok;
     ImageView asd;
     public static int in = 0;
-    public static int flag = 0, f_bt = 0;
+    public static int flag = 0, f_bt = 0, f_t = 0, f_s = 0;
     public static String address = null;
     public ListView op;
     //    TextView op;
@@ -210,7 +211,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 pp.parse1(y);
 
 //                op.setText(t);
-                setmessage(true, t);
+                if (t.length() > 0)
+                    setmessage(true, t);
+                t = "";
                 tinp.setText("");
                 y = "";
             }
@@ -268,6 +271,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        op.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (tt != null)
+                    tt.stop();
+            }
+        });
+
         loadWelcome();
 
     }
@@ -280,10 +291,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setmessage(false, y);
             pp.parse1(y);
 //            op.setText(t);
-            setmessage(true, t);
+            if (t.length() > 0)
+                setmessage(true, t);
+            t = "";
             tinp.setText("");
             y = "";
             flag = 0;
+        }
+
+        if (f_t == 1) {
+            setmessage(true, t);
+            t = "";
+            f_t = 0;
         }
 
         if (address != null && f_bt == 0) {

@@ -80,6 +80,7 @@
             android:layout_marginTop="13dp"
             android:layout_marginRight="20dp"
             android:layout_toRightOf="@+id/c"
+            android:background="@color/white"
             android:dropDownSelector="@color/white"
             android:popupBackground="@color/white"
             android:textSize="18sp" />
@@ -231,7 +232,19 @@
         android:layout_below="@+id/c"
         android:layout_marginTop="13dp"
         android:background="#cccccc"
-        android:paddingBottom="16dp"></View>
+        android:paddingBottom="16dp" />
+
+    <Switch
+        android:id="@+id/alert_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="Turn  on synced Call and notification alerts   "
+        android:textColor="#cccccc"
+        android:textSize="15sp"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/btn_syncalarm"

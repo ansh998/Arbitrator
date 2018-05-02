@@ -48,6 +48,7 @@ public class call_choose extends AppCompatActivity {
                         Matcher m = p.matcher(parts[1]);
                         if (m.find()) {
                             t = "Calling " + parts[1];
+                            MainActivity.f_t = 1;
                             MainActivity.t = t;
                             call(parts[1]);
                         }
@@ -59,6 +60,7 @@ public class call_choose extends AppCompatActivity {
                         Matcher m = p.matcher(number);
                         if (m.find()) {
                             t = "Calling " + number;
+                            MainActivity.f_t = 1;
                             MainActivity.t = t;
                             call(number);
                         }

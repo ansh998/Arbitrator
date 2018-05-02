@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SyncSetting extends AppCompatActivity {
 
-    Switch b;
+    Switch b, qq;
     TextView c, e, f, g, h, i, j, k, l;
     Spinner d;
     Button rem, ala, note;
@@ -84,6 +84,7 @@ public class SyncSetting extends AppCompatActivity {
         rem = (Button) findViewById(R.id.btn_remdev);
         ala = (Button) findViewById(R.id.btn_syncalarm);
         note = (Button) findViewById(R.id.btn_syncnote);
+        qq = (Switch) findViewById(R.id.alert_flag);
 
 
         getdev();
@@ -94,18 +95,23 @@ public class SyncSetting extends AppCompatActivity {
         } else
             check = false;
 
+        if (MainActivity.f_s == 1)
+            qq.setChecked(true);
+        else
+            qq.setChecked(false);
+
         b.setChecked(check);
         if (check) {
             b.setTextColor(Color.GREEN);
             ala.setVisibility(View.VISIBLE);
             note.setVisibility(View.VISIBLE);
+            qq.setVisibility(View.VISIBLE);
         }
         //changer(check);
 
         List<String> cat = new ArrayList<String>();
         for (int i = 0; i < ud.length; i++) {
             cat.add(ud[i][2]);
-
         }
 
         ArrayAdapter<String> da = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cat);
@@ -140,6 +146,17 @@ public class SyncSetting extends AppCompatActivity {
             }
         });
 
+        qq.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    MainActivity.f_s = 1;
+                } else {
+                    MainActivity.f_s = 0;
+                }
+            }
+        });
+
         b.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -160,6 +177,7 @@ public class SyncSetting extends AppCompatActivity {
                             b.setTextColor(Color.GREEN);
                             ala.setVisibility(View.VISIBLE);
                             note.setVisibility(View.VISIBLE);
+                            qq.setVisibility(View.VISIBLE);
                             spue.putString("sync", "1");
                             spue.commit();
                         } else {
@@ -168,6 +186,7 @@ public class SyncSetting extends AppCompatActivity {
                             b.setTextColor(Color.RED);
                             ala.setVisibility(View.INVISIBLE);
                             note.setVisibility(View.INVISIBLE);
+                            qq.setVisibility(View.INVISIBLE);
                             //changer(false);
                         }
                     } catch (Exception e) {
@@ -190,6 +209,7 @@ public class SyncSetting extends AppCompatActivity {
                             b.setTextColor(Color.RED);
                             ala.setVisibility(View.INVISIBLE);
                             note.setVisibility(View.INVISIBLE);
+                            qq.setVisibility(View.INVISIBLE);
                             spue.putString("sync", "0");
                             spue.commit();
                         } else {
@@ -198,6 +218,7 @@ public class SyncSetting extends AppCompatActivity {
                             b.setTextColor(Color.GREEN);
                             ala.setVisibility(View.VISIBLE);
                             note.setVisibility(View.VISIBLE);
+                            qq.setVisibility(View.VISIBLE);
                             //changer(true);
                         }
                     } catch (Exception e) {
@@ -214,9 +235,10 @@ public class SyncSetting extends AppCompatActivity {
                 remdev(curr_id);
                 if (curr_id.equalsIgnoreCase(dev_id)) {
                     logout();
+                } else {
+                    finish();
+                    startActivity(getIntent());
                 }
-                finish();
-                startActivity(getIntent());
             }
         });
 
@@ -270,6 +292,7 @@ public class SyncSetting extends AppCompatActivity {
         startActivity(li);
         spue.remove("id");
         spue.commit();
+        finish();
     }
 
     //REMOVE DEVICE

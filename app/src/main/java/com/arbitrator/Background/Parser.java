@@ -474,7 +474,10 @@ public class Parser {
                     }
                 }
                 MainActivity.t = op;
-                MainActivity.tt.speak(op, TextToSpeech.QUEUE_FLUSH, null);
+                if (op.length() > 20)
+                    MainActivity.tt.speak("Here is what I Found", TextToSpeech.QUEUE_FLUSH, null);
+                else
+                    MainActivity.tt.speak(op, TextToSpeech.QUEUE_FLUSH, null);
             }
         }
     }

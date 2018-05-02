@@ -72,6 +72,7 @@ public class App_Chooser extends AppCompatActivity {
                             int i = v.getId();
                             int f = ao.appPackageList.indexOf(App_List.get(i));
                             String t = "Opening " + ao.appNameList.get(ao.appPackageList.indexOf(App_List.get(i)));
+                            MainActivity.f_t = 1;
                             MainActivity.t = t;
                             MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                             ao.startApp(f);
@@ -87,6 +88,7 @@ public class App_Chooser extends AppCompatActivity {
                             int i = v.getId();
                             int f = ao.appPackageList.indexOf(App_List.get(i));
                             String t = "Opening " + ao.appNameList.get(ao.appPackageList.indexOf(App_List.get(i)));
+                            MainActivity.f_t = 1;
                             MainActivity.t = t;
                             MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                             ao.startApp(f);
@@ -102,6 +104,7 @@ public class App_Chooser extends AppCompatActivity {
                             int i = v.getId();
                             int f = ao.appPackageList.indexOf(App_List.get(i));
                             String t = "Opening " + ao.appNameList.get(ao.appPackageList.indexOf(App_List.get(i)));
+                            MainActivity.f_t = 1;
                             MainActivity.t = t;
                             MainActivity.tt.speak(t, TextToSpeech.QUEUE_FLUSH, null);
                             ao.startApp(f);

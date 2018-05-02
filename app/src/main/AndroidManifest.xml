@@ -60,6 +60,7 @@
         <activity
             android:name=".Activities.changelog"
             android:screenOrientation="portrait"
+            android:label="Changelog"
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".Activities.Register"
@@ -165,6 +166,7 @@
         <activity
             android:name=".Activities.AboutUs"
             android:screenOrientation="portrait"
+            android:label="About Us"
             android:theme="@style/AppTheme.Dark" />
     </application>
 

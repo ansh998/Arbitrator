@@ -234,6 +234,13 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
+    }
+
     //CHECKING FOR CAMERA HARDWARE
     private boolean checkcamera() {
         if (getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
@@ -426,14 +433,15 @@ public class Login extends AppCompatActivity {
                                     getdet(a.getEmail());
                                     loggoog(a.getEmail());
                                     finish();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Device already registered!", Toast.LENGTH_LONG).show();
+                                    FirebaseAuth.getInstance().signOut();
                                 }
                             }
                         } catch (Exception e) {
                             Log.e("userdevget", "down");
                             e.printStackTrace();
                         }
-                        Toast.makeText(getApplicationContext(), "Device already registered!", Toast.LENGTH_LONG).show();
-                        FirebaseAuth.getInstance().signOut();
                     }
                 }
             } catch (Exception e) {
@@ -467,7 +475,7 @@ public class Login extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
-                Log.w(TAG, "Google sign in failed", e);
+                Log.w(TAG, "Google sign in failed" + e.getStatusCode());
             }
         }
     }
@@ -579,13 +587,15 @@ public class Login extends AppCompatActivity {
             Helper pa = new Helper(u + "userdevices/" + spu.getString("id", "-1"), 1, arr, getApplicationContext());
             JsonHandler2 jh = new JsonHandler2();
             JSONArray jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
-            ud = new String[jo.length()][4];
-            ud_len = jo.length();
-            for (int i = 0; i < jo.length(); i++) {
-                ud[i][0] = (jo.getJSONObject(i).getString("type"));
-                ud[i][1] = (jo.getJSONObject(i).getString("device_id"));
-                ud[i][2] = (jo.getJSONObject(i).getString("device_name"));
-                ud[i][3] = (jo.getJSONObject(i).getString("status"));
+            if (!jo.getJSONObject(0).isNull("success")) {
+                ud = new String[jo.length()][4];
+                ud_len = jo.length();
+                for (int i = 0; i < jo.length(); i++) {
+                    ud[i][0] = (jo.getJSONObject(i).getString("type"));
+                    ud[i][1] = (jo.getJSONObject(i).getString("device_id"));
+                    ud[i][2] = (jo.getJSONObject(i).getString("device_name"));
+                    ud[i][3] = (jo.getJSONObject(i).getString("status"));
+                }
             }
         } catch (Exception e) {
             Log.e("userdevget", "down");

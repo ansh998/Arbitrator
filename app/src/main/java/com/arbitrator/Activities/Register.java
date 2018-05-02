@@ -25,6 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
 
@@ -37,7 +39,7 @@ public class Register extends AppCompatActivity {
 
     String date, u;
 
-    int otpf = -1;
+    int otpf = -1, fun = 0, ffn = 0, fem = 0, fpw = 0, fdob = 0;
 
     public static Boolean otpc = false;
 
@@ -116,6 +118,92 @@ public class Register extends AppCompatActivity {
             }
         });
 
+        a.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Pattern p = Pattern.compile("[^A-Za-z0-9_@.]");
+                Matcher m = p.matcher(s);
+                if (m.find()) {
+                    a.setError("Invalid Username");
+                    fun = 1;
+                } else
+                    fun = 0;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        b.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Pattern p = Pattern.compile("[^A-Za-z ]");
+                Matcher m = p.matcher(s);
+                if (m.find()) {
+                    b.setError("Invalid Fullname");
+                    ffn = 1;
+                } else {
+                    ffn = 0;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        c.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!Pattern.matches("([\\d\\w]+[.\\w\\d])+?([.\\w\\d])?@([\\w\\d]+[.\\w\\d]*)", s)) {
+//                    Log.e("jasdkflj", m.toMatchResult().group());
+                    c.setError("Invalid email");
+                    fem = 1;
+                } else
+                    fem = 0;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+//        d.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if (!Pattern.matches("((?=.\\d)(?=.[a-z])(?=.[A-Z])(?=.[\\W]).{6,64})", s)) {
+//                    d.setError("Invalid Password");
+//                    fpw = 1;
+//                } else
+//                    fpw = 0;
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
         f.addTextChangedListener(new TextWatcher() {
             @Override
@@ -124,11 +212,17 @@ public class Register extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if (!Pattern.matches("(0?[1-9]|1[0-2])[/](0?[1-9]|[12]\\d|3[01])[/](19|20)\\d{2}", s)) {
+//                    f.setError("Invalid DOB");
+//                    fdob = 1;
+//                } else
+//                    fdob = 0;
                 get_date();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+
             }
         });
 
@@ -162,6 +256,9 @@ public class Register extends AppCompatActivity {
             Log.e("hgfdakj", "down");
             e.printStackTrace();
         }
+
+        if (date.length() > 10)
+            f.setError("Invalid Date");
     }
 
     //VERIFYING DETAILS
@@ -251,6 +348,10 @@ public class Register extends AppCompatActivity {
             d.setError("Password cannot be of less than 6 characters");
             return false;
         }
+
+        if (fun == 1 || ffn == 1 || fpw == 1 || fem == 1 || fdob == 1)
+            return false;
+
         return true;
     }
 
