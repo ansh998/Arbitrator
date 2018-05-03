@@ -334,7 +334,7 @@ public class Login extends AppCompatActivity {
         JsonHandler jh = new JsonHandler();
         JSONObject jq = null;
         try {
-            jq = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            jq = jh.execute(pa).get(20, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -378,7 +378,7 @@ public class Login extends AppCompatActivity {
                 Helper pa = new Helper(u + "emailcheck/" + a.getEmail(), 1, arr, getApplicationContext());
                 JsonHandler jh = new JsonHandler();
                 try {
-                    jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+                    jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
@@ -421,7 +421,7 @@ public class Login extends AppCompatActivity {
                             String arr[][] = null;
                             Helper paa = new Helper(u + "logingmail/" + a.getEmail(), 1, arr, getApplicationContext());
                             JsonHandler2 jhh = new JsonHandler2();
-                            JSONArray joo = jhh.execute(paa).get(10, TimeUnit.SECONDS);
+                            JSONArray joo = jhh.execute(paa).get(20, TimeUnit.SECONDS);
                             ud = new String[joo.length()][4];
                             for (int i = 0; i < joo.length(); i++) {
                                 if (joo.getJSONObject(i).getString("device_id").equalsIgnoreCase(dev_id)) {
@@ -528,7 +528,7 @@ public class Login extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "synctoggle/" + spu.getString("id", "-1"), 1, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 spue.putString("sync", jo.getString("success"));
                 spue.commit();
@@ -546,7 +546,7 @@ public class Login extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "user/" + em, 1, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            ob = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            ob = jh.execute(pa).get(20, TimeUnit.SECONDS);
             if (ob != null) {
                 spue.putString("id", ob.getString("id"));
                 spue.putString("un", ob.getString("username"));
@@ -573,7 +573,7 @@ public class Login extends AppCompatActivity {
             };
             Helper pa = new Helper(u + "logingmail", 2, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            ob = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            ob = jh.execute(pa).get(20, TimeUnit.SECONDS);
         } catch (Exception e) {
             Log.e("logingmail", "down");
             e.printStackTrace();
@@ -586,7 +586,7 @@ public class Login extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "userdevices/" + spu.getString("id", "-1"), 1, arr, getApplicationContext());
             JsonHandler2 jh = new JsonHandler2();
-            JSONArray jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            JSONArray jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
             if (!jo.getJSONObject(0).isNull("success")) {
                 ud = new String[jo.length()][4];
                 ud_len = jo.length();
@@ -610,7 +610,7 @@ public class Login extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "forgotpassword/" + em.getText().toString(), 1, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 Intent ot = new Intent(getApplicationContext(), Otp.class);
                 startActivity(ot);

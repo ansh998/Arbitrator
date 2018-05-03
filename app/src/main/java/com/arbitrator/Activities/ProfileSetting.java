@@ -164,7 +164,7 @@ public class ProfileSetting extends AppCompatActivity {
             };
             Helper pa = new Helper(u + "user", 2, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 se.putString("un", un.getText().toString().toUpperCase());
                 se.putString("fn", fn.getText().toString());

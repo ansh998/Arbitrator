@@ -88,7 +88,7 @@ public class AlarmList extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "alarm/" + spu.getString("id", "-1"), 1, arr, getApplicationContext());
             JsonHandler2 jh = new JsonHandler2();
-            JSONArray jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            JSONArray jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
             ud = new String[jo.length()][4];
             for (int i = 0; i < jo.length(); i++) {
                 ud[i][0] = (jo.getJSONObject(i).getString("id"));

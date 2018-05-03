@@ -165,7 +165,7 @@ public class Parser {
                         };
                         Helper pa = new Helper(u + "aiquestion", 2, arr, context);
                         JsonHandler jh = new JsonHandler();
-                        jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+                        jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
                         if (jo.isNull("error")) {
                             t = jo.getString("answer");
                             aiparser(t);

@@ -178,7 +178,7 @@ public class Systemser {
             };
             Helper pa = new Helper(u + "alarm", 2, arr, context);
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 Log.i("Alarm_sync", "Alarm Synced Successfully");
             } else {

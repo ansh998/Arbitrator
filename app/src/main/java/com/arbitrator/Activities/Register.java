@@ -369,7 +369,7 @@ public class Register extends AppCompatActivity {
             };
             Helper pa = new Helper(u + "Register", 2, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
             if (jo.isNull("error"))
                 return true;
             else
@@ -395,7 +395,7 @@ public class Register extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "emailverify/" + em, 1, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 otpf = 1;
                 Intent qw = new Intent(getApplicationContext(), Otp.class);

@@ -460,7 +460,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 };
                 Helper pa = new Helper(u + "Logout", 2, arr, getApplicationContext());
                 JsonHandler jh = new JsonHandler();
-                jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+                jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
                 if (jo.getString("success").equalsIgnoreCase("Successfully Logged Out")) {
                     Intent li = new Intent(getApplicationContext(), Login.class);
                     li.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

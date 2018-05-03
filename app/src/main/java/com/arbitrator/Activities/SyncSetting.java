@@ -176,7 +176,7 @@ public class SyncSetting extends AppCompatActivity {
                         };
                         Helper pa = new Helper(u + "synctoggle", 2, arr, getApplicationContext());
                         JsonHandler jh = new JsonHandler();
-                        jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+                        jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
                         if (jo.isNull("error")) {
                             Toast.makeText(getApplicationContext(), "Sync Started", Toast.LENGTH_SHORT).show();
                             //changer(true);
@@ -208,7 +208,7 @@ public class SyncSetting extends AppCompatActivity {
                         };
                         Helper pa = new Helper(u + "synctoggle", 2, arr, getApplicationContext());
                         JsonHandler jh = new JsonHandler();
-                        jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+                        jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
                         if (jo.isNull("error")) {
                             Toast.makeText(getApplicationContext(), "Sync Closed", Toast.LENGTH_SHORT).show();
                             //changer(false);
@@ -274,7 +274,7 @@ public class SyncSetting extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "userdevices/" + spu.getString("id", "-1"), 1, arr, getApplicationContext());
             JsonHandler2 jh = new JsonHandler2();
-            JSONArray jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            JSONArray jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
             ud = new String[jo.length()][4];
             for (int i = 0; i < jo.length(); i++) {
                 ud[i][0] = (jo.getJSONObject(i).getString("type"));
@@ -308,7 +308,7 @@ public class SyncSetting extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "userdevices/" + id, 3, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 Toast.makeText(getApplicationContext(), "Device Removed Successfully", Toast.LENGTH_LONG).show();
             } else {
@@ -327,7 +327,7 @@ public class SyncSetting extends AppCompatActivity {
             String arr[][] = null;
             Helper pa = new Helper(u + "synctoggle/" + spu.getString("id", "-1"), 1, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 spue.putString("sync", jo.getString("success"));
                 spue.commit();

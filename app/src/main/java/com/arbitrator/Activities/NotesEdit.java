@@ -83,7 +83,7 @@ public class NotesEdit extends AppCompatActivity {
             };
             Helper pa = new Helper(u + "note/1", 4, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            JSONObject jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            JSONObject jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 Toast.makeText(getApplicationContext(), "Note Saved Successfully!", Toast.LENGTH_LONG).show();
                 finish();
@@ -108,7 +108,7 @@ public class NotesEdit extends AppCompatActivity {
             };
             Helper pa = new Helper(u + "note", 2, arr, getApplicationContext());
             JsonHandler jh = new JsonHandler();
-            JSONObject jo = jh.execute(pa).get(10, TimeUnit.SECONDS);
+            JSONObject jo = jh.execute(pa).get(20, TimeUnit.SECONDS);
             if (jo.isNull("error")) {
                 Toast.makeText(getApplicationContext(), "Note Inserted Successfully!", Toast.LENGTH_LONG).show();
                 finish();

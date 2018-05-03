@@ -92,7 +92,7 @@ public class Phnstate extends BroadcastReceiver {
             };
             Helper pa = new Helper(u + "prefrence", 2, arr, cd);
             JsonHandler jh = new JsonHandler();
-            jo = jh.execute(pa).get(10, TimeUnit.MINUTES);
+            jo = jh.execute(pa).get(20, TimeUnit.MINUTES);
             if (jo.isNull("error")) {
                 Log.i("sendpref", "done");
             } else {
