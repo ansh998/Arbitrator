@@ -130,7 +130,9 @@ public class Login extends AppCompatActivity {
                     q = 1;
             }
             if (q == 1) {
-                as.run();
+                getdet(spu.getString("em", ""));
+                getval();
+                gotomain();
             } else {
                 Toast.makeText(getApplicationContext(), "Device Removed from ID", Toast.LENGTH_LONG).show();
                 spue.remove("id");
@@ -202,15 +204,6 @@ public class Login extends AppCompatActivity {
         });
 
     }
-
-    Runnable as = new Runnable() {
-        @Override
-        public void run() {
-            getdet(spu.getString("em", ""));
-            getval();
-            gotomain();
-        }
-    };
 
     @Override
     protected void onResume() {
