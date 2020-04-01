@@ -236,7 +236,7 @@ public class Login extends AppCompatActivity {
 
     //CHECKING FOR CAMERA HARDWARE
     private boolean checkcamera() {
-        if (getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+        if (getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             return true;
         } else {
             return false;

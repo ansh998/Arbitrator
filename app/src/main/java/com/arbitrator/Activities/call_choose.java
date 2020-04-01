@@ -45,12 +45,12 @@ public class call_choose extends AppCompatActivity {
                     String parts[] = y.split(" ");
                     Pattern p = Pattern.compile("\\d+");
                     if (parts.length == 1) {
-                        Matcher m = p.matcher(parts[1]);
+                        Matcher m = p.matcher(parts[0]);
                         if (m.find()) {
-                            t = "Calling " + parts[1];
+                            t = "Calling " + parts[0];
                             MainActivity.f_t = 1;
                             MainActivity.t = t;
-                            call(parts[1]);
+                            call(parts[0]);
                         }
                     } else {
                         String number = "";
